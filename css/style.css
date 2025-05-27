@@ -357,6 +357,9 @@ nav .show-navigation-button{
     width: 12rem;
     margin: 2px;
   }
+  .side-panel-toggle-button {
+    display: none;
+  }
 }
 
 /* Nav icons */
