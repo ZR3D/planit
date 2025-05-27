@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="144"
+   height="144"
+   viewBox="0 0 38.1 38.099998"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="planit_icon_144.svg"
+   inkscape:version="1.4.1-rc (06eac75fbf, 2025-03-29)"
+   inkscape:export-filename="../df6cf833/planit_icon_256.png"
+   inkscape:export-xdpi="67.06958"
+   inkscape:export-ydpi="67.06958"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="4.7250075"
+     inkscape:cx="78.835853"
+     inkscape:cy="76.296175"
+     inkscape:window-width="1920"
+     inkscape:window-height="1023"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1"
+       transform="matrix(0.38752769,0,0,0.38752769,-0.45861757,-0.16692208)"
+       style="stroke-width:2.58046">
+      <path
+         id="path1"
+         style="fill:#5f97c9;stroke-width:6.70919;stroke-linecap:round;stroke-linejoin:round"
+         d="M 98.81625,49.588512 A 48.475029,48.475029 0 0 1 50.341221,98.063541 48.475029,48.475029 0 0 1 1.8661919,49.588512 48.475029,48.475029 0 0 1 50.341221,1.1134834 48.475029,48.475029 0 0 1 98.81625,49.588512 Z" />
+      <path
+         id="path2"
+         style="fill:#264f74;fill-opacity:1;stroke-width:8.08582;stroke-linecap:round;stroke-linejoin:round"
+         d="M 82.478382,29.012388 A 32.030525,27.870319 0 0 1 50.447857,56.882708 32.030525,27.870319 0 0 1 18.417332,29.012388 32.030525,27.870319 0 0 1 50.447857,1.1420689 32.030525,27.870319 0 0 1 82.478382,29.012388 Z" />
+      <path
+         d="M 80.461516,38.598935 A 30.058039,17.87936 0 0 0 50.447851,21.124096 30.058039,17.87936 0 0 0 20.434181,38.598935 32.030525,27.870319 0 0 0 50.447851,56.882553 32.030525,27.870319 0 0 0 80.461516,38.598935 Z"
+         style="fill:#366fa2;fill-opacity:1;stroke-width:5.28755;stroke-linecap:round;stroke-linejoin:round"
+         id="path5" />
+    </g>
+  </g>
+</svg>

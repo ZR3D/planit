@@ -1,0 +1,75 @@
+<section id="menuit" class="card menuit-card">	
+  <div class="card-main">
+    <div class="controls"> 
+      <button id="prevWeekBtn">&larr; Prev</button>
+      <button id="nextWeekBtn">Next &rarr;</button>
+      <button id="copyRepeatsBtn">Copy Repeating</button>
+    </div>
+
+    <div class="planner multi-column-container" id="planner"></div>
+
+    <div class="filters">
+      <input  type="text" id="filterInput" placeholder="Type ingredient here...">
+      <button id="filterByBreakfastBtn">breakfast</button>
+      <button id="filterByLunchBtn">lunch</button>
+      <button id="filterByDinnerBtn">dinner</button>
+      <button id="filterByDessertBtn">dessert</button>
+      <button id="filterBySidesBtn">sides</button >
+      <button id="showAllButton">show all</button >
+    </div>
+
+    <div class="menu-list" id="menuList"></div>  
+    <div id="del"><svg class="nav-icon"><use href="#delete"></use></svg><div class="planit-inline">Drag here to remove from planner</div></div>
+  </div>
+
+  <div id="sidePanel" class="card-side-panel">
+    <div>
+      <button id="exportDataButton" aria-label="Export Data">
+        Export Data
+      </button>     
+      <button id="importDataButton" aria-label="Import Data">
+        Import Data
+      </button> 
+      <input type="file" id="hiddenFileInput" class="planit-hidden" /> 
+    </div>
+     <h3>Planner</h3>
+    
+     <div>
+    <div class="field">
+      <label for="planTitle">Title</label>
+      <input type="text" id="planTitle">
+    </div>
+    <div class="field">
+      <label for="planRepeat">Repeat</label>
+      <input type="checkbox" id="planRepeat">
+    </div>
+    <button id="savePlanButton">Save</button>
+    <button id="deletePlanButton">Delete</button>
+    
+  </div>
+  
+
+  <h3>Items</h3>
+  <div>
+    <div class="field">
+      <label for="itemTitle">Title</label>
+      <input type="text" id="itemTitle" placeholder="Menu title text…">
+    </div>
+    <div class="field">
+      <label for="itemKeyIngredients">Key Ingredients</label>
+      <input type="text" id="itemKeyIngredients" placeholder="Key Ingredients comma separated">
+    </div>
+    <div class="field">
+      <label for="itemTags">Tags</label>
+      <input type="text" id="itemTags" placeholder="Tags comma separated">
+    </div>
+    <button id="saveMenuItemButton">Save Item</button>
+    <button id="newMenuItemButton">+ New Item</button>
+    <button id="deleteMenuItemButton">Delete Item</button>
+  </div>
+  
+  
+  </div>
+  <div id="toggleButton" class="side-panel-toggle-button"></div>
+  
+</section>

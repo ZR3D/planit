@@ -1,0 +1,52 @@
+<section id="listenit" class="card listenit-card">   
+  <!-- Main Panel -->
+  <div class="card-main">
+    <div>
+      <input id="titleInput" type="text" placeholder="New listen...">   
+      <button id="addNewButton">+ Add New</button> 
+    </div>     
+    <div id="listenView" class="watch-view"></div>
+  </div>
+  
+  <!-- Side Panel -->
+  <div id="sidePanel" class="card-side-panel">
+    <div>
+      <button id="exportDataButton" aria-label="Export Data">
+        Export Data
+      </button>     
+      <button id="importDataButton" aria-label="Import Data">
+        Import Data
+      </button> 
+      <input type="file" id="hiddenFileInput" class="planit-hidden" />
+    </div>
+    <div class="field">
+      <label for="title">Title</label>
+      <input type="text" id="title">
+    </div>
+    <div class="field">
+      <label for="service">Creator</label>
+      <input type="text" id="creator" placeholder="artist, podcast host, etc.">
+    </div>
+    <div class="field">
+      <label for="type">Medium</label>
+      <select id="medium">
+        <option>Podcast</option>
+        <option>Audiobook</option>
+        <option>Album</option>
+        <option>Playlist</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Listening</label>
+      <input type="checkbox" id="listening">
+    </div>
+    <div class="field">
+      <label>Tags (comma separated)</label>
+      <input type="text" id="tags">
+    </div>
+    <button id="saveButton">Save</button>
+  </div>
+  <div id="toggleButton" class="side-panel-toggle-button"></div>
+  <!--end side panel-->  
+</section>
+

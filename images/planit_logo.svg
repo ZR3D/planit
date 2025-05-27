@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="100mm"
+   height="100mm"
+   viewBox="0 0 100 100"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="planit_logo.svg"
+   inkscape:version="1.4.1-rc (06eac75fbf, 2025-03-29)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.73139029"
+     inkscape:cx="396.50513"
+     inkscape:cy="233.11767"
+     inkscape:window-width="1920"
+     inkscape:window-height="1023"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="path1"
+       style="fill:#5f97c9;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"
+       d="M 98.81625,49.588512 A 48.475029,48.475029 0 0 1 50.341221,98.063541 48.475029,48.475029 0 0 1 1.8661919,49.588512 48.475029,48.475029 0 0 1 50.341221,1.1134834 48.475029,48.475029 0 0 1 98.81625,49.588512 Z" />
+    <path
+       id="path2"
+       style="fill:#264f74;stroke-width:3.13348;stroke-linecap:round;stroke-linejoin:round;fill-opacity:1"
+       d="M 82.478382,29.012388 A 32.030525,27.870319 0 0 1 50.447857,56.882708 32.030525,27.870319 0 0 1 18.417332,29.012388 32.030525,27.870319 0 0 1 50.447857,1.1420689 32.030525,27.870319 0 0 1 82.478382,29.012388 Z" />
+    <path
+       d="M 80.461516,38.598935 A 30.058039,17.87936 0 0 0 50.447851,21.124096 30.058039,17.87936 0 0 0 20.434181,38.598935 32.030525,27.870319 0 0 0 50.447851,56.882553 32.030525,27.870319 0 0 0 80.461516,38.598935 Z"
+       style="fill:#366fa2;fill-opacity:1;stroke-width:2.04907;stroke-linecap:round;stroke-linejoin:round"
+       id="path5" />
+  </g>
+</svg>

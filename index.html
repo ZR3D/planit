@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self';">
+  <title>Planit</title>    
+  <link rel="icon" href="images/planit_logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+  <header>
+    <nav id="navigationBar">
+      <div class="nav-item"><img src="images/planit_logo.svg" alt="Planit Logo" width="34" height="34" /></div>    
+      <div class="nav-item nav-text">Planit</div>  
+      <div id="navigationButtons" class="navigation-buttons"></div>
+      <button id="showNavigationButton" class="nav-button show-navigation-button"><svg class="nav-icon"><use href="#noteitIcon"></use></svg></button>  
+    </nav>
+  </header>
+  
+  <main id="main" class="card-area">
+    <section id="viewit" class="card viewit-card">
+      <div class="card-main"> </div>
+      <div class="card-side-panel"></div>
+    </section>
+  </main>     
+  
+  <div id="toast" class="toast hidden"></div>
+  <div id="tailwindColors" class="tailwind-colors planit-hidden"></div>
+  
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal">
+      <span class="close" id="xCloseModalButton">&times;</span>
+      <h2>Planit Modal</h2>
+      <p>This could be a task detail, a menu item, or a Growit note...</p>
+      <button id="okCloseModalButton">OK</button>
+    </div>
+  </div>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" class="planit-hidden">
+    <symbol id="viewitIcon" viewBox="0 0 24 24" fill="none" >
+      <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+    </symbol>
+    <symbol id="taskitIcon" viewBox="0 0 24 24" fill="none" >
+      <path d="M5 13l4 4L19 7"></path>
+    </symbol>
+    <symbol id="shopitIcon" viewBox="0 0 24 24" fill="none">
+      <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+    </symbol>  
+    <symbol id="menuitIcon" viewBox="0 0 24 24" fill="none">
+      <path d="M4 6h16M4 12h16M4 18h16"/>
+    </symbol>  
+    <symbol id="recipeitIcon" viewBox="0 0 24 24" fill="none">
+      <rect x="1.66" y="2.87" width="14" height="17.8" rx="2" ry="2"/>
+      <line x1="5.66" x2="11.7" y1="7.94" y2="7.94"/>
+      <line x1="5.66" x2="11.7" y1="11.9" y2="11.9"/>
+      <ellipse cx="20.5" cy="6.05" rx="2.12" ry="3.19"/>
+      <path d="m20.5 9.24v11.5"/>   
+    </symbol>
+    <symbol id="labelitIcon" viewBox="0 0 24 24" fill="none">
+      <path d="M7 7h10v10H7z"/><path d="M3 3h18v18H3z"/>
+    </symbol>
+    <symbol id="affirmitIcon" viewBox="0 0 24 24" fill="none">
+      <path d="M12 21C12 21 7 16.5 5 13a7 7 0 0 1 14 0c-2 3.5-7 8-7 8z"/>
+    </symbol>
+    <symbol id="readitIcon" viewBox="0 0 24 24" fill="none">
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5V4.5z"/>
+    </symbol>
+    <symbol id="watchitIcon" viewBox="0 0 24 24" fill="none">
+      <polygon points="5 3 19 12 5 21 5 3"/>
+    </symbol>  
+    <symbol id="listenitIcon" viewBox="0 0 24 24" fill="none">
+      <path d="m3 19v-8c0-5 3-9 8-9h2c5 0 8 4 8 9v8" />
+      <path d="m6 13v8z" />
+      <path d="m18 13v8z" />
+      <path d="m22 15v3" />
+      <path d="m2 15v3" />
+    </symbol>
+    <symbol id="gameitIcon" viewBox="0 0 24 24" fill="none">
+      <rect x="2" y="6" width="20" height="12" rx="2" ry="2"/><path d="M6 12h.01M10 12h.01"/>
+    </symbol>  
+    <symbol id="growitIcon" viewBox="0 0 24 24" fill="none">
+      <path d="M12 22s4-4 4-10a4 4 0 0 0-8 0c0 6 4 10 4 10z"/>
+      <path d="M12 6V2"/>
+      <path d="M9 4c0 2 3 2 3 2s3 0 3-2"/>
+    </symbol> 
+    <symbol id="builditIcon" viewBox="0 0 24 24" fill="none">
+      <path d="m1 10 11-7 11 7"/>
+      <path d="m4 9 2 13h12l2-13"/>
+      <circle cx="12" cy="11.6" r="3.64"/>
+      <path d="m9 19h6"/>
+    </symbol>  
+    <symbol id="noteitIcon" viewBox="0 0 24 24" fill="none">
+      <path d="M4 6h16M4 12h16M4 18h16"/>
+    </symbol> 
+   <symbol id="studyitIcon" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2l9 4-9 4-9-4 9-4z"/><path d="M12 22V10"/>
+    </symbol> 
+    <symbol id="eventitIcon" viewBox="0 0 24 24" fill="none">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+    </symbol>  
+  </svg>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="planit-hidden">
+    <symbol id="ignore" viewBox="0 0 24 24">
+      <path d="m22 12c0 2.76-1.12 5.26-2.93 7.07s-4.31 2.93-7.07 2.93c-5.52 0-10-4.48-10-10 0-5.52 4.48-10 10-10 5.52 0 10 4.48 10 10z" fill="#b3b3b3" stroke="#000"/>
+    </symbol>    
+    <symbol id="complete" viewBox="0 0 24 24">
+      <path d="m22 12c0 5.52-4.48 10-10 10-5.52 0-10-4.48-10-10 0-5.52 4.48-10 10-10 5.52 0 10 4.48 10 10z" fill="#4a0" stroke="#4a0"/>
+      <path d="m18 8-8 10-4-5" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    </symbol>   
+    <symbol id="started" viewBox="0 0 24 24">
+      <path d="m12 12v-10c5.52 0 10 4.48 10 10 0 2.76-1.12 5.26-2.93 7.07z" fill="#4a0" stroke="#4a0" />
+      <path d="m22 12c0 2.76-1.12 5.26-2.93 7.07s-4.31 2.93-7.07 2.93c-5.52 0-10-4.48-10-10 0-5.52 4.48-10 10-10 5.52 0 10 4.48 10 10z" fill="none" stroke="#4a0"/>
+    </symbol>  
+    <symbol id="not-started" viewBox="0 0 24 24">
+      <path d="m22 12c0 2.76-1.12 5.26-2.93 7.07s-4.31 2.93-7.07 2.93c-5.52 0-10-4.48-10-10 0-5.52 4.48-10 10-10 5.52 0 10 4.48 10 10z" fill="none" stroke="#000"/>      
+    </symbol>
+    <symbol id="pending" viewBox="0 0 24 24">
+      <path d="m22 12c0 2.76-1.12 5.26-2.93 7.07s-4.31 2.93-7.07 2.93c-5.52 0-10-4.48-10-10 0-5.52 4.48-10 10-10 5.52 0 10 4.48 10 10z" fill="none" stroke="#000"/>      
+    </symbol>       
+    <symbol id="delete" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"  viewBox="0 0 24 24">
+      <path d="m19 7v10c0 4 0 5-4 5h-6c-4 0-4-1-4-5v-10z"/>
+      <path d="m9 9.5v9-9zm6 0v9-9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      <path d="m10.2 2h3.69-3.69zm-5.32 2h14.3-14.3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    </symbol>  
+    <symbol id="move" fill="none" stroke="#000" opacity="0.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"  viewBox="0 0 24 24">
+      <path d="m12 3v18"/>
+      <path d="m3 12h18"/>
+      <path d="m9 6 3-3.48 3 3.48"/>
+      <path d="m18 9 3.49 3.01-3.49 2.99"/>
+      <path d="m9 18 3 3.5 3-3.5"/>
+      <path d="m6 15-3.49-2.99 3.49-3.01"/>
+    </symbol>  
+    <symbol id="repeat" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+      <path d="m8 20h-1.86c-2.29 0-4.14-1.85-4.14-4.14v-8.73c0-2.29 1.85-4.14 4.14-4.14h11.7c2.29 0 4.14 1.85 4.14 4.14v8.73c0 2.29-1.85 4.14-4.14 4.14h-5.86" stroke="#d45500" stroke-width="2"/>
+      <path d="m16.5 22.6-4.5-2.6 4.5-2.6" fill="none" stroke="#d45500" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    </symbol>   
+    <symbol id="no-repeat" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" stroke="#000" opacity="0.5" stroke-width="2">
+      <path d="m8 20h-1.86c-2.29 0-4.14-1.85-4.14-4.14v-8.73c0-2.29 1.85-4.14 4.14-4.14h11.7c2.29 0 4.14 1.85 4.14 4.14v8.73c0 2.29-1.85 4.14-4.14 4.14h-5.86" />
+      <path d="m16.5 22.6-4.5-2.6 4.5-2.6" />
+    </symbol> 
+  </svg> 
+
+<script src="js/utils/sortable.js"></script> 
+<script src="js/planit.js"></script>
+</body>
+</html>
