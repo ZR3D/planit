@@ -46,6 +46,7 @@
       });
     showToast(cardname + " loaded", 'success');  
     highlightActiveButton(cardname);
+    removeNavVisibilityIfSet();
   }
 
   function highlightActiveButton(cardname) {
@@ -87,10 +88,22 @@
   }
   
   
-  function toggleNavVisibility(val){
+  function toggleNavVisibility(displaySetting){
     const display = (dom.navigationButtons.style.display==='flex')? 'none':'flex';
     dom.navigationButtons.style.display = display; 
   }
+  
+  function removeNavVisibilityIfSet(){
+    let width = screen.width;
+    console.log(width)
+    //has been set by showNavigationButton
+    if((dom.navigationButtons.style.display==='flex')){
+      dom.navigationButtons.style.display = 'none';   
+    }
+  }
+  
+  
+  
   
 
   function openFullscreen() {
