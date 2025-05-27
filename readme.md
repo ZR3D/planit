@@ -1,4 +1,5 @@
 🪐 Planit
+
 Planit is a simple, modular, offline-friendly productivity suite designed to help individuals and small households organize everyday tasks. Each component of Planit—like Taskit, Shopit, Menuit, and more—is a focused tool that works independently or together through the Viewit dashboard.
 
 Planit is designed with clarity, lightness, and balance in mind, encouraging consistent routines without overwhelming users.
