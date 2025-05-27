@@ -52,7 +52,7 @@
       noteData.currentNoteId = noteData.notes[0].id; //set to first 
     }
     
-    console.log(getNoteIndex())
+    console.log(getNoteIndex(), noteData.currentNoteId)
     
     const currentNote = noteData.notes[getNoteIndex()];
     dom.noteTitle.innerHTML = currentNote.title;
@@ -106,8 +106,7 @@
       } else {
         const id = generateId();
         noteData.currentNoteId = id;
-        //noteData.currentNote = 'Note One';
-        noteData.notes.push(new Note('Note One', '<div>Type note here...</div>',), id);
+        noteData.notes.push(new Note('Note One', '<div>Type note here...</div>',id));
         noteData.notes.push(new Note('Note Two', '<div>Type note here...</div>',)); 
         saveAndRender();
       }
