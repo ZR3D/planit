@@ -219,14 +219,15 @@
     const growData = getPlanitSection('growit'); 
     let growItems = [];
     const currentMonth = new Date().getMonth() + 1;
-    growData.plants.forEach(growItem => {
-      if (growItem.month.includes(currentMonth)) {
-        growItems.push({icon:null, title:growItem.title});   
-      }     
-    });   
-    growItems = limitedRandomSelection(growItems, 7)
-    createViewitBox('Grow', growItems, 'growit');
-    
+    if(growData.plants){
+      growData.plants.forEach(growItem => {
+        if (growItem.month.includes(currentMonth)) {
+          growItems.push({icon:null, title:growItem.title});   
+        }     
+      });   
+      growItems = limitedRandomSelection(growItems, 7)
+      createViewitBox('Grow', growItems, 'growit');
+    }
 
   } 
   
