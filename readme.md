@@ -29,12 +29,12 @@ Visit the GitHub Pages link
 
 Bookmark the page or save it offline for regular use
 
-Or to run locally on a python server to avoid CORS issues (file-based fetch is used to load Javascript etc.):
-git clone https://github.com/zr3d/planit.git
-cd planit
-python3 -m http.server 8000
-Then open your browser and go to:
-http://localhost:8000/
+Or to run locally on a python server to avoid CORS issues (file-based fetch is used to load Javascript etc.): <br />
+git clone https://github.com/zr3d/planit.git <br />
+cd planit <br />
+python3 -m http.server 8000 <br />
+Then open your browser and go to: <br />
+http://localhost:8000/ <br />
 
 🛠 Developer Notes
 This is a work-in-progress project with a modular structure. Each card (app) is being built and tested individually before integration into the Viewit dashboard. Feedback, forks, and collaboration are welcome.
