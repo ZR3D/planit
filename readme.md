@@ -36,8 +36,5 @@ python3 -m http.server 8000
 Then open your browser and go to:
 http://localhost:8000/
 
-
-
-
 🛠 Developer Notes
 This is a work-in-progress project with a modular structure. Each card (app) is being built and tested individually before integration into the Viewit dashboard. Feedback, forks, and collaboration are welcome.
