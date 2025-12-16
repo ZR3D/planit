@@ -90,16 +90,16 @@
 }
 
 :root {
-  --color-bg: #364f68;
-  --color-text: #eaeaea;
+  --color-bg: #1c2835;
+  --color-text: #ffffff;
   --color-text-alt: #eaeaea;
-  --color-panel: #2d3e50;
-  --color-button: #898989;
-  --color-nav-button: #898989;
+  --color-panel: #2a3d50;
+  --color-button: #5b7080;
+  --color-nav-button: #3f688a;
   --color-primary: #eaeaea;
   --color-shade-light: #ffffff10;
   --color-shade-mid: #ffffff50;
-  --color-nav-button-hover: #c1c1c1;
+  --color-nav-button-hover: #3f688a;
   --color-nav-button-active: #366fa2;
   --color-button-hover: #275a89;
   --color-good-blue: #366fa2; /* 5f84ac */
@@ -2865,8 +2865,8 @@ const cards = {
 
   <div id="sidePanel" class="card-side-panel">
     <div>
-      <button id="exportDataButton"> Export Planit Data </button>
-      <button id="importDataButton">Import Planit Data </button>
+      <button id="exportDataButton">Save Planit Data</button>
+      <button id="importDataButton">Import Planit Data</button>
       <input type="file" id="hiddenFileInput" class="planit-hidden" />
     </div>
     <div class="field">
@@ -2875,13 +2875,13 @@ const cards = {
     </div>
     <div>
       <button id="deletePlanitDataButton">Delete Planit Data</button>
-      <button id="openModalButton">Open Modal</button>
     </div>
     <div>
       <button id="showTailwindButton">Tailwind Colors</button>
       <button id="toggleFullscreenButton">Full Screen</button>
     </div>
     <div class="field">
+     <button id="toggleNavigationTextBtn">Toggle Navigation Text</button>
      <button id="showHideAnimationButton">Hide Animation</button>
     </div>
     <div class="panel-heading">Settings</div>
@@ -2931,11 +2931,11 @@ const cards = {
       <label for="widgetDisplayLimit">Display Limit</label>
       <input id="widgetDisplayLimit" type="number" placeholder="4">
     </div>
-    
+
     <div class="field">
       <button id="widgetCreateButton">Create</button>
-      <button id="widgetSaveButton">Save</button>     
-    </div>      
+      <button id="widgetSaveButton">Save</button>
+    </div>
   </div>
 </section>
 
@@ -3004,7 +3004,6 @@ const cards = {
     </div>
     <div>
       <button id="openTimerButton">Open Timer</button>
-      <button id="openModalButton">Open Modal</button>
     </div>
     <div class="field">
       <button id="showHideAnimationButton">Hide Animation</button>
@@ -3052,7 +3051,7 @@ const cards = {
     </div>
 
 
-  
+
 </div>
 </section>
 `,
@@ -3692,9 +3691,9 @@ const cards = {
       <div class="planit-fill"></div>
       <button id="sidePanelButton" class="button-icon-container"><svg class="button-icon" aria-label="open side panel"><use href="#side-panel"></use></svg></button>
     </div>
-    <div id="growingContainer" class="growing-container">    
-      <button id="growingMonthPreviousButton">Previous</button> 
-      <button id="growingMonthNextButton">Next</button> 
+    <div id="growingContainer" class="growing-container">
+      <button id="growingMonthPreviousButton">Previous</button>
+      <button id="growingMonthNextButton">Next</button>
       <div id="dateOutput" class="date-output"></div>
       <div id="ganttWrapper" class="gantt-wrapper"></div>
     </div>
@@ -3732,7 +3731,7 @@ const cards = {
     </div>
     <div class="field">
       <label for="panelMonth">Month</label>
-      <input id="panelMonth" type="text">      
+      <input id="panelMonth" type="text">
     </div>
     <div class="field">
       <label for="panelDateSown">Date Sown</label>
@@ -3765,7 +3764,7 @@ const cards = {
       <label for="panelMatureMinDays">Mature Days</label>
       <input id="panelMatureMinDays" type="text" placeholder="Min" class="small-input">
       <input id="panelMatureMaxDays" type="text" placeholder="Max" class="small-input">
-    </div>    
+    </div>
     <div class="field">
       <label for="panelHarvestMinDays">Harvest Days</label>
       <input id="panelHarvestMinDays" type="text" placeholder="Min" class="small-input">
@@ -3779,7 +3778,7 @@ const cards = {
       <label for="panelMinHeight">Height</label>
       <input id="panelMinHeight" type="text" placeholder="Min" class="small-input">
       <input id="panelMaxHeight" type="text" placeholder="Max" class="small-input">
-    </div>    
+    </div>
     <div class="field">
       <label for="panelMinSpread">Spread</label>
       <input id="panelMinSpread" type="text" placeholder="Min" class="small-input">
@@ -4013,7 +4012,7 @@ const cards = {
         <button id="forwardButton">Forward</button>
       </div>
     <div id="ganttView" class="gantt-container"></div>
-    <div id="ganttViewTwo" class="gantt-container-two"></div>    
+    <div id="ganttViewTwo" class="gantt-container-two"></div>
   </div>
 
   <div id="sidePanel" class="card-side-panel">
@@ -4472,10 +4471,10 @@ const emojiSet = [{"e":"🥚","d":"egg","k":["egg","breakfast","food"]},{"e":"�
   /*
   const appData = {
     bodyCenter:{x:12, y:13},
-    eyePosition:{x:14, y:13}, 
+    eyePosition:{x:14, y:13},
     eyeSize:{x:1, y:1},
     pointerPosition:{x:14, y:14}
-  };   
+  };
   */
   function Point(
     type,
@@ -4605,7 +4604,6 @@ const emojiSet = [{"e":"🥚","d":"egg","k":["egg","breakfast","food"]},{"e":"�
       armatureData[armature].liveposition,
       armatureDataLiveRestPos(armature)
     );
-    //console.log(armatureData[armature].liveposition, armatureDataLiveRestPos(armature))
     return currentPosRelativeToOwnRestPoint;
   }
 
@@ -4963,7 +4961,6 @@ const emojiSet = [{"e":"🥚","d":"egg","k":["egg","breakfast","food"]},{"e":"�
     const path = createPathString(awoogaBody, true);
     if (path.includes("null") || path.includes("Infinity")) {
       //ignore
-      //console.log(awoogaBody, path)
     } else {
       dom.awoogaBody.setAttribute("d", path);
     }
@@ -5099,8 +5096,6 @@ const emojiSet = [{"e":"🥚","d":"egg","k":["egg","breakfast","food"]},{"e":"�
     const newSequenceList = newSequence.split(",");
     animationSequence.animations =
       animationSequence.animations.concat(newSequenceList);
-    //console.log(animationSequence.animations);
-
     if (!animationSequence.isRunning) {
       animationSequence.run(newSequence);
     }
@@ -5127,7 +5122,6 @@ const emojiSet = [{"e":"🥚","d":"egg","k":["egg","breakfast","food"]},{"e":"�
 
       const aniToRun = this.animations[this.index];
       this.lastRun = aniToRun;
-      //console.log(aniToRun);
       if (aniToRun && awoogaAnimations[aniToRun]) {
         // && !stop
         this.isRunning = true;
@@ -5141,15 +5135,13 @@ const emojiSet = [{"e":"🥚","d":"egg","k":["egg","breakfast","food"]},{"e":"�
               }
             })
             .join(" | ");
-          dom.trackAwooga.innerHTML =
-            outputStringHTML + " | " + this.lastRun + " | " + this.emoji;
+          //dom.trackAwooga.innerHTML = outputStringHTML + " | " + this.lastRun + " | " + this.emoji;
         }
         await awoogaAnimations[aniToRun]();
         this.lastRun = aniToRun;
       } else {
         this.isRunning = false;
         //this.lastRun = aniToRun;
-        //console.log('Animation sequence complete!');
       }
     },
   };
@@ -5484,10 +5476,19 @@ const cardModules = {};
         saveToLocalStorage();
         renderView();
       }
+        
+      function showHideAnimation(){
+       if(designSvg.classList.contains('planit-hidden')){
+         dom.showHideAnimationButton.textContent = 'Hide Animation';
+         designSvg.classList.remove('planit-hidden');
+       }else{
+         dom.showHideAnimationButton.textContent = 'Show Animation';
+         designSvg.classList.add('planit-hidden'); 
+       }
+      }
       
       function editWidgets(){
         editWidgetsMode = !editWidgetsMode; //toggle
-        console.log(editWidgetsMode)
         dom.editWidgetsButton.textContent = (editWidgetsMode)? 'View Mode':'Edit Mode';
         renderView();
       }
@@ -5519,7 +5520,6 @@ const cardModules = {};
       }
     
       function changeThemeElement(rule, color, isUpdateSettings){
-        //console.log(rule, color);
         const variables = {};
         variables[rule] = `${color}`;
         updateTheme("custom", variables);
@@ -5589,7 +5589,7 @@ const cardModules = {};
               await animationSequence.run(action + ',restPosition');
             }
           }else{
-            console.log('action not found:', action);
+            //console.log('action not found:', action);
           }
           // Schedule the next animation after a random delay (e.g. 3 to 10 seconds)
           const nextDelay = 3000 + Math.random() * 7000;
@@ -5654,7 +5654,7 @@ const cardModules = {};
         });
         if(editWidgetsMode){
           const showHideButton = document.createElement('button');
-          console.log(isHidden);
+          //console.log(isHidden);
           showHideButton.textContent = (isHidden)? 'Show':'Hide';
           showHideButton.dataset.id = id;      
           showHideButton.onclick = () => showHideWidget(showHideButton.dataset.id);
@@ -5810,7 +5810,7 @@ const cardModules = {};
         dom.widgetFieldSelect.value = currentWidget.displayText;
         dom.widgetTitle.value = currentWidget.title; //widgetTitle should be widgetTitleInput
         
-        console.log(currentWidget);
+        //console.log(currentWidget);
       }
       function deleteWidget(id){
         const index = settingsData.widgetList.findIndex(w => w.id === id);
@@ -5821,9 +5821,9 @@ const cardModules = {};
       
       function showHideWidget(id){
         const widget = settingsData.widgetList.find(w => w.id === id);
-        console.log(widget, widget.isHidden);
+        //console.log(widget, widget.isHidden);
         widget.isHidden = !widget?.isHidden;
-        console.log('after:', widget, widget.isHidden);    
+        //console.log('after:', widget, widget.isHidden);    
         saveAndRender();   
       }
     
@@ -5845,7 +5845,6 @@ const cardModules = {};
       }
       
       function setUpWidgets(){
-        console.log(settingsData);
         settingsData.widgetList.push(new Widget('Tasks','taskit', 'taskGroups', {index:0, name:'tasks'}, {defaultEmoji:'🪣️', onlyDefault:false}, 'No tasks for today', null, null, null, ['title'], [{name:'date', value:'todayStr', operation:'equalto'}, {name:'status', value:'complete', operation:'notequalto'}, {name:'status', value:'ignore', operation:'notequalto'}]));
         settingsData.widgetList.push(new Widget('Shopping','shopit', 'shopLists', {index:0, name:'itemList'}, {defaultEmoji:'📽️', onlyDefault:false}, 'No current shopping items', null, null, null,['title'], [{name:'order', value:true, operation:'equalto'}]));
         settingsData.widgetList.push(new Widget('Menu','menuit', 'menuPlan', null, {defaultEmoji:'🍜️', onlyDefault:false}, 'No menu items for today',  null, {name:'meal', value:'getMealTime'}, null, ['title'], [{name:'date', value:'todayStr', operation:'equalto'}]));
@@ -5883,7 +5882,13 @@ const cardModules = {};
         populateAndOpenModal('Save Data Now?', contentHtml);    
       }
     
-    
+      function dateDifferenceInDays(dateStr1,dateStr2){
+        const date1 = new Date(dateStr1);
+        const date2 = new Date(dateStr2);
+        const diffTime = Math.abs(date2 - date1);
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays;
+      }
     
       function renderView(){
         viewSection.innerHTML = '';
@@ -5897,10 +5902,10 @@ const cardModules = {};
           settingsData.lastSaved = todayStr; 
           saveToLocalStorage();
         }
-        
-        const lastSavedDate = new Date(settingsData.lastSaved);
-        const diffDays = Math.floor((today - lastSavedDate) / (1000 * 60 * 60 * 24));
-        createViewitBox('Last Saved', [{title:`${diffDays} days since last save`, emoji:'🪣️'}], 'viewit', '🌱️', 'lastSaved', false);
+    
+        const diffDays = dateDifferenceInDays(todayStr,settingsData.lastSaved);
+        const pluralDays = (diffDays===1)? '':'s';
+        createViewitBox('Last Saved', [{title:`${diffDays} day${pluralDays} since last save`, emoji:'🪣️'}], 'viewit', '🌱️', 'lastSaved', false);
         
         if(diffDays>4){
           openBackupModal(diffDays);
@@ -5925,10 +5930,6 @@ const cardModules = {};
         }
       }
     
-    
-    
-      
-      
       // --- Save and Load ---
       function loadFromLocalStorage() {
         if (window.getPlanitSection) {
@@ -6111,10 +6112,10 @@ const cardModules = {};
         dom.widgetDisplayLimit = document.getElementById('widgetDisplayLimit');
         dom.modalContent = document.getElementById('modalContent');
       }
-    
+        
       function initButtons() {
         document.getElementById('reloadButton')?.addEventListener('click', init);
-        document.getElementById('showTailwindButton')?.addEventListener('click', showTailwindColors);
+        //document.getElementById('showTailwindButton')?.addEventListener('click', showTailwindColors);
         document.getElementById('openModalButton')?.addEventListener('click', openModal);
         document.getElementById('toggleFullscreenButton')?.addEventListener('click', toggleFullscreen);
         document.getElementById('showAllButton')?.addEventListener('click', () => changeShowAll(true));
@@ -6123,6 +6124,13 @@ const cardModules = {};
         document.getElementById('widgetCreateButton')?.addEventListener('click', widgetCreate);
         dom.editWidgetsButton = document.getElementById('editWidgetsButton')
         dom.editWidgetsButton?.addEventListener('click', editWidgets);
+        
+        dom.toggleNavigationTextBtn = document.getElementById('toggleNavigationTextBtn');
+        toggleNavigationTextBtn?.addEventListener('click', toggleNavigationText);
+        
+        dom.showHideAnimationButton = document.getElementById('showHideAnimationButton');
+        dom.showHideAnimationButton?.addEventListener('click', showHideAnimation);
+        
         //Import Export Json Data
         document.getElementById('exportDataButton')?.addEventListener('click', exportData);
         const importDataButton = document.getElementById('importDataButton');
@@ -6241,7 +6249,6 @@ const cardModules = {};
     
       function saveTask(){
         if(currentTask){
-          console.log(dom.panelCategory.value, dom.panelAssignedTo.value)
           currentTask.title = dom.panelTitle.value;
           currentTask.status = dom.panelStatus.value;
           currentTask.repeat = Number(dom.panelRepeat.value);
@@ -6264,13 +6271,11 @@ const cardModules = {};
         currentTaskGroup = taskData.taskGroups[index];
         taskData.currentTaskGroupId = currentTaskGroup.id; //double set
         dom.taskGroupType.value = currentTaskGroup.type;
-        //console.log("set:", taskData.currentTaskGroupId);
         saveAndRender();
       }
     
       function changeTaskGroup(){
         taskData.currentTaskGroupId = dom.taskGroupSelect.value
-        console.log(taskData.currentTaskGroupId);
         setCurrentTaskGroup();
       }
     
@@ -6504,7 +6509,7 @@ const cardModules = {};
               //console.log('action running');
             }
           }else{
-            console.log('action not found:', action);
+            //console.log('action not found:', action);
           }
           // Schedule the next animation after a random delay (e.g. 3 to 14 seconds)
           const nextDelay = 3000 + Math.random() * 11000;
@@ -6796,7 +6801,6 @@ const cardModules = {};
       }
     
       function setTimer(minuteValue){
-        console.log(minuteValue)
         if(minuteValue){
           timer.value += minuteValue;
           timerDisplay.textContent = timer.value + ':00';
@@ -6942,7 +6946,6 @@ const cardModules = {};
       };
     
       function playNotes(evt){
-        console.log(evt)
         if(evt.type==='start'){
           timer.songIndex = 0;
           timer.song = songs[evt.song];
@@ -7008,7 +7011,6 @@ const cardModules = {};
         const note = song[songIndex];
         if(note){
           const frequency = noteList[note.note] || 440;
-          console.log(note.note, note.duration, evt.type);
           beep(note.duration,  frequency, 1, 'triangle', playNotes);
         }
         songIndex++;
@@ -7037,7 +7039,6 @@ const cardModules = {};
         // Build date list for the week
         for (let i = 0; i < 7; i++) {
         const date = new Date(weekStart);
-        //console.log(date)
         date.setDate(weekStart.getDate() + i);
         const dateStr = formatDate(date);
         dates.push(dateStr);
@@ -7177,7 +7178,7 @@ const cardModules = {};
         document.getElementById('nextWeekButton')?.addEventListener('click', nextWeek);
         document.getElementById('copyRepeatsButton')?.addEventListener('click', copyRepeats);
         document.getElementById('addButton')?.addEventListener('click', addTask);
-        document.getElementById('openModalButton')?.addEventListener('click', openModal);
+        //document.getElementById('openModalButton')?.addEventListener('click', openModal);
         document.getElementById('startTimerButton')?.addEventListener('click', startTimer);
         document.getElementById('pauseTimerButton')?.addEventListener('click', pauseTimer);
         document.getElementById('stopTimerButton')?.addEventListener('click', stopTimer);
@@ -7278,20 +7279,20 @@ const cardModules = {};
       function updateListCategories(){
         const categories = parseTags(dom.categoryInput.value);
         currentShopListProper.categories = categories;
-        saveToLocalStorage(); 
+        saveToLocalStorage();
       }
-      
+    
       function clearFilter(){
         dom.filterItemsInput.value = '';
         saveAndRender();
-      } 
+      }
     
       function setCurrentShopList(){
         let index = shopData.shopLists.findIndex(n => n.id === shopData.currentShopListId);
         if (index==-1) index=0;
         currentShopList = shopData.shopLists[index].itemList;
         currentShopListProper = shopData.shopLists[index];
-        saveToLocalStorage; 
+        saveToLocalStorage;
       }
     
       function saveAndRender() {
@@ -7365,7 +7366,6 @@ const cardModules = {};
     
       function saveShopItem() {
         const panelData = getPanelData();
-        console.log(panelData)
         if (currentShopItemId) {
           const existing = currentShopList.find(t => t.id === currentShopItemId);
           Object.assign(existing, panelData);
@@ -7385,7 +7385,6 @@ const cardModules = {};
     
       function deleteList() {
         const listIndex = shopData.shopLists.findIndex(i => i.id === shopData.currentShopListId);
-        console.log(shopData.currentShopListId, listIndex);
         shopData.shopLists.splice(listIndex, 1);
         shopData.currentShopListId = shopData.shopLists[0].id;
         setCurrentShopList();
@@ -7394,7 +7393,7 @@ const cardModules = {};
     
       function sortItems(a, b) {
         if(!a.category) a.category = '';
-        if(!b.category) b.category = '';    
+        if(!b.category) b.category = '';
         if (a.category !== b.category) return a.category.localeCompare(b.category);
         return a.title.localeCompare(b.title);
       }
@@ -7467,11 +7466,9 @@ const cardModules = {};
               });
               menuPlanData.sort();
               uniqueIngredients.sort();
-              console.log(menuPlanData, uniqueIngredients);
               const menuList = document.getElementById('menuList');
               menuList.innerHTML = uniqueIngredients.join(' ');
               titleArray = currentShopList.map(item => item.title.toLowerCase());
-              //console.log();
               document.getElementById('noMatchList').innerHTML = getMismatchedItems(uniqueIngredients, titleArray);
             } catch (e) {
               menuPlanData = [];
@@ -7490,15 +7487,13 @@ const cardModules = {};
     */
       // --- Render Functions ---
       function renderView(renderType) {
-        //currentShopList.shift(); 
-        //console.log(currentShopList);
+        //currentShopList.shift();
         //const constNotCaptured = [];
-        //console.log(renderType);
         const list = dom.editView;
         const filterValue = dom.filterItemsInput.value.toLowerCase();
         list.innerHTML = '';
         orderList.innerHTML = '';
-        
+    
     
         for (let item of currentShopList.sort(sortItems)) {
           if(filterValue.length===0 ||  item.title.toLowerCase().startsWith(filterValue)){
@@ -7512,13 +7507,12 @@ const cardModules = {};
             }
             const className = 'item ' + (item.order? 'order-yes' : 'order-no');
             const div = planitDivCreator(null, className);
-            
+    
             div.onclick = () => updateSidePanel(item);
-            
+    
             const toggleContainer = planitDivCreator(null, 'item-order-button');
     
             const orderButton = document.createElement('button');
-            console.log(getCategoryClass(item.category), item.category)
             orderButton.className = `order-button ${getCategoryClass(item.category)}`;
             orderButton.textContent = (item.order)? '✓':'+';
             orderButton.onclick = () => {
@@ -7548,22 +7542,19 @@ const cardModules = {};
             }
           }
         }
-       // console.log(constNotCaptured)
        populateListsDropdown();
        populateCategorySelect();
        //saveToLocalStorage();
       }
-      
+    
       function getCategoryClass(categoryName){
         let index = currentShopListProper.categories.indexOf(categoryName) + 8;
         index = index % currentShopListProper.categories.length;
         return `cat-${index}`
       }
-      
+    
       function populateCategorySelect(){
         dom.categoryInput.value = stringifyTags(currentShopListProper.categories);
-        console.log(currentShopListProper.categories);
-        //if(!currentShopListProper.categories) currentShopListProper.categories = [];
         dom.categorySelect.innerHTML = '';
         currentShopListProper.categories.forEach(category => {
           const option = document.createElement("option");
@@ -7586,8 +7577,7 @@ const cardModules = {};
       }
     
       function changeList(){
-        console.log(dom.listSelect.value);
-        shopData.currentShopListId = dom.listSelect.value; //id
+        shopData.currentShopListId = dom.listSelect.value; 
         setCurrentShopList();
         saveAndRender();
       }
@@ -7629,34 +7619,25 @@ const cardModules = {};
           try {
             shopData = planitShopData;
             setCurrentShopList();
-            //shopData.card = 'shopit';
-            
-            /*
-            currentShopList.forEach(item => {
-              console.log(item.category, item.subCat);
-              item.category = item.subCat;
-            })
-            */
-            console.log(planitShopData,currentShopListProper);
-            
-            //saveToLocalStorage();
           } catch (e) {
             console.warn("Could not parse saved tasks:", e);
           }
           }else{
             shopData.updatedAt = timeStamp();
-            shopData.currentShopListId = generateId();
             const itemList = [
               new ShopItem('Butter', 'dairy', true),
               new ShopItem('Carrots', 'fruit-vegetables', true),
               new ShopItem('Onions', 'fruit-vegetables', true),
               new ShopItem('Soap', 'items', false)
             ];
-            const starterList = new ShopList('supermarket', itemList, ['fruit-vegetables','pantry','dairy','freezer','meat-fish-poultry','items'], shopData.currentShopListId);
+            const starterList = new ShopList('supermarket', itemList, ['fruit-vegetables','pantry','dairy','freezer','meat-fish-poultry','items']);
+            shopData.currentShopListId = starterList.id;
+            dom.listSelect.value = starterList.id;
             shopData.shopLists.push(starterList);
+            currentShopListProper = starterList;
             const hardwareList = new ShopList('hardware', [new ShopItem('Screws', 'items', false)], []);
             shopData.shopLists.push(hardwareList);
-            saveToLocalStorage();
+            changeList();
           }
         }
       }
@@ -7703,7 +7684,7 @@ const cardModules = {};
         dom.filterInput?.addEventListener('input', findEmoji);
         dom.emojiBank = document.getElementById('emojiBank');
         dom.editView = document.getElementById('editView');
-        dom.listView = document.getElementById('listView');    
+        dom.listView = document.getElementById('listView');
         dom.filterItemsInput = document.getElementById('filterItemsInput');
         dom.filterItemsInput?.addEventListener('input', renderView);
     
@@ -7733,7 +7714,7 @@ const cardModules = {};
         document.getElementById('deleteListButton')?.addEventListener("click", deleteList);
         document.getElementById('addItemButton')?.addEventListener("click", addItem);
         document.getElementById('addListButton')?.addEventListener("click", addList);
-        document.getElementById('useTitleButton')?.addEventListener("click", useTitle);    
+        document.getElementById('useTitleButton')?.addEventListener("click", useTitle);
         document.getElementById('clearFilterButton')?.addEventListener("click", clearFilter);
         dom.toggleViewButton = document.getElementById('toggleViewButton');
         dom.toggleViewButton?.addEventListener('click', toggleView);
@@ -7762,7 +7743,7 @@ const cardModules = {};
       window.shopit = {
         init
       };
-      
+    
     //fruit-vegetables,pantry,dairy,freezer,meat-fish-poultry,items
     
     })();
@@ -7783,7 +7764,7 @@ const cardModules = {};
       let menuData = {menuPlan: [], viewType:'edit', menuItems: [], isPanelOpen:true, updatedAt:timeStamp(), card:'menuit'};
       let shopData = [];
       let recipeData = {};
-      let currentMonday = getMonday(new Date());  
+      let currentMonday = getMonday(new Date());
       let currentDate = currentMonday;
       let currentFilter = '';
       const dom = {};
@@ -7791,45 +7772,43 @@ const cardModules = {};
       // --- Constructors ---
       function MenuPlanItem(title, date, meal, repeat, order, id){
         this.title = title;
-        this.date = date;            
+        this.date = date;
         this.meal = meal;
         this.repeat = repeat || false;
         this.order = order || 0;
         this.id = id || generateId();
         this.updatedAt = timeStamp();
       }
-      
+    
       function MenuItem(title, keyIngredients, tags, id){
         this.title = title;
-        this.tags = tags || [];            
+        this.tags = tags || [];
         this.keyIngredients = keyIngredients || [];
         this.id = id || generateId();
         this.updatedAt = timeStamp();
       }
-      
-      
+    
+    
       // --- Helper Functions ---
       function saveAndRender() {
         saveToLocalStorage();
-        renderView();  
+        renderView();
       }
     
       function renderView(){
         renderPlanner();
-        renderMenuList();  
+        renderMenuList();
       }
-      
+    
       function goToRecipe(recipeId){
-        //console.log(recipeId);
-        //update current recipe id
         recipeData.currentRecipeId = recipeId;
         //save
         updatePlanitSection("recipeit", recipeData);
         //open page
         loadView('recipeit')
       }
-      
-      
+    
+    
       // Converts input string to array of trimmed tags
       function parseTags(inputString) {
         if (typeof inputString !== 'string') return [];
@@ -7844,26 +7823,25 @@ const cardModules = {};
         if (!Array.isArray(tagsArray)) return tagsArray || '';
         return tagsArray.join(', ');
       }
-      
+    
       function updateSidePanelItem(data) {
         currentMenuItemId = data.id;
         dom.itemTitle.value = data.title;
         dom.itemKeyIngredients.value = stringifyTags(data.keyIngredients);
         dom.itemTags.value = stringifyTags(data.tags);
       }
-      
+    
       function getItemPanelData() {
         return new MenuItem(
           dom.itemTitle.value.trim(),
           parseTags(dom.itemKeyIngredients.value),
           parseTags(dom.itemTags.value),
           currentMenuItemId
-          );    
+          );
       }
     
       function saveMenuItem() {
         const panelData = getItemPanelData();
-        //console.log(panelData, currentMenuItemId)
         if (currentMenuItemId) {
           const existing = menuData.menuItems.find(t => t.id === currentMenuItemId);
           Object.assign(existing, panelData);
@@ -7872,7 +7850,7 @@ const cardModules = {};
         }
         saveAndRender();
       }
-      
+    
       function startNew(){
         let newTitle = dom.titleInput.value.trim();
         if (!newTitle) newTitle = "New Show";
@@ -7883,7 +7861,7 @@ const cardModules = {};
         saveAndRender();
         showToast(`${newTitle} added`, 'success');
       }
-      
+    
       //--- Planner Updates ---
       function updateSidePanelPlan(data) {
         currentMenuPlanId = data.id;
@@ -7897,7 +7875,7 @@ const cardModules = {};
           existing.title = dom.planTitle.value;
           existing.repeat = dom.planRepeat.checked;
           existing.updatedAt = timeStamp();
-        } 
+        }
         saveAndRender();
       }
     
@@ -7908,21 +7886,21 @@ const cardModules = {};
         showToast(`planner item: deleted`, 'success');
         saveAndRender();
       }
-     }  
-     
+     }
+    
      function addMenuItem() {
        currentMenuItemId = null;
        saveMenuItem();
-     }  
-     
+     }
+    
      function deleteMenuItem() {
         menuData.menuItems = menuData.menuItems.filter(t => !(t.id === currentMenuItemId));
         updateSidePanelItem(new MenuItem('', [], [], null));
         currentMenuItemId = null;
         showToast(`item: deleted`, 'success');
         saveAndRender();
-     }  
-      
+     }
+    
       function filterMenuList() {
         const term = dom.filterInput.value.trim();
         renderMenuList(term);
@@ -7941,7 +7919,7 @@ const cardModules = {};
         currentDate.setDate(currentDate.getDate() + 7);
         renderPlanner();
       }
-       
+    
       function copyRepeats() {
         const newWeek = [];
         const lastWeekStart = new Date(currentMonday);
@@ -7953,28 +7931,27 @@ const cardModules = {};
           const nextDate = new Date(currentMonday);
           nextDate.setDate(nextDate.getDate() + i);
           const nextDateStr = formatDate(nextDate);
-          menuData.menuPlan.filter(t => t.date === dateStr && t.repeat).forEach(t => {    
+          menuData.menuPlan.filter(t => t.date === dateStr && t.repeat).forEach(t => {
             newWeek.push(new MenuPlanItem(t.title, nextDateStr, t.meal, t.repeat, t.order));
           });
         }
-        console.log(newWeek)
         menuData.menuPlan = menuData.menuPlan.concat(newWeek);
-        saveAndRender();      
+        saveAndRender();
       }
     
       function sortItems(a, b) {
         return a.title.localeCompare(b.title);
-      } 
-      
+      }
+    
       function updateMenuPlanOrder(container) {
-        const items = container.querySelectorAll('.menu-plan-item'); 
+        const items = container.querySelectorAll('.menu-plan-item');
         items.forEach((el, index) => {
-        const id = el.dataset.id; 
+        const id = el.dataset.id;
         const item = menuData.menuPlan.find(m => m.id === id);
         if (item) {
-          item.order = index; 
+          item.order = index;
         }
-        });   
+        });
       }
     
      function sortMenuPlan(array) {
@@ -7989,43 +7966,43 @@ const cardModules = {};
         }
         });
       }
-          
+    
       function createMealHeader(headerText, className){
         return planitDivCreator(headerText, className);
       }
     
       function createDropTarget(date, meal, label){
-        
-       const flexContainer = planitDivCreator(null, 'flex-container');    
+    
+       const flexContainer = planitDivCreator(null, 'flex-container');
        //const flexContainer = document.createElement('div');
        //flexContainer.className = 'flex-container';
-       
+    
        const fixedPart = planitDivCreator(label, `meal-${meal} fixed-part`);
        //const fixedPart = document.createElement('div');
        //fixedPart.className = `meal-${meal} fixed-part`;
-       //fixedPart.textContent = label; 
-       
+       //fixedPart.textContent = label;
+    
        //drop target
        const flexPart = planitDivCreator(null, 'sortable flex-part', `${date}_${meal}`);
        //const flexPart = document.createElement('div');
-       //flexPart.className = 'sortable flex-part';  
+       //flexPart.className = 'sortable flex-part';
        //flexPart.id = `${date}_${meal}`;
-          
+    
        flexContainer.appendChild(fixedPart);
        flexContainer.appendChild(flexPart);
-       
+    
        return flexContainer;
-      } 
-      
+      }
+    
       let renderData = [];
       const mealList = ['breakfast','lunch','dinner','dessert'];
-      
-      function stringifyMenuArrays(arr, meal){    
+    
+      function stringifyMenuArrays(arr, meal){
         const searchStr = arr.join(' ');
         const emoji = getBestGuessEmoji(searchStr, '🍜');
         const str = arr.join(', ');
         meal = meal.charAt(0).toUpperCase() + meal.slice(1);
-        return emoji + ' ' + meal + ': ' + str;        
+        return emoji + ' ' + meal + ': ' + str;
       }
     
       // --- Render Functions ---
@@ -8043,7 +8020,7 @@ const cardModules = {};
           const dateStr = formatDate(date);
           renderData.push({date:dateStr, title:dayTitle, breakfast:[], lunch:[], dinner:[], dessert:[]});
           const section = planitDivCreator(null, 'planner-day');
-          section.appendChild(createMealHeader(`${dayTitle}`,'date-title'));       
+          section.appendChild(createMealHeader(`${dayTitle}`,'date-title'));
           section.appendChild(createDropTarget(dateStr,'breakfast', 'bre'));
           section.appendChild(createDropTarget(dateStr,'lunch', 'lun'));
           section.appendChild(createDropTarget(dateStr,'dinner', 'din'));
@@ -8053,31 +8030,31 @@ const cardModules = {};
         }
         //for (const p of menuData.menuPlan) {
         let containerName;
-        menuData.menuPlan.forEach(menuPlanItem => {  
+        menuData.menuPlan.forEach(menuPlanItem => {
           const item = planitDivCreator(menuPlanItem.title, `menu-plan-item isrepeat-${menuPlanItem.repeat}`);
           item.dataset.id = menuPlanItem.id;
           item.onclick = () => updateSidePanelPlan(menuPlanItem);
           //if(dateList.includes(menuPlanItem.date)){
           const target = document.getElementById(`${menuPlanItem.date}_${menuPlanItem.meal}`);
           if(target){
-            target.appendChild(item);        
+            target.appendChild(item);
             const renderDataItem = renderData.find(t => t.date === menuPlanItem.date)
-            renderDataItem[menuPlanItem.meal].push(menuPlanItem.title);         
+            renderDataItem[menuPlanItem.meal].push(menuPlanItem.title);
           }
         });
-        
+    
         // Populate list view
-        const container = planitDivCreator(null, 'view-container');     
-        renderData.forEach(item => {       
+        const container = planitDivCreator(null, 'view-container');
+        renderData.forEach(item => {
           container.appendChild(planitDivCreator(item.title, 'menu-view-title'));
           mealList.forEach(meal => {
-            const arr = item[meal];   
+            const arr = item[meal];
             if(arr.length!=0){
-              const mealStr = stringifyMenuArrays(arr, meal); 
+              const mealStr = stringifyMenuArrays(arr, meal);
               container.appendChild(planitDivCreator(mealStr, 'menu-view-item'));
             }
           });
-            container.appendChild(planitDivCreator(' ', 'spacing'));    
+            container.appendChild(planitDivCreator(' ', 'spacing'));
         });
         dom.listView.appendChild(container);
     
@@ -8090,8 +8067,8 @@ const cardModules = {};
               if(evt.item.dataset.id){
                 //delete as being moved from one target to another
                 const id = evt.item.dataset.id;
-                menuData.menuPlan = menuData.menuPlan.filter(p => p.id !== id);  
-              }  
+                menuData.menuPlan = menuData.menuPlan.filter(p => p.id !== id);
+              }
               const parentId = evt.to.id;
               const [date, meal] = parentId.split('_');
               const id = generateId();
@@ -8101,29 +8078,29 @@ const cardModules = {};
               renderMenuList(currentFilter);
               sortMenuPlan(menuData.menuPlan);
               renderPlanner();
-              saveToLocalStorage();          
+              saveToLocalStorage();
             },
            onUpdate: function (evt) {
             updateMenuPlanOrder(evt.to);
             sortMenuPlan(menuData.menuPlan);
             saveToLocalStorage();
-           }               
+           }
           });
         });
-        
+    
       }
     
       function renderMenuList(filter = '') {
-        menuData.menuItems.sort(sortItems);  
+        menuData.menuItems.sort(sortItems);
         currentFilter = filter;
-        dom.filterInput.value = filter;  
+        dom.filterInput.value = filter;
           //const list = document.getElementById('menuList');
           menuList.innerHTML = '';
           menuData.menuItems.forEach(item => {
             if (filter && !item.tags.some(tag => tag.toLowerCase().includes(filter.toLowerCase())) &&
             !item.title.toLowerCase().includes(filter.toLowerCase())
             ) return;
-            
+    
             const div = planitDivCreator(item.title, 'menu-item');
             //const div = document.createElement('div');
             //div.className = 'menu-item';
@@ -8131,32 +8108,34 @@ const cardModules = {};
             div.onclick = () => updateSidePanelItem(item);
             menuList.appendChild(div);
           });
+    
+          if(recipeData?.recipes){
+            recipeData.recipes.forEach(recipe => {
+              const div = planitDivCreator(recipe.title, 'recipe-item menu-item');
+              //const div = document.createElement('div');
+              //div.className = 'recipe-item menu-item';
+              //div.textContent = recipe.title;
+              div.onclick = () => goToRecipe(recipe.id);
+              menuList.appendChild(div);
+            });
+          }
           
-          recipeData.recipes.forEach(recipe => {
-            const div = planitDivCreator(recipe.title, 'recipe-item menu-item');
-            //const div = document.createElement('div');
-            //div.className = 'recipe-item menu-item';
-            //div.textContent = recipe.title;
-            div.onclick = () => goToRecipe(recipe.id);
-            menuList.appendChild(div);
-          });
-         
           Sortable.create(menuList, {
             group: 'planner',
             animation: 150,
             sort: false,
-            onAdd: function (evt) {                   
+            onAdd: function (evt) {
               const id = evt.item.dataset.id;
               menuData.menuPlan = menuData.menuPlan.filter(p => p.id !== id);
               evt.item.remove();
               renderPlanner();
-              saveToLocalStorage();          
+              saveToLocalStorage();
             }
           });
         }
     
       // --- Save and Load ---
-      function loadFromLocalStorage() {    
+      function loadFromLocalStorage() {
         if (window.getPlanitSection) {
         const menuitData = getPlanitSection("menuit");
         if (menuitData.menuPlan && menuitData.menuItems) {
@@ -8182,7 +8161,7 @@ const cardModules = {};
         }
         }
       }
-      
+    
       function loadRecipeData(){
         const saved = getPlanitSection("recipeit"); //planit.js
         if (saved?.recipes) {
@@ -8195,18 +8174,18 @@ const cardModules = {};
           }
         }
       }
-        
+    
       function saveToLocalStorage() {
         if(window.updatePlanitSection) {
           updatePlanitSection("menuit", menuData);
-        }      
+        }
       }
     
       // --- Import and Export ---
       function exportData() {
-        exportCardData(menuData, 'menuit'); //planit.js     
-      } 
-      
+        exportCardData(menuData, 'menuit'); //planit.js
+      }
+    
       function importData(event) {
         const file = event.target.files[0];
         if(file) {
@@ -8219,21 +8198,20 @@ const cardModules = {};
         }
       }
     
-      // --- Shopit Integration ---  
-      function loadShopDataFromStorage() { 
+      // --- Shopit Integration ---
+      function loadShopDataFromStorage() {
       if (window.getPlanitSection) {
       const planitShopData = getPlanitSection("shopit");
         if (planitShopData.items) {
           try {
-            shopData = []; //clear            
+            shopData = []; //clear
             planitShopData.items.forEach(item => {
-              shopData.push(item.title.toLowerCase()); //only get title 
-            });         
-            //console.log(shopData);       
+              shopData.push(item.title.toLowerCase()); //only get title
+            });
           } catch (e) {
             shopData = [];
           }
-          }else{ 
+          }else{
             shopData = [];
           }
         }
@@ -8241,8 +8219,8 @@ const cardModules = {};
     /*
       function toggleSidePanel(){
         menuData.isPanelOpen = !menuData.isPanelOpen;
-        saveToLocalStorage();   
-        setSidePanel(menuData.isPanelOpen);        
+        saveToLocalStorage();
+        setSidePanel(menuData.isPanelOpen);
       }
     */
       // --- Initialization ---
@@ -8251,16 +8229,16 @@ const cardModules = {};
         dom.itemTags = document.getElementById("itemTags");
         dom.itemKeyIngredients = document.getElementById("itemKeyIngredients");
         dom.planTitle = document.getElementById("planTitle");
-        dom.planRepeat = document.getElementById("planRepeat");    
-        dom.filterInput = document.getElementById('filterInput'); 
+        dom.planRepeat = document.getElementById("planRepeat");
+        dom.filterInput = document.getElementById('filterInput');
         dom.filterInput.addEventListener("input", filterMenuList);
         dom.planner = document.getElementById('planner');
         dom.listView = document.getElementById("listView");
         dom.editView = document.getElementById("editView");
         dom.titleInput = document.getElementById('titleInput');
         dom.menuList = document.getElementById('menuList');
-      
-      /*  
+    
+      /*
         Sortable.create(document.getElementById('del'), {
           group: 'planner',
           onAdd: function (evt) {
@@ -8270,33 +8248,33 @@ const cardModules = {};
             renderPlanner();
             saveToLocalStorage();
           }
-        }); 
+        });
       */
       }
-     
-     
-      function setView(){    
+    
+    
+      function setView(){
         if(menuData.viewType === 'list'){
-          dom.editView.classList.add('planit-hidden'); 
+          dom.editView.classList.add('planit-hidden');
           dom.listView.classList.remove('planit-hidden');
           dom.toggleViewButton.textContent = 'Show Edit View';
         }else{
-          dom.editView.classList.remove('planit-hidden'); 
-          dom.listView.classList.add('planit-hidden'); 
-          dom.toggleViewButton.textContent = 'Show List View'; 
-        }          
+          dom.editView.classList.remove('planit-hidden');
+          dom.listView.classList.add('planit-hidden');
+          dom.toggleViewButton.textContent = 'Show List View';
+        }
       }
-     
-     
-       
+    
+    
+    
       function toggleView(){
         menuData.viewType = (menuData.viewType === 'list')? 'edit':'list';
         saveToLocalStorage();
         setView();
       }
-      
-          
-      function initButtons(){    
+    
+    
+      function initButtons(){
         document.getElementById('filterByBreakfastBtn')?.addEventListener('click',function(){filterByTag('breakfast');});
         document.getElementById('filterByLunchBtn')?.addEventListener('click',function(){filterByTag('lunch');});
         document.getElementById('filterByDinnerBtn')?.addEventListener('click',function(){filterByTag('dinner');});
@@ -8305,28 +8283,28 @@ const cardModules = {};
         document.getElementById('showAllButton')?.addEventListener('click',function(){filterByTag('');});
         document.getElementById('prevWeekBtn')?.addEventListener('click', prevWeek);
         document.getElementById('nextWeekBtn')?.addEventListener('click', nextWeek);
-        document.getElementById('copyRepeatsBtn')?.addEventListener('click', copyRepeats);      
+        document.getElementById('copyRepeatsBtn')?.addEventListener('click', copyRepeats);
         document.getElementById('saveMenuItemButton')?.addEventListener('click', saveMenuItem);
         document.getElementById('newMenuItemButton')?.addEventListener('click', addMenuItem);
-        document.getElementById('deleteMenuItemButton')?.addEventListener('click', deleteMenuItem);    
+        document.getElementById('deleteMenuItemButton')?.addEventListener('click', deleteMenuItem);
         document.getElementById('savePlanButton')?.addEventListener('click', saveMenuPlan);
-        document.getElementById('deletePlanButton')?.addEventListener('click', deleteMenuPlan); 
-        
+        document.getElementById('deletePlanButton')?.addEventListener('click', deleteMenuPlan);
+    
         dom.toggleViewButton = document.getElementById('toggleViewButton');
-        dom.toggleViewButton?.addEventListener('click', toggleView); 
-        
+        dom.toggleViewButton?.addEventListener('click', toggleView);
+    
         document.getElementById('addNewButton')?.addEventListener('click', startNew);
-            
+    
         //Import Export Json Data
         document.getElementById('exportDataButton')?.addEventListener('click', exportData);
         const importDataButton = document.getElementById('importDataButton');
         const hiddenFileInput = document.getElementById('hiddenFileInput');
         importDataButton?.addEventListener('click', () => hiddenFileInput?.click());
         hiddenFileInput?.addEventListener('change', importData);
-            
+    
         document.getElementById('sidePanelButton')?.addEventListener('click', toggleSidePanelUniversal);
-      }  
-      
+      }
+    
       function init() {
         initDomReferences();
         loadFromLocalStorage();
@@ -8334,10 +8312,10 @@ const cardModules = {};
         loadShopDataFromStorage();
         initButtons();
         renderView();
-        setView();   
+        setView();
         getLinkedNotes('menuit');
-      }   
-        
+      }
+    
       init();
     
       window.menuit = {
@@ -8362,7 +8340,7 @@ const cardModules = {};
       let recipeData = {recipes:[], viewType:'edit', currentRecipeId:null, isPanelOpen:true, updatedAt:timeStamp(), card:'recipeit'};
       const dom = {};
       //const sortOrder = {ingredients:[], methods:[]};
-     
+    
       // --- Constructor Functions ---
       function Recipe(title,source,type,ingredients,methods,tags,id){
         this.title = title || 'New Recipe';
@@ -8385,38 +8363,37 @@ const cardModules = {};
         this.id = id || generateId();
         this.updatedAt = timeStamp();
        }
-       
+    
        function Method(text, id){
         this.text = text || '';
         this.id = id || generateId();
         this.updatedAt = timeStamp();
        }
-          
+    
       // --- Helper Functions ---
       function saveAndRender() {
         saveToLocalStorage();
         renderView();
-      } 
+      }
     /*
       function toggleSidePanel(){
         recipeData.isPanelOpen = !recipeData.isPanelOpen;
-        saveToLocalStorage();   
-        setSidePanel(recipeData.isPanelOpen);        
-      } 
+        saveToLocalStorage();
+        setSidePanel(recipeData.isPanelOpen);
+      }
     */
-      function setView(){    
-        console.log(recipeData.viewType)
+      function setView(){
         if(recipeData.viewType === 'paste'){
-          dom.editView.classList.add('planit-hidden'); 
+          dom.editView.classList.add('planit-hidden');
           dom.pasteView.classList.remove('planit-hidden');
           dom.toggleViewButton.textContent = 'Show Edit View';
         }else{
-          dom.editView.classList.remove('planit-hidden'); 
-          dom.pasteView.classList.add('planit-hidden'); 
-          dom.toggleViewButton.textContent = 'Show Paste View'; 
-        }          
+          dom.editView.classList.remove('planit-hidden');
+          dom.pasteView.classList.add('planit-hidden');
+          dom.toggleViewButton.textContent = 'Show Paste View';
+        }
       }
-      
+    
       function toggleView(){
         recipeData.viewType = (recipeData.viewType === 'paste')? 'edit':'paste';
         saveToLocalStorage();
@@ -8426,7 +8403,7 @@ const cardModules = {};
       function createButton(text, className){
         const button = document.createElement('button');
         button.textContent = text;
-        button.addEventListener('mousedown', e => e.preventDefault());     
+        button.addEventListener('mousedown', e => e.preventDefault());
         return button;
       }
     
@@ -8434,59 +8411,57 @@ const cardModules = {};
         const recipe = new Recipe(dom.titleInput.value);
         recipeData.recipes.push(recipe);
         dom.titleInput.value = '';
-        changeRecipe(recipe.id); 
+        changeRecipe(recipe.id);
       }
-      
+    
       function changeRecipe(recipeId){
         recipeData.currentRecipeId = recipeId;
         currentRecipe = recipeData.recipes.find(r => r.id === recipeId);
         if(!currentRecipe){
           currentRecipe = recipeData.recipes[0]; //set to first;
-          recipeData.currentRecipeId = currentRecipe.id;  
+          recipeData.currentRecipeId = currentRecipe.id;
         }
-        console.log(currentRecipe, recipeId)
-        saveAndRender();   
+        saveAndRender();
       }
-      
+    
       function addIngredient(recipeId){
         currentRecipe.ingredients.push(new Ingredient('New ingredient'));
         saveAndRender();
       }
-      
+    
       function deleteIngredient(index){
         currentRecipe.ingredients.splice(index, 1);
         saveAndRender();
       }
-      
-      function toggleIngredientSubheading(ingredient){    
+    
+      function toggleIngredientSubheading(ingredient){
         ingredient.type = (ingredient.type==='sub-heading')? '':'sub-heading';
         saveAndRender();
-      }  
-      
+      }
+    
       function deleteRecipe(){
         const index = recipeData.recipes.findIndex(r => r.id === currentRecipe.id);
         recipeData.recipes.splice(index, 1);
         changeRecipe(null);
-        saveAndRender();   
+        saveAndRender();
       }
-      
+    
       function deleteMethod(index){
         currentRecipe.methods.splice(index, 1);
         saveAndRender();
-      } 
+      }
     
       function addMethod(recipeId){
-        console.log(recipeId);
         currentRecipe.methods.push(new Method('New method'));
         saveAndRender();
       }
-      
+    
       function updateIngredientProperty(propName, el, index){
         currentRecipe.ingredients[index][propName] = el.innerText.trim();
         currentRecipe.ingredients[index].updatedAt = timeStamp();
         saveAndRender();
       }
-      
+    
       function updateMethod(el, index){
         //currentRecipe.methods.splice(index, 1)
         //saveAndRender();
@@ -8494,17 +8469,17 @@ const cardModules = {};
         currentRecipe.methods[index].updatedAt = timeStamp();
         currentRecipe.updatedAt = timeStamp();
         saveAndRender();
-      }  
-      
+      }
+    
       function updateRecipeProperty(propName, el){
         currentRecipe[propName] = el.innerText.trim();
         saveAndRender();
       }
-      
+    
       function isOdd(num){
-        return num % 2;  
+        return num % 2;
       }
-      
+    
       function niceNum(num, decimalPlaces){
         const numType = typeof num
         if(numType == "string") num = Number(num);
@@ -8517,9 +8492,9 @@ const cardModules = {};
       //trims and removes multiple white spaces between words
       function niceString(str){
         str = str.replace(/^\s+|\s+$|\s+(?=\s)/, '');
-        return str;   
-      }  
-      
+        return str;
+      }
+    
       // --- Parse Recipe Functions ---
       function parseRecipe() {
         //dom.parseOutput.innerHTML = '';
@@ -8530,7 +8505,7 @@ const cardModules = {};
         let methods = [];
         let inIngredients = false
         let inMethod = false;
-        
+    
         for (let line of lines) {
           line = line.trim();
           if(line!=''){ //not blank
@@ -8556,12 +8531,12 @@ const cardModules = {};
     
         // Save
         recipeData.recipes.push(recipe);
-        
+    
         changeRecipe(recipe.id)
         saveAndRender();
-      }  
-      
-      function normalizeQuantity(ingredient) {    
+      }
+    
+      function normalizeQuantity(ingredient) {
         const lower = ingredient.toLowerCase().trim();
     
         // 1. Handle multipliers like '7 x 60g'
@@ -8572,7 +8547,7 @@ const cardModules = {};
           const unit = multiplierMatch[3];
           const total = count * amount;
           const rest = ingredient.slice(multiplierMatch[0].length).trim();
-          return `${total}${unit} ${rest}`;      
+          return `${total}${unit} ${rest}`;
         }
     
         // 2. Handle ranges like '5 - 6', '0.25 to 0.5'
@@ -8582,19 +8557,18 @@ const cardModules = {};
           const end = parseFloat(rangeMatch[2]);
           const avg = (start + end) / 2;
           const rest = ingredient.replace(rangeMatch[0], '').trim();
-          console.log(rangeMatch[0])
           return `${avg} ${rest}`;
         }
     
         // 3. Return unchanged if no match
         return ingredient;
-      } 
-      
-      // --- Ingredients ---  
+      }
+    
+      // --- Ingredients ---
       function standardiseUnits(unit) {
         // capitalisation required for teaspoon units, otherwise case insensitive
         if(unit==='T' || unit==='Ts'){
-         unit = 'tbsp'; 
+         unit = 'tbsp';
         }
         const map = {
           // tablespoons
@@ -8602,11 +8576,11 @@ const cardModules = {};
           // teaspoons
           'teaspoon': 'tsp', 'teaspoons': 'tsp','t':'tsp','ts':'tsp','tspn':'tsp',
           // kilograms
-          'kg':'kilogram', 'kgs':'kilograms', 'kilo':'kilogram', 'kilos':'kilograms',    
+          'kg':'kilogram', 'kgs':'kilograms', 'kilo':'kilogram', 'kilos':'kilograms',
           // grams
-          'g':'grams', 'gs':'grams', 'gm':'grams', 
+          'g':'grams', 'gs':'grams', 'gm':'grams',
           // millilitres
-          'ml':'mls', 'mls':'mls', 'millitres':'mls','millilitres':'mls', 
+          'ml':'mls', 'mls':'mls', 'millitres':'mls','millilitres':'mls',
           //litres
           'liter':'litre','liters':'litres'
           };
@@ -8656,64 +8630,63 @@ const cardModules = {};
     
         return input;
       }
-      
+    
       // Fix brackets, double measurements, commas
       function checkDoubleUnits(input, unitPattern){
         const line = {filtered:input, inst:'', type:''};
-        
-        // Separate brackets 
+    
+        // Separate brackets
         const regexBracket = new RegExp('((?:\\()(.*?)(?:\\)))');
-        const matchBracket = line.filtered.match(regexBracket);  
+        const matchBracket = line.filtered.match(regexBracket);
         if(matchBracket){
           line.filtered = line.filtered.replace(matchBracket[1],''); //(1 cup)
           line.inst = matchBracket[2]; //1 cup
-          line.type = 'bracket';  
+          line.type = 'bracket';
         }
-            
+    
         // Comma
         const regexComma = new RegExp('(,.+)');
-        const matchComma = line.filtered.match(regexComma);  
+        const matchComma = line.filtered.match(regexComma);
         if(matchComma){
-          line.filtered =  line.filtered.replace(matchComma[0],''); 
+          line.filtered =  line.filtered.replace(matchComma[0],'');
           line.inst = matchComma[0].replace(',','').trim(); //, blah blah
-          line.type = 'comma';  
+          line.type = 'comma';
         }
-        
+    
         //Or
         const regexOr = new RegExp('(?:\\s+or|Or\\s)(.+)');
-        const matchOr = line.filtered.match(regexOr);  
+        const matchOr = line.filtered.match(regexOr);
         if(matchOr){
-          line.filtered =  line.filtered.replace(matchOr[0],''); 
+          line.filtered =  line.filtered.replace(matchOr[0],'');
           line.inst = matchOr[0].replace(',','').trim();//or 1 sweet potato
-          line.type = 'or';  
-        }    
-        
-        // Find double measurements 
-        const regex = new RegExp(`(\\d+(?:\\.\\d+)?)(?:\\s*)(${unitPattern})`, 'g');    
+          line.type = 'or';
+        }
+    
+        // Find double measurements
+        const regex = new RegExp(`(\\d+(?:\\.\\d+)?)(?:\\s*)(${unitPattern})`, 'g');
         const match = line.filtered.match(regex);
         if(match){
           if(match.length > 1){
             //user could prioritise weight or cup mesurements
             //const item = (match[1].includes('cup'))? match[0]:match[1];
-            line.filtered =  line.filtered.replace(match[1],''); 
-            line.inst = match[1]; 
-            line.type = 'double measurement'; 
-          }       
+            line.filtered =  line.filtered.replace(match[1],'');
+            line.inst = match[1];
+            line.type = 'double measurement';
+          }
         }
         line.filtered = line.filtered.trim();
-        console.log(line, input);
-        return line;        
+        return line;
       }
     
       function parseIngredientFlexible(input) {
         const units = ['mls','ml','g','gm','grams','kg','kilos','t','T','Cup','cup','Cups','cups','tsp','tbsp','Teaspoon','Tablespoon','Teaspoons','Tablespoons','Ts','ts','Tbs','tbs','litres','Tspn'];
         const unitPattern = units.join('|');
-        const original = input.replace('▢', '').trim(); //checkbox  
+        const original = input.replace('▢', '').trim(); //checkbox
         const normalized = normalizeFractionsInString(original);
-        input = normalizeQuantity(normalized); //fixes 7 x 60, 
+        input = normalizeQuantity(normalized); //fixes 7 x 60,
         const checkDouble  = checkDoubleUnits(input, unitPattern);
         input = normalizeFractionsInString(checkDouble.filtered);
-        
+    
         const result = {
           qty: null,
           unitOriginal: null,
@@ -8723,7 +8696,7 @@ const cardModules = {};
           normalized: normalized,
           original: original,
         };
-            
+    
         const regex = new RegExp(
           // Pattern 1: quantity + unit + optional 'of' + ingredient
           `(?:^|\\b)(\\d+(?:\\.\\d+)?)(?:\\s*)(${unitPattern})(?:\\s+of)?\\s+(.*)` +
@@ -8737,9 +8710,8 @@ const cardModules = {};
         );
     
         const match = input.match(regex);
-        
-        if(match){  
-          //console.log(match);
+    
+        if(match){
           if (match[1] && match[2] && match[3]) {
             // Format: 200ml milk
             result.qty =  parseFloat(match[1]),
@@ -8764,10 +8736,10 @@ const cardModules = {};
             result.ingredient = match[9].trim()
           }
         }
-        
+    
         let checkRemainderText = result.normalized.replace(result.ingredient,'').replace(result.qty,'').replace(result.unitOriginal,'').replace(result.inst,'').trim();
         if(checkRemainderText.length!=0){
-          checkRemainderText = checkRemainderText.replace(/^\,/, '').replace(/^Of$/i, '').replace(/\((\s+)?\)/, ''); 
+          checkRemainderText = checkRemainderText.replace(/^\,/, '').replace(/^Of$/i, '').replace(/\((\s+)?\)/, '');
           if(checkRemainderText.length!=0){
             result.inst += ' ' + checkRemainderText;
             result.inst = result.inst.trim();
@@ -8775,25 +8747,25 @@ const cardModules = {};
         }
         return result;
       }
-      
+    
       // --- Render Functions ---
       function renderView(){
         renderRecipe();
         renderRecipePicker();
       }
-      
+    
       function renderRecipe(){
         //sortOrder.ingredients = [];
         //sortOrder.methods = [];
-        const recipeContainer = dom.recipeContainer; 
+        const recipeContainer = dom.recipeContainer;
         const ingredientsContainer = planitDivCreator(null, 'ingredients-container', 'ingredientsContainer');
         const methodsContainer = planitDivCreator(null, 'methods-container', 'methodsContainer');
     
         const recipe = currentRecipe;
         recipeContainer.innerHTML = '';
-        
+    
         const icon = getBestGuessEmoji(recipe.title, '🍲️');
-           
+    
         //const recipeNumber = planitDivCreator(currentRecipeId.toString(), 'recipe-heading');
         const recipeTitle = planitDivCreator(icon + ' ' + recipe.title, 'recipe-title', true);
         recipeTitle.onblur = () => updateRecipeProperty('title', recipeTitle);
@@ -8801,14 +8773,14 @@ const cardModules = {};
         recipeType.onblur = () => updateRecipeProperty('type', recipeType);
         const recipeSource = planitDivCreator(recipe.source, 'recipe-source', true);
         recipeSource.onblur = () => updateRecipeProperty('source', recipeSource);
-        
+    
         const deleteHeading = planitDivCreator('', 'heading inline-tools heading-last-child');
         const deleteRecipeSvg = createSvg('delete', 'icon');
-        deleteRecipeSvg.addEventListener('mousedown', e => e.preventDefault()); 
-        deleteRecipeSvg.onclick = () => deleteRecipe();  
-           
-        //recipeContainer.appendChild(recipeNumber); 
-        const recipeHeading = planitDivCreator(null, 'recipe-heading'); 
+        deleteRecipeSvg.addEventListener('mousedown', e => e.preventDefault());
+        deleteRecipeSvg.onclick = () => deleteRecipe();
+    
+        //recipeContainer.appendChild(recipeNumber);
+        const recipeHeading = planitDivCreator(null, 'recipe-heading');
         recipeHeading.appendChild(recipeTitle);
         recipeHeading.appendChild(recipeType);
         recipeHeading.appendChild(recipeSource);
@@ -8817,18 +8789,18 @@ const cardModules = {};
         recipeContainer.appendChild(recipeHeading);
     
         const ingredientsHeading = planitDivCreator(null, 'ingredients-heading');
-        const ingredientsTitle = planitDivCreator('Ingredients', 'ingredients-title');   
-        const ingredientButtonContainer = planitDivCreator('', 'ingredients-method-heading inline-tools'); 
+        const ingredientsTitle = planitDivCreator('Ingredients', 'ingredients-title');
+        const ingredientButtonContainer = planitDivCreator('', 'ingredients-method-heading inline-tools');
         const addIngredientButton = createButton('+ Add New Ingredient', '');
         addIngredientButton.onclick = () => addIngredient(recipe.index);
-        
+    
         ingredientsHeading.appendChild(ingredientsTitle);
         ingredientButtonContainer.appendChild(addIngredientButton);
         ingredientsHeading.appendChild(ingredientButtonContainer);
-            
+    
         recipeContainer.appendChild(ingredientsHeading);
-          
-        
+    
+    
         // Ingredients Header
         const ingredientsRow = planitDivCreator(null, 'ingredients-row');
         const recipeQtyLabel = planitDivCreator('qty', 'recipe-label qty-cell', true);
@@ -8836,106 +8808,106 @@ const cardModules = {};
         const recipeTitleLabel = planitDivCreator('title', 'recipe-label title-cell', true);
         const recipeInstructionsLabel = planitDivCreator('instructions, detail or other unit', 'recipe-label inst-cell', true);
         recipeInstructionsLabel.style = 'grid-column: span 3;';
-        
+    
         ingredientsRow.appendChild(recipeQtyLabel);
         ingredientsRow.appendChild(recipeUnitLabel);
         ingredientsRow.appendChild(recipeTitleLabel);
-        ingredientsRow.appendChild(recipeInstructionsLabel); 
+        ingredientsRow.appendChild(recipeInstructionsLabel);
         ingredientsContainer.appendChild(ingredientsRow);
-        
+    
         recipeContainer.appendChild(ingredientsContainer);
     
-          
+    
         // Ingredients
         recipe.ingredients.forEach((ingredient, index) => {
           //sortOrder.ingredients.push(ingredient.id)
-          const className = (isOdd(index))? 'is-odd':'is-even';   
+          const className = (isOdd(index))? 'is-odd':'is-even';
           const ingredientQty = planitDivCreator(ingredient.qty, className + ' qty-cell', true);
           ingredientQty.onblur = () => updateIngredientProperty('qty', ingredientQty, index);
-          ingredientQty.contentEditable = 'true'; 
-          
+          ingredientQty.contentEditable = 'true';
+    
           const ingredientUnit = planitDivCreator(ingredient.unit, className + ' unit-cell', true);
           ingredientUnit.onblur = () => updateIngredientProperty('unit', ingredientUnit, index);
-          ingredientUnit.contentEditable = 'true'; 
-          
+          ingredientUnit.contentEditable = 'true';
+    
           const ingredientTitle = planitDivCreator(ingredient.title, className + ' title-cell', true);
-          ingredientTitle.onblur = () => updateIngredientProperty('title', ingredientTitle, index);   
-          ingredientTitle.contentEditable = 'true';   
-          
+          ingredientTitle.onblur = () => updateIngredientProperty('title', ingredientTitle, index);
+          ingredientTitle.contentEditable = 'true';
+    
           const ingredientInst = planitDivCreator(ingredient.inst, className + ' inst-cell', true);
-          ingredientInst.onblur = () => updateIngredientProperty('inst', ingredientInst, index); 
+          ingredientInst.onblur = () => updateIngredientProperty('inst', ingredientInst, index);
           ingredientInst.style = 'grid-column: span 2;';
-          ingredientInst.contentEditable = 'true'; 
-          
+          ingredientInst.contentEditable = 'true';
+    
           const editContainer = planitDivCreator('', className + ' inline-tools');
-          
+    
           const subheadingSvg = createSvg('sub-heading', 'icon');
-          subheadingSvg.addEventListener('mousedown', e => e.preventDefault()); 
-          subheadingSvg.onclick = () => toggleIngredientSubheading(ingredient);      
-          
+          subheadingSvg.addEventListener('mousedown', e => e.preventDefault());
+          subheadingSvg.onclick = () => toggleIngredientSubheading(ingredient);
+    
           const deleteSvg = createSvg('delete', 'icon');
-          deleteSvg.addEventListener('mousedown', e => e.preventDefault()); 
+          deleteSvg.addEventListener('mousedown', e => e.preventDefault());
           deleteSvg.onclick = () => deleteIngredient(index);
-          
-          editContainer.appendChild(subheadingSvg); 
-          editContainer.appendChild(deleteSvg); 
-          
+    
+          editContainer.appendChild(subheadingSvg);
+          editContainer.appendChild(deleteSvg);
+    
           const ingredientsRow = planitDivCreator(null, 'ingredients-row');
           ingredientsRow.dataset.id = ingredient.id;
           if(ingredient.type=='sub-heading'){
-            ingredientTitle.style = 'sub-heading';  
-            ingredientsRow.appendChild(ingredientTitle); 
-            ingredientsRow.appendChild(editContainer);                 
+            ingredientTitle.style = 'sub-heading';
+            ingredientsRow.appendChild(ingredientTitle);
+            ingredientsRow.appendChild(editContainer);
           }else{
-            ingredientsRow.appendChild(ingredientQty);  
+            ingredientsRow.appendChild(ingredientQty);
             ingredientsRow.appendChild(ingredientUnit);
             ingredientsRow.appendChild(ingredientTitle);
             ingredientsRow.appendChild(ingredientInst);
-            ingredientsRow.appendChild(editContainer);       
-          }   
-          ingredientsContainer.appendChild(ingredientsRow);       
+            ingredientsRow.appendChild(editContainer);
+          }
+          ingredientsContainer.appendChild(ingredientsRow);
          });
     
         // Method
         const methodHeading = planitDivCreator(null, 'method-heading');
-        
-        const methodTitle = planitDivCreator('Method', 'method-title');   
+    
+        const methodTitle = planitDivCreator('Method', 'method-title');
         const methodButtonContainer = planitDivCreator('', 'inline-tools');
         const addMethodButton = createButton('+ Add New Method Line', '');
         addMethodButton.onclick = () => addMethod(recipe.index);
         methodButtonContainer.appendChild(addMethodButton);
-        
-        methodHeading.appendChild(methodTitle);  
-        methodHeading.appendChild(methodButtonContainer); 
-        recipeContainer.appendChild(methodHeading);  
-        
+    
+        methodHeading.appendChild(methodTitle);
+        methodHeading.appendChild(methodButtonContainer);
+        recipeContainer.appendChild(methodHeading);
+    
         recipeContainer.appendChild(methodsContainer);
-        
+    
         recipe.methods.forEach((method,index) => {
-             
+    
           const className = (isOdd(index))? 'is-odd':'is-even';
           const methodRow = planitDivCreator(null, 'method-row');
           methodRow.dataset.id = method.id;
-          
+    
           const methodLine = planitDivCreator(method.text, className, true);
           methodLine.style = 'grid-column: span 5;';
-          methodLine.onblur = () => updateMethod(methodLine, index);  
+          methodLine.onblur = () => updateMethod(methodLine, index);
           methodLine.contentEditable = 'true';
-          
+    
           const editContainer = planitDivCreator('', className + ' inline-tools');
     
           const deleteSvg = createSvg('delete', 'icon');
-          deleteSvg.addEventListener('mousedown', e => e.preventDefault()); 
-          deleteSvg.onclick = () => deleteMethod(index);          
-          
+          deleteSvg.addEventListener('mousedown', e => e.preventDefault());
+          deleteSvg.onclick = () => deleteMethod(index);
+    
           editContainer.appendChild(deleteSvg);
-          
+    
           methodRow.appendChild(methodLine);
           methodRow.appendChild(editContainer);
-           
+    
           methodsContainer.appendChild(methodRow);
         });
-        
+    
         new Sortable(ingredientsContainer, {
           group: 'ingredients',
           //animation: 150,
@@ -8943,8 +8915,8 @@ const cardModules = {};
           onEnd: function (evt) {
             sortByDom('ingredients', ingredientsContainer, '.ingredients-row');
           }
-        }); 
-        
+        });
+    
         new Sortable(methodsContainer, {
           group: 'methods',
           //animation: 150,
@@ -8952,34 +8924,31 @@ const cardModules = {};
           onUpdate: function (evt) {
             sortByDom('methods', methodsContainer, '.method-row');
           }
-        });    
-        //console.log(sortOrder.ingredients, sortOrder.methods) 
+        });
       }
     
       function sortByDom(property, container, className){
-        console.log('sortByDom', property);   
         const arrayOfDomItems = container.querySelectorAll(className);
         const dataIds = [...arrayOfDomItems].map(el => el.dataset.id);
-        console.log(dataIds)
         currentRecipe[property].sort((a, b) => dataIds.indexOf(a.id) - dataIds.indexOf(b.id));
         saveAndRender();
       }
     
-      
+    
       function renderRecipePicker(){
         dom.recipePicker.innerHTML = '';
         recipeData.recipes.forEach((recipe,index) => {
         const recipeBox = planitDivCreator(recipe.title, '');
         recipeBox.onclick = () => changeRecipe(recipe.id);
-        dom.recipePicker.appendChild(recipeBox);  
+        dom.recipePicker.appendChild(recipeBox);
         })
       }
     
-      // --- Import and Export ---    
+      // --- Import and Export ---
       function exportData() {
-        exportCardData(recipeData, 'recipeit'); //planit.js     
-      } 
-      
+        exportCardData(recipeData, 'recipeit'); //planit.js
+      }
+    
       function importData(event) {
         const file = event.target.files[0];
         if(file) {
@@ -8990,8 +8959,8 @@ const cardModules = {};
           };
           reader.readAsText(file);
         }
-      }  
-      
+      }
+    
       // --- Save and Load ---
       function loadFromLocalStorage() {
         if (window.getPlanitSection) {
@@ -9004,17 +8973,17 @@ const cardModules = {};
               console.warn("Could not parse saved recipeit data:", e);
             }
           } else {
-            const id = generateId();        
+            const id = generateId();
             recipeData.recipes = [new Recipe('Ho Fun Noodles','Home','main',[
               new Ingredient('Rice Flour', 1, 'cup'),
               new Ingredient('Tapioca Flour', 0.5, 'cups'),
               new Ingredient('Water', 1.5, 'cups'),
-              new Ingredient('Oil', '', '','for spraying tray and separating noodles')        
+              new Ingredient('Oil', '', '','for spraying tray and separating noodles')
             ],[
               'Mix stand mixer for 5 minutes with enough water to form dough.',
               'Then slowly add the water to make paste then rest for 1hr.',
-              'Cook ladels of paste in non-stick pan five minutes each oil and layer and slice.'          
-            ],['main'],id)];        
+              'Cook ladels of paste in non-stick pan five minutes each oil and layer and slice.'
+            ],['main'],id)];
             recipeData.currentRecipeId = id;
             changeRecipe(recipeData.currentRecipeId);
             saveToLocalStorage();
@@ -9044,19 +9013,19 @@ const cardModules = {};
         document.getElementById('parseRecipeButton')?.addEventListener('click', parseRecipe);
         dom.addNewButton =  document.getElementById('addNewButton');
         dom.addNewButton?.addEventListener('mousedown', e => e.preventDefault());
-        dom.addNewButton?.addEventListener('click', addNewRecipe); 
-        
+        dom.addNewButton?.addEventListener('click', addNewRecipe);
+    
         dom.toggleViewButton = document.getElementById('toggleViewButton');
-        dom.toggleViewButton?.addEventListener('click', toggleView);  
-        
+        dom.toggleViewButton?.addEventListener('click', toggleView);
+    
         //Import Export Json Data
         document.getElementById('exportDataButton')?.addEventListener('click', exportData);
         const importDataButton = document.getElementById('importDataButton');
         const hiddenFileInput = document.getElementById('hiddenFileInput');
         importDataButton?.addEventListener("click", () => hiddenFileInput?.click());
-        hiddenFileInput?.addEventListener("change", importData); 
-        
-        document.getElementById('sidePanelButton')?.addEventListener('click', toggleSidePanelUniversal);      
+        hiddenFileInput?.addEventListener("change", importData);
+    
+        document.getElementById('sidePanelButton')?.addEventListener('click', toggleSidePanelUniversal);
       }
     
       function init() {
@@ -9064,7 +9033,7 @@ const cardModules = {};
         loadFromLocalStorage();
         initButtons();
         renderView();
-        setView(); 
+        setView();
         getLinkedNotes('recipeit');
       }
     
@@ -9305,7 +9274,6 @@ const cardModules = {};
                 //if(item.watching) item.watching = 'watching';
                 //if(!item.watching) item.watching = 'watched';
               //})
-              //console.log(watchData);
               //saveToLocalStorage();          
             } catch (e) {
               console.warn("Could not parse saved watchit data:", e);
@@ -9376,7 +9344,6 @@ const cardModules = {};
                 //check existing id title structure and nasties
                 const idMatch = watchData.shows.find(s => s.id === show.id);
                 const titleMatch = watchData.shows.find(s => s.title === show.title);
-                console.log(idMatch, show.title, show.id)
                 if(!idMatch){
                   watchData.shows.push(show);
                 }
@@ -9753,19 +9720,19 @@ const cardModules = {};
       /*
       function toggleSidePanel(){
         listenData.isPanelOpen = !listenData.isPanelOpen;
-        saveToLocalStorage();   
-        setSidePanel(listenData.isPanelOpen);        
-      } 
+        saveToLocalStorage();
+        setSidePanel(listenData.isPanelOpen);
+      }
       */
       function setDisplayListenedButton(){
         dom.showHideListenedButton.textContent = (listenData.isDisplayListened)? 'Hide Listened':'Show Listened';
       }
-          
+    
       function toggleDisplayListened(){
         listenData.isDisplayListened = !listenData.isDisplayListened;
         setDisplayListenedButton();
-        saveAndRender();           
-      } 
+        saveAndRender();
+      }
     
       function updateSidePanel(data) {
         currentListenItemId = data.id;
@@ -9789,7 +9756,7 @@ const cardModules = {};
           medium: dom.panelMedium.value,
           listening: dom.panelListening.checked,
           day: dom.panelDay.value,
-          time: dom.panelTime.value, 
+          time: dom.panelTime.value,
           tags: parseTags(dom.panelTags.value),
           updatedAt: timeStamp()
         };
@@ -9803,16 +9770,16 @@ const cardModules = {};
         } else {
           const newListen = new ListenItem(panelData.title); //for duplicate or copy
           currentListenItemId = newListen.id;
-          Object.assign(newListen, panelData);      
+          Object.assign(newListen, panelData);
           listenData.audio.push(newListen);
         }
         saveAndRender();
         showToast(`${panelData.title} updated`, 'success');
       }
-      
+    
       function duplicateItem(){
         currentListenItemId = null;
-        saveListenItem()  
+        saveListenItem()
       }
     
       function startNew() {
@@ -9824,23 +9791,23 @@ const cardModules = {};
         saveAndRender();
         showToast(`${newTitle} added`, 'success');
       }
-      
-       function deleteItem(){    
+    
+       function deleteItem(){
         const index =  listenData.audio.findIndex(a => a.id===currentListenItemId);
         if(index!=-1){
          listenData.audio.splice(index, 1);
          showToast(`audio deleted`, 'success');
-        } 
+        }
         currentListenItemId = null;
-        saveAndRender();    
+        saveAndRender();
       }
-      
-      
+    
+    
     
       // --- Render Functions ---
       function renderView() {
         dom.listenView.innerHTML = '';
-            
+    
         listenData.audio.sort((a, b) => {
           if (a.listening !== b.listening) {
             return a.listening ? -1 : 1; // true comes before false
@@ -9858,8 +9825,8 @@ const cardModules = {};
             const div = planitDivCreator(null, `gen-item listenit-item ${item.medium.toLowerCase()} listening-${item.listening}`);
             div.dataset.id = item.id;
             div.onclick = () => updateSidePanel(item);
-            
-            const emojiBlock = planitDivCreator('🎧', 'emoji-block'); 
+    
+            const emojiBlock = planitDivCreator('🎧', 'emoji-block');
             const title = planitDivCreator(item.title, 'listenit-title');
             const creator = planitDivCreator(item.creator, 'listenit-creator');
             const medium = planitDivCreator(item.medium, 'listenit-medium');
@@ -9905,10 +9872,10 @@ const cardModules = {};
         }
       }
     
-      // --- Import and Export ---    
+      // --- Import and Export ---
       function exportData() {
-        exportCardData(listenData, 'listenit'); //planit.js     
-      } 
+        exportCardData(listenData, 'listenit'); //planit.js
+      }
       /*
       function importData(event) {
         const file = event.target.files[0];
@@ -9922,7 +9889,7 @@ const cardModules = {};
         }
       }
       */
-      
+    
       function importData(event) {
         importCardData(event, 'listenit').then(data => {
           listenData = data;
@@ -9932,7 +9899,7 @@ const cardModules = {};
           showToast('Failed to import data: ' +  err, 'error');
         });
       }
-      
+    
       // --- Initialization ---
       function initDomReferences() {
         dom.listenView = document.getElementById('listenView');
@@ -9945,17 +9912,17 @@ const cardModules = {};
         dom.panelTime = document.getElementById('time');
         dom.panelTags = document.getElementById('tags');
         dom.titleInput = document.getElementById('titleInput');
-        
-        
+    
+    
         //autopanel
         dom.panelTitle?.addEventListener('input', saveListenItem); //change = final value on blur
-        dom.panelCreator?.addEventListener('input', saveListenItem); 
-        dom.panelMedium?.addEventListener('change', saveListenItem);   
+        dom.panelCreator?.addEventListener('input', saveListenItem);
+        dom.panelMedium?.addEventListener('change', saveListenItem);
         dom.panelListening?.addEventListener('change', saveListenItem);
         dom.panelDay?.addEventListener('change', saveListenItem);
         dom.panelTime?.addEventListener('change', saveListenItem);
-        dom.panelTags?.addEventListener('input', saveListenItem); 
-        
+        dom.panelTags?.addEventListener('input', saveListenItem);
+    
       }
     
       function initButtons() {
@@ -9963,17 +9930,17 @@ const cardModules = {};
         document.getElementById('deleteItemButton')?.addEventListener('click', deleteItem);
         document.getElementById('duplicateItemButton')?.addEventListener('click', duplicateItem);
         document.getElementById('exportDataButton')?.addEventListener('click', exportData);
-        
+    
         dom.showHideListenedButton = document.getElementById('showHideListenedButton');
         dom.showHideListenedButton?.addEventListener('click', toggleDisplayListened);
         setDisplayListenedButton();
-        
+    
         //Import Json Data
         const importDataButton = document.getElementById('importDataButton');
         const hiddenFileInput = document.getElementById('hiddenFileInput');
         importDataButton?.addEventListener("click", () => hiddenFileInput?.click());
-        hiddenFileInput?.addEventListener("change", importData); 
-        
+        hiddenFileInput?.addEventListener("change", importData);
+    
         document.getElementById('sidePanelButton')?.addEventListener('click', toggleSidePanelUniversal);
       }
     
@@ -9982,7 +9949,7 @@ const cardModules = {};
         loadFromLocalStorage();
         initButtons();
         renderView();
-        getLinkedNotes('listenit');  
+        getLinkedNotes('listenit');
       }
     
       init();
@@ -10013,23 +9980,23 @@ const cardModules = {};
         saveToLocalStorage();
         renderView();
       }
-     /* 
+     /*
       function toggleSidePanel(){
         gameData.isPanelOpen = !gameData.isPanelOpen;
-        saveToLocalStorage();   
-        setSidePanel(gameData.isPanelOpen);        
-      } 
+        saveToLocalStorage();
+        setSidePanel(gameData.isPanelOpen);
+      }
       */
       function setDisplayPlayedButton(){
         dom.showHidePlayedButton.textContent = (gameData.isDisplayPlayed)? 'Hide Played':'Show Played';
       }
-      
+    
       function toggleDisplayPlayed(){
         gameData.isDisplayPlayed = !gameData.isDisplayPlayed;
         setDisplayPlayedButton();
-        saveAndRender();           
-      } 
-      
+        saveAndRender();
+      }
+    
       function GameItem(title, platform, genre, playing, day, time, tags, id) {
         this.title = title;
         this.platform = platform;
@@ -10064,7 +10031,7 @@ const cardModules = {};
           genre: dom.panelGenre.value,
           playing: dom.panelPlaying.checked,
           day: dom.panelDay.value,
-          time: dom.panelTime.value, 
+          time: dom.panelTime.value,
           tags: parseTags(dom.panelTags.value),
           updatedAt: timeStamp()
         };
@@ -10078,7 +10045,7 @@ const cardModules = {};
         } else {
           const newGame = new GameItem(panelData.title); //for duplicate or copy
           currentGameItemId = newGame.id;
-          Object.assign(newGame, panelData);      
+          Object.assign(newGame, panelData);
           gameData.games.push(newGame);
         }
         saveAndRender();
@@ -10087,7 +10054,7 @@ const cardModules = {};
     
       function duplicateItem(){
         currentGameItemId = null;
-        saveGameItem()  
+        saveGameItem()
       }
     
       function startNew() {
@@ -10100,7 +10067,7 @@ const cardModules = {};
         showToast(`${newTitle} added`, 'success');
       }
     
-      function deleteItem(){    
+      function deleteItem(){
         const index =  gameData.games.findIndex(g => g.id===currentGameItemId);
         if(index!=-1){
          gameData.games.splice(index, 1);
@@ -10113,7 +10080,7 @@ const cardModules = {};
       // --- Render Functions ---
       function renderView() {
         dom.gameView.innerHTML = '';
-        
+    
         gameData.games.sort((a, b) => {
           if (a.playing !== b.playing) {
             return a.playing ? -1 : 1; // true comes before false
@@ -10131,20 +10098,20 @@ const cardModules = {};
             const div = planitDivCreator(null, `gen-item gameit-item ${item.genre.toLowerCase()} playing-${item.playing}`);
             div.dataset.id = item.id;
             div.onclick = () => updateSidePanel(item);
-            
+    
             const emojiBlock = planitDivCreator('🎮️', 'emoji-block');
             const title = planitDivCreator(item.title, 'gameit-title');
             const platform = planitDivCreator(item.platform, 'gameit-platform');
             const genre = planitDivCreator(item.genre, 'gameit-genre');
             const day = planitDivCreator(item.day, 'gameit-type cell-non-essential');
             const time = planitDivCreator(item.time, 'gameit-type cell-non-essential');
-            
+    
             div.appendChild(emojiBlock);
             div.appendChild(title);
             div.appendChild(platform);
             div.appendChild(genre);
             div.appendChild(day);
-            div.appendChild(time);            
+            div.appendChild(time);
             dom.gameView.appendChild(div);
           }
         });
@@ -10177,12 +10144,12 @@ const cardModules = {};
           updatePlanitSection("gameit", gameData);
         }
       }
-      
-      // --- Import and Export ---    
+    
+      // --- Import and Export ---
       function exportData() {
-        exportCardData(gameData, 'gameit'); //planit.js     
-      } 
-      
+        exportCardData(gameData, 'gameit'); //planit.js
+      }
+    
       function importData(event) {
         const file = event.target.files[0];
         if(file) {
@@ -10205,18 +10172,18 @@ const cardModules = {};
         dom.panelPlaying = document.getElementById('playing');
         dom.panelDay = document.getElementById('day');
         dom.panelTime = document.getElementById('time');
-        dom.panelTags = document.getElementById('tags');    
+        dom.panelTags = document.getElementById('tags');
         dom.titleInput = document.getElementById('titleInput');
-        
+    
         //autopanel
         dom.panelTitle?.addEventListener('input', saveGameItem); //change = final value on blur
-        dom.panelPlatform?.addEventListener('input', saveGameItem); 
-        dom.panelGenre?.addEventListener('change', saveGameItem);   
+        dom.panelPlatform?.addEventListener('input', saveGameItem);
+        dom.panelGenre?.addEventListener('change', saveGameItem);
         dom.panelPlaying?.addEventListener('change', saveGameItem);
         dom.panelDay?.addEventListener('change', saveGameItem);
         dom.panelTime?.addEventListener('change', saveGameItem);
-        dom.panelTags?.addEventListener('input', saveGameItem); 
-        
+        dom.panelTags?.addEventListener('input', saveGameItem);
+    
       }
     
       function initButtons() {
@@ -10224,7 +10191,7 @@ const cardModules = {};
         document.getElementById('deleteItemButton')?.addEventListener('click', deleteItem);
         document.getElementById('duplicateItemButton')?.addEventListener('click', duplicateItem);
         document.getElementById('exportDataButton')?.addEventListener('click', exportData);
-        
+    
         dom.showHidePlayedButton = document.getElementById('showHidePlayedButton');
         dom.showHidePlayedButton?.addEventListener('click', toggleDisplayPlayed);
         setDisplayPlayedButton();
@@ -10233,7 +10200,7 @@ const cardModules = {};
         const importDataButton = document.getElementById('importDataButton');
         const hiddenFileInput = document.getElementById('hiddenFileInput');
         importDataButton?.addEventListener("click", () => hiddenFileInput?.click());
-        hiddenFileInput?.addEventListener("change", importData);    
+        hiddenFileInput?.addEventListener("change", importData);
         document.getElementById('sidePanelButton')?.addEventListener('click', toggleSidePanelUniversal);
       }
     
@@ -10299,7 +10266,7 @@ const cardModules = {};
       }  
     
       function TaskItem(title, status, type, sortOrder, startDate, endDate, id) {
-        this.title = title;
+        this.title = title || 'New Task';
         this.status = status || 'pending';
         this.type = type || '';
         this.order = sortOrder || 0;
@@ -10360,7 +10327,6 @@ const cardModules = {};
     
       function updateSidePanel(item) {
         currentEditItem = item;
-        console.log(item)
         dom.panelTitle.value = item.title;    
         dom.panelStatus.value = item.status;
         dom.panelType.value = item.type;
@@ -10376,7 +10342,7 @@ const cardModules = {};
        }
     
       function clearSidePanel() {
-        updateSidePanel(new TaskItem(''));
+        updateSidePanel(new TaskItem());
       }
     
       function getPanelData() {
@@ -10431,7 +10397,7 @@ const cardModules = {};
       
       
       function addNewTask(activity){
-        activity.tasks.push(new TaskItem('New Task'));
+        activity.tasks.push(new TaskItem());
         saveAndRender();
       }
       
@@ -10466,10 +10432,6 @@ const cardModules = {};
       
       function deleteTask(task, activity) {
         showToast(`task: ${task.title} deleted`, 'success'); 
-        
-        //console.log(activity.tasks.filter(t => !(t.id === task.id)));
-        
-          
         activity.tasks = activity.tasks.filter(t => !(t.id === task.id));
         saveAndRender();
       } 
@@ -10813,7 +10775,6 @@ const cardModules = {};
           } 
           
           if(task.status==='complete'){
-            console.log('is-complete')
             additionalStyle += ' bar-complete';   
           }
           
@@ -10855,7 +10816,6 @@ const cardModules = {};
               buildData = saved;
               setCurrentProject(); 
               setCurrentView();
-              //console.log('currentProject:', currentProject);
               //buildData.card = 'buildit';
               //saveToLocalStorage();
             } catch (e) {
@@ -10866,7 +10826,7 @@ const cardModules = {};
             buildData.currentProjectId = starterProject.id;
             const activity1 = new ActivityItem('buy materials');
             const activity2 = new ActivityItem('carpentry');
-            activity1.tasks.push(TaskItem('buy nails', null, null, 0, '2025-06-10', '2025-06-12')); 
+            activity1.tasks.push(new TaskItem('buy nails', null, null, 0, '2025-06-10', '2025-06-12')); 
             activity1.tasks.push(new TaskItem('buy wood', null, null, 0, '2025-06-12', '2025-06-14')); 
             activity2.tasks.push(new TaskItem('cut roof', null, null, 0, '2025-06-14', '2025-06-15')); 
             activity2.tasks.push(new TaskItem('drill bird house entrance', null, null, 0, '2025-06-16', '2025-06-20'));     
@@ -11150,12 +11110,11 @@ const cardModules = {};
       }
     
       function shiftMonthsNortherHemisphere(monthArray){
-        //console.log('monthArray:', monthArray, monthArray.typeOf);
-        
+    
         if(!Array.isArray(monthArray)){
-        monthArray = monthArray.split(',');  
+        monthArray = monthArray.split(',');
         }
-        
+    
         if(monthArray.length === 0) return [];
         return monthArray.map(m => ((m + 6 - 1) % 12) + 1);
       }
@@ -11243,8 +11202,6 @@ const cardModules = {};
       function updatePanelGrowItem(growItem, groupName){
         currentItem = growItem;
         currentGroup = groupName;
-    
-        console.log(currentItem, currentGroup);
         // Shared properties
         dom.panelTitle.value = growItem.title;
         dom.panelType.value = growItem.type;
@@ -11269,31 +11226,6 @@ const cardModules = {};
         dom.panelDatePlanted.value = growItem.datePlanted;
         dom.panelDateHarvested.value =  growItem.dateHarvested;
         dom.panelTags.value = stringifyTags(growItem.tags);
-    
-        /*
-        if(growItem.plantId){
-          const plant = growData.plantList.find(p => p.id === growItem.plantId);
-          console.log(plant)
-          //console.log(plant, growItem.plantId, growItem, getGerminationData(growItem.germinate));
-        }else{
-          //console.log(getGerminationData(growItem.germinate));
-        }
-        dom.panelTitle.value  = growItem.title;
-        dom.panelPlantId.value = growItem.plantId;
-        dom.panelType.value = growItem.type;
-        dom.panelMonth.value = growItem.month;
-        dom.panelRaise.value = growItem.raise;
-        dom.panelGerminate.value = growItem.germinate;
-        dom.panelLifeCycle.value = growItem.lifeCycle;
-        dom.panelMature.value = growItem.mature;
-        dom.panelGrowing.value = growItem.growing;
-        dom.panelDateSown.value = growItem.dateSown;
-        dom.panelDatePlanted.value = growItem.datePlanted;
-        dom.panelDateHarvested.value =  growItem.dateHarvested;
-        dom.panelTags.value = growItem.tags;
-    
-        */
-    
       }
     
     
@@ -11324,13 +11256,12 @@ const cardModules = {};
         currentItem.updatedAt = timeStamp();
         saveAndRender();
       }
-      
+    
       function saveAsNew(){
         const newItem = new GrowItem();
         growData.plantList.push(newItem);
         currentItem = newItem;
         saveItem();
-        console.log(currentItem, newItem, growData.plantList)
       }
     
     
@@ -11362,13 +11293,13 @@ const cardModules = {};
       const dayPercent = 100/365; //0.273972602739726
     
       function changeHemisphere(){
-        growData.hemisphere = (growData.hemisphere === 'south')? 'north':'south';    
+        growData.hemisphere = (growData.hemisphere === 'south')? 'north':'south';
         setHemisphereButton();
         saveAndRender();
       }
-      
-      function setHemisphereButton(){ 
-        dom.changeHemisphereButton.textContent = (growData.hemisphere === 'south')? 'Southern Hemisphere':'Northern Hemisphere';    
+    
+      function setHemisphereButton(){
+        dom.changeHemisphereButton.textContent = (growData.hemisphere === 'south')? 'Southern Hemisphere':'Northern Hemisphere';
       }
     
       const monthData = [
@@ -11462,7 +11393,6 @@ const cardModules = {};
         const plantsContainer = planitDivCreator(null, 'plants-container', 'plantsContainer');
         const firstDayOfMonthDate = new Date(`${ganttDate.year}-${ganttDate.month}-01`);
         growData.growing.forEach(plant => {
-          //console.log(plant.title, plant.dateSown, plant)
     
           if(!plant.dateSown) plant.dateSown = currentGrowDate;
     
@@ -11613,7 +11543,6 @@ const cardModules = {};
             const cell = planitDivCreator(month, null);
             //const cell = document.createElement("div");
             //cell.textContent = month;
-            console.log('filterList.month:', filterList.month);
             cell.className = (index==filterList.month)? 'current-month-header':'month-header';
             gridContainer.appendChild(cell);
             const monthButton  = document.createElement("button");
@@ -11649,13 +11578,13 @@ const cardModules = {};
         dom.filterBar.appendChild(buttonGroup);
         let index = 0;
         growData.plantList.forEach(plant => {
-          
-          
+    
+    
         let plantMonth = plant.month[growData.climate];
-        plantMonth = (growData.hemisphere === 'north')? shiftMonthsNortherHemisphere(plantMonth):plantMonth; 
-         
+        plantMonth = (growData.hemisphere === 'north')? shiftMonthsNortherHemisphere(plantMonth):plantMonth;
+    
         if (plantMonth.includes(filterList.month) || filterList.month==='all') {
-        
+    
         if(filterList.type===plant.type || filterList.type==='all'){
           let oddEvenRowClass = (isOdd(index))? ' is-odd':' is-even';
     
@@ -11668,7 +11597,6 @@ const cardModules = {};
             const cell = planitDivCreator(null, null);
             const className = (plant.month[growData.climate].includes(i+1))? `selected ${plant.type}`:'unselected';
             const pattern = [i, i+1, i+2].map(m => plant.month[growData.climate].includes(m) ? 1 : 0).join('');
-            //console.log(plant.title, pattern);
     
             if(i==0){
               cellText2 = '|start|';
@@ -11688,7 +11616,6 @@ const cardModules = {};
               cellText = '-';
             }
     
-           //console.log(plant.title, cellText)
     
            if((cellText.includes('start') || cellText==='mid') && cellText!=='start|end|'){
               cellCount++;
@@ -11718,7 +11645,6 @@ const cardModules = {};
         //sortAz(growData.growing);
         sortBySownDate(growData.growing);
     
-        console.log(ganttDate.month, ganttDate.year)
         dom.ganttWrapper.innerHTML = '';
         createMonthRow(ganttDate.month);
         //createWeeksRow(ganttDate.month);
@@ -11733,15 +11659,14 @@ const cardModules = {};
             item.dataset.plantid =  growItem.plantId;
             item.className = growItem.type;
             //dom.growingContainer.appendChild(item);
-            //console.log(JSON.stringify(growItem));
         });
         */
         // --- User selected plants ---
         dom.selectedPlantsContainer.innerHTML = '';
-        growData.plants.forEach(growItem => {      
+        growData.plants.forEach(growItem => {
           //transition - remove for production
-          let growItemMonth = (growItem.month?.[growData.climate])? growItem.month[growData.climate]:growItem.month;      
-          growItemMonth = (growData.hemisphere === 'north')? shiftMonthsNortherHemisphere(growItemMonth):growItemMonth; 
+          let growItemMonth = (growItem.month?.[growData.climate])? growItem.month[growData.climate]:growItem.month;
+          growItemMonth = (growData.hemisphere === 'north')? shiftMonthsNortherHemisphere(growItemMonth):growItemMonth;
           if (growItemMonth.includes(filterList.month) || filterList.month==='all') {
           if(filterList.type===growItem.type || filterList.type==='all'){
             //const item  = document.createElement("div");
@@ -11759,10 +11684,10 @@ const cardModules = {};
         //in season plants
         dom.currentMonth.innerHTML = '';
         growData.plantList.forEach(plant => {
-         
+    
          let plantMonth = plant.month[growData.climate];
-         plantMonth = (growData.hemisphere === 'north')? shiftMonthsNortherHemisphere(plantMonth):plantMonth; 
-          
+         plantMonth = (growData.hemisphere === 'north')? shiftMonthsNortherHemisphere(plantMonth):plantMonth;
+    
          if (plantMonth.includes(filterList.month) || filterList.month==='all') {
            if(filterList.type===plant.type || filterList.type==='all'){
            // const plantItem = document.createElement('div');
@@ -11800,7 +11725,6 @@ const cardModules = {};
             const plantId = evt.item.dataset.plantid;
             if(plantId){
               const plant = growData.plantList.find(p => p.id === plantId);
-              console.log(plantId, plant);
               if(!growData?.growing) growData.growing = [];
               const newPlant = new GrowItem(plant.title, plant.id, plant.type, plant.month);
               newPlant.germMinDays = plant.germMinDays;
@@ -11815,7 +11739,7 @@ const cardModules = {};
           }
         });
     
-      const gridBoundingRect = document.querySelector('.grid-container').getBoundingClientRect(); 
+      const gridBoundingRect = document.querySelector('.grid-container').getBoundingClientRect();
       const currentMonthHeader = document.querySelector('.current-month-header');
       if(currentMonthHeader){ //if current month is all it will not show
         const boundingRect = currentMonthHeader.getBoundingClientRect();
@@ -11840,8 +11764,6 @@ const cardModules = {};
               //growData.climate = "cold"
               //growData.plantList = plantList;
               //saveToLocalStorage();
-              //console.log(plantList);
-              //console.log(growData.plantList);
             } catch (e) {
               console.warn("Could not parse saved growit data:", e);
             }
@@ -11965,10 +11887,8 @@ const cardModules = {};
         Sortable.create(document.getElementById('selectedPlantsContainer'), {
           group: 'grow',
           onAdd: function (evt) {
-            console.log('add', evt.item.dataset.id)
             if(evt.item.dataset.id){
               const itemId = evt.item.dataset.id;
-              //console.log(itemId, evt.item.innerHTML);
               const plant = growData.plantList.find(t => t.id === itemId);
               growData.plants.push(new GrowItem(evt.item.innerHTML, itemId, plant.type, plant.month))
             }
@@ -11976,10 +11896,10 @@ const cardModules = {};
           }
         });
       }
-      
+    
       function changeClimate(climate){
         growData.climate = climate;
-        saveAndRender();    
+        saveAndRender();
       }
     
       function initButtons() {
@@ -11991,7 +11911,7 @@ const cardModules = {};
         hiddenFileInput?.addEventListener("change", importData);
         document.getElementById('sidePanelButton')?.addEventListener('click', toggleSidePanelUniversal);
         document.getElementById('saveItemButton')?.addEventListener('click', saveItem);
-        document.getElementById('saveAsNewButton')?.addEventListener('click', saveAsNew);    
+        document.getElementById('saveAsNewButton')?.addEventListener('click', saveAsNew);
         document.getElementById('deleteItemButton')?.addEventListener('click', deleteItem);
         document.getElementById('growingMonthPreviousButton')?.addEventListener("click", growingMonthPrevious);
         document.getElementById('growingMonthNextButton')?.addEventListener("click", growingMonthNext);
@@ -12000,10 +11920,10 @@ const cardModules = {};
     
         dom.coldClimateButton = document.getElementById('coldClimateButton');
         dom.temperateClimateButton = document.getElementById('temperateClimateButton');
-        dom.tropicalClimateButton = document.getElementById('tropicalClimateButton');    
+        dom.tropicalClimateButton = document.getElementById('tropicalClimateButton');
         dom.coldClimateButton?.addEventListener("click", () => changeClimate('cold'));
         dom.temperateClimateButton?.addEventListener("click", () => changeClimate('temperate'));
-        dom.tropicalClimateButton?.addEventListener("click", () => changeClimate('tropical'));    
+        dom.tropicalClimateButton?.addEventListener("click", () => changeClimate('tropical'));
       }
     
       function init() {
@@ -12030,14 +11950,14 @@ const cardModules = {};
   const init = function() {
 (function () {
       'use strict';
-       
-      // --- Global Declarations ---  
+    
+      // --- Global Declarations ---
       let labelData = {pages:[], currentPage:'', pageSize:'', isPanelOpen:true, updatedAt:timeStamp(), card:'labelit'};
       let currentPageId = null;
       const dom = {};
       const paperSizes = [
         {title:'A4', width:'794px',height: '1123px'},
-        {title:'Letter', width:'816px',height: '1056px'},  
+        {title:'Letter', width:'816px',height: '1056px'},
       ];
     
       // --- Constructor Functions ---
@@ -12050,80 +11970,79 @@ const cardModules = {};
         this.id = id || generateId();
         this.updatedAt = timeStamp();
       }
-      
+    
       // --- Helper Functions ---
       /*
       function toggleSidePanel(){
         labelData.isPanelOpen = !labelData.isPanelOpen;
-        saveToLocalStorage();   
-        setSidePanel(labelData.isPanelOpen);        
-      } 
+        saveToLocalStorage();
+        setSidePanel(labelData.isPanelOpen);
+      }
       */
       function addPage(){
         //const pageTitle = dom.pageName.value.trim();
         const labelPageTitle = (dom.titleInput.value)? dom.titleInput.value:'New Page';
         const id = generateId;
-        labelData.pages.push(new PageItem(labelPageTitle, [], '30', null, null, id)); 
-        currentPageId = id;  
+        labelData.pages.push(new PageItem(labelPageTitle, [], '30', null, null, id));
+        currentPageId = id;
         labelData.currentPage = labelPageTitle;
-        saveAndRender();     
-      }  
+        saveAndRender();
+      }
     
       function changePaperSize(){
         labelData.pageSize = dom.pageSizeSelect.value;
         const paperSize = paperSizes.find(p => p.title === labelData.pageSize);
         if(paperSize){
-            console.log(paperSize) 
             dom.printPage.style.width =  paperSize.width;
             dom.printPage.style.height =  paperSize.height;
             saveAndRender();
         }
       }
-      
+    
       function changeFontSize(){
         labelData.pages[currentPageId].fontSize = dom.fontSizeSelect.value;
         saveAndRender()
       }
-      
+    
       function changeRowNumber(){
-        labelData.pages[currentPageId].rowNumber = dom.rowNumber.value;  
+        labelData.pages[currentPageId].rowNumber = dom.rowNumber.value;
         saveAndRender();
       }
-      
+    
       function changePage(){
         if(dom.pageSelect.value){
           labelData.currentPage = dom.pageSelect.value;
         }
         //labelData.currentPage = labelData.pages[0].title; //fallback
-             
+    
         currentPageId = labelData.pages.findIndex(p => p.title === labelData.currentPage) || 0;
-        const thisPage = labelData.pages[currentPageId];    
+        const thisPage = labelData.pages[currentPageId];
         dom.rowNumber.value = thisPage.rowNumber;
         dom.colNumber.value = thisPage.colNumber;
-        dom.fontSizeSelect.value = thisPage.fontSize;    
-        changeColNumber(); 
-      }  
-      
+        dom.fontSizeSelect.value = thisPage.fontSize;
+        changeColNumber();
+      }
+    
       function changeColNumber(updateOnly){
-        labelData.pages[currentPageId].colNumber = dom.colNumber.value; 
+        labelData.pages[currentPageId].colNumber = dom.colNumber.value;
         const gridTempCols = ['', '100%', '50% 50%', '33% 33% 33%', '25% 25% 25% 25%'];
-        const gtcValue = gridTempCols[dom.colNumber.value];    
+        const gtcValue = gridTempCols[dom.colNumber.value];
         dom.printPage.style.gridTemplateColumns = gtcValue;
-        saveAndRender(); 
+        saveAndRender();
       }
     
       function saveAndRender(){
         saveToLocalStorage();
         renderView();
       }
-      
+    
       function printPage(){
-        window.print();    
+        window.print();
       }
-      
+    
       function updateLabels(id){
-        labelData.pages[currentPageId].labels[id] = document.getElementById('label_' + id).innerText.trim(); 
-        labelData.pages[currentPageId].updatedAt = timeStamp(); 
+        labelData.pages[currentPageId].labels[id] = document.getElementById('label_' + id).innerText.trim();
+        labelData.pages[currentPageId].updatedAt = timeStamp();
         saveToLocalStorage(); //save only
       }
     
@@ -12143,18 +12062,17 @@ const cardModules = {};
       function createBlankLabels(labelCount){
         const thisPage = labelData.pages[currentPageId];
         const totalLabelsOnPage = Number(thisPage.rowNumber) * Number(thisPage.colNumber);
-        //console.log(totalLabelsOnPage, thisPage.labels.length, thisPage.rowNumber, thisPage.colNumber)
         const fillLabelCount = totalLabelsOnPage-thisPage.labels.length;
         for(let i=0; i<fillLabelCount; i++){
           dom.printPage.appendChild(createLabel("-", labelCount));
           labelCount++;
-        }  
+        }
       }
     
       // --- Render Functions ---
-      function renderView(){  
+      function renderView(){
         dom.printPage.innerHTML = '';
-        
+    
         //Populate page dropdown
         dom.pageSelect.innerHTML = '';
         labelData.pages.forEach(page => {
@@ -12162,8 +12080,8 @@ const cardModules = {};
           option.text = page.title;
           option.selected = (page.title===labelData.currentPage)? 'selected':'';
           dom.pageSelect.add(option);
-        }); 
-        
+        });
+    
         let i=0;
         const pageTitle = (labelData.currentPage)? labelData.currentPage:dom.pageSelect.value;
         currentPageId = labelData.pages.findIndex(p => p.title === pageTitle);
@@ -12171,7 +12089,7 @@ const cardModules = {};
         pageData.labels.forEach(labelText => {
           dom.printPage.appendChild(createLabel(labelText, i));
           i++;
-        });  
+        });
         createBlankLabels(i);
       }
     
@@ -12194,19 +12112,19 @@ const cardModules = {};
               console.warn('Could not parse saved labelit data:', e);
             }
           } else {
-            labelData.currentPage = 'pantry'; 
+            labelData.currentPage = 'pantry';
             labelData.pageSize = 'A4';
             labelData.pages.push(new PageItem('pantry', ["Rice","Sugar","Flour","Tea"], '30'));
-            labelData.pages.push(new PageItem('workshop',["Screws","Bolts","Washers"], '32'));        
+            labelData.pages.push(new PageItem('workshop',["Screws","Bolts","Washers"], '32'));
           }
         }
       }
     
-      // --- Import and Export ---    
+      // --- Import and Export ---
       function exportData() {
-        exportCardData(labelData, 'labelit'); //planit.js     
-      } 
-      
+        exportCardData(labelData, 'labelit'); //planit.js
+      }
+    
       function importData(event) {
         const file = event.target.files[0];
         if(file) {
@@ -12254,7 +12172,7 @@ const cardModules = {};
       }
     
       const fontList = [
-        "Arial", "Verdana", "Tahoma", "Trebuchet MS", "Times New Roman", "Georgia", "Inter", 
+        "Arial", "Verdana", "Tahoma", "Trebuchet MS", "Times New Roman", "Georgia", "Inter",
         "Garamond", "Courier New", "Brush Script MT", "Comic Sans MS", "Impact", "Lucida Console"
       ];
     
@@ -12272,14 +12190,14 @@ const cardModules = {};
       select.addEventListener('change', (e) => {
         document.querySelectorAll('.label').forEach(el => {
           el.style.fontFamily = e.target.value;
-        });  
+        });
       });
     
       // --- Initialization ---
       function initDomReferences() {
         dom.sidePanel = document.getElementById('sidePanel');
         dom.printPage = document.getElementById('printPage');
-        dom.titleInput = document.getElementById('titleInput');    
+        dom.titleInput = document.getElementById('titleInput');
         dom.pageSelect = document.getElementById('pageSelect');
         dom.pageSelect?.addEventListener('change', changePage);
         dom.pageSizeSelect = document.getElementById('pageSizeSelect');
@@ -12290,21 +12208,21 @@ const cardModules = {};
         dom.rowNumber?.addEventListener('change', changeRowNumber);
         dom.colNumber = document.getElementById('colNumber');
         dom.colNumber?.addEventListener('change', changeColNumber)
-        dom.pageName = document.getElementById('pageName');    
+        dom.pageName = document.getElementById('pageName');
       }
-      
+    
       function initButtons(){
         dom.page?.addEventListener('onkeyup', saveToLocalStorage);
         document.getElementById('printButton')?.addEventListener('click', printPage);
         document.getElementById('addPageButton')?.addEventListener('click', addPage);
-        
+    
         document.getElementById('sidePanelButton')?.addEventListener('click', toggleSidePanelUniversal);
-      } 
-        
+      }
+    
       function init(){
         initDomReferences();
-        loadFromLocalStorage(); 
-        initButtons(); 
+        loadFromLocalStorage();
+        initButtons();
         changePage();
         changePaperSize();
         getLinkedNotes('labelit');
@@ -12370,9 +12288,9 @@ const cardModules = {};
       
       function getAffirmIndex(){
         let index = affirmData.affirmations.findIndex(n => n.id === affirmData.currentAffirmId);
-        if (index==-1) index=0;
+        if (index==-1) index = 0;
         affirmItem = affirmData.affirmations[index];
-        console.log(affirmItem);
+        //console.log(affirmItem);
         return index
       }
       /*
@@ -12392,7 +12310,7 @@ const cardModules = {};
         dom.currentDiv = document.getElementById(id);
       }
     
-      function startChant(){    
+      function startChant(){
         const counterText = document.getElementById(`id_${affirmItem.id}`);    
         clearInterval(timer);
         timer = false;    
@@ -12403,6 +12321,10 @@ const cardModules = {};
         var line = 0;
         addDiv(line);
         function frame() {
+          if(!document.getElementById('chantContainer')){
+            clearInterval(timer);
+            timer = false
+          }
           if(spaceCount>0){
             spaceCount-=1;
           }else{
@@ -12459,7 +12381,6 @@ const cardModules = {};
       function updateSidePanel(data) {
         affirmData.currentAffirmId = data.id;
         const index = getAffirmIndex();
-        console.log(data, affirmData.currentAffirmId, index);
         dom.chantContainer.innerHTML = '';
         startChant();    
         dom.panelTitle.value = data.title;
@@ -12593,6 +12514,7 @@ const cardModules = {};
               new AffirmationItem('Metta', 'May all beings have happiness, and the causes of happiness', 'Buddhism', 'chant'),
               new AffirmationItem('Om', 'Do not let the behavior of others destroy your inner peace.', 'Dalai Lama', 'quote')          
             ];
+            getAffirmIndex();
             saveToLocalStorage();
           }
         }
@@ -12671,7 +12593,6 @@ const cardModules = {};
         initButtons();
         renderView();
         startChant();
-        setSidePanel(affirmData.isPanelOpen);
         getLinkedNotes('affirmit');
       }
     
@@ -12791,10 +12712,7 @@ const cardModules = {};
         dom.noteCanvas.innerHTML = currentNote.content;
         dom.noteCanvas.spellcheck = noteData.isSpellCheck;    
         populateLinkedToCardSelect();
-        populateNoteSelect();
-        
-        //console.log(dom.noteCanvas.children)
-        
+        populateNoteSelect();   
         //dom.noteCanvas.children.forEach(div => {
         const list = dom.noteCanvas.children;
         for (let item of list) {
@@ -12817,16 +12735,12 @@ const cardModules = {};
         if (sel.rangeCount > 0) {
           const range = sel.getRangeAt(0);
           const length = range.toString().length;
-          console.log("Selection length:", length);
           offset = length;
         }else{
           offset = 0;
         }
     
         const range = sel.getRangeAt(0);
-        //range.collapse(true); 
-        //console.log(range, range.endContainer.data, range.toString());
-    
         const marker = document.createElement('span');
         marker.id = markerId;
         marker.style.display = 'inline-block';
@@ -13055,13 +12969,13 @@ const cardModules = {};
       const dom = {};
       const days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday',''];
       const todayStr = formatDate(new Date());
-      
+    
       // --- Constructor --
       function EventItem(title,type, card, scheduleStatus, startDate, endDate, startTime, endTime, purpose, status, repeat, repeatEndDate, subtasks, tags, id){
-       this.title = title; 
+       this.title = title;
        this.type = type || 'event';
        this.card = card || 'eventit';
-       this.scheduleStatus = scheduleStatus || 'scheduled'; 
+       this.scheduleStatus = scheduleStatus || 'scheduled';
        this.startDate = startDate || todayStr;
        this.endDate = endDate || '';
        this.startTime = startTime || '';
@@ -13084,12 +12998,11 @@ const cardModules = {};
       /*
       function toggleSidePanel(){
         eventData.isPanelOpen = !eventData.isPanelOpen;
-        saveToLocalStorage();   
-        setSidePanel(eventData.isPanelOpen);        
+        saveToLocalStorage();
+        setSidePanel(eventData.isPanelOpen);
       }
     */
-      function updateSidePanel(data) {    
-        console.log(data)
+      function updateSidePanel(data) {
         currentEventItemId = data.id;
         dom.panelTitle.value = data.title;
         dom.panelType.value = data.type;
@@ -13120,7 +13033,7 @@ const cardModules = {};
           status: dom.panelStatus.value,
           repeat: dom.panelRepeat.value,
           repeatEndDate: dom.panelRepeatEndDate.value,
-          tags: parseTags(dom.panelTags.value), 
+          tags: parseTags(dom.panelTags.value),
           updatedAt: timeStamp(),
         };
       }
@@ -13144,14 +13057,14 @@ const cardModules = {};
             panelData.status,
             panelData.repeat,
             panelData.repeatEndDate,
-            null, //subtasks 
+            null, //subtasks
             panelData.tags
           ));
         }
         saveAndRender();
         //showToast(`${panelData.title} updated`, 'success');
       }
-      
+    
       function startNew() {
         let newTitle = dom.titleInput.value.trim();
         if (!newTitle) newTitle = 'Event';
@@ -13161,8 +13074,8 @@ const cardModules = {};
         saveAndRender();
         showToast(`${newTitle} added`, 'success');
       }
-      
-      
+    
+    
       function deleteItem(){
         const index = eventData.events.findIndex(a => a.id === currentEventItemId);
         if(index!=-1){
@@ -13170,16 +13083,16 @@ const cardModules = {};
           showToast(`event deleted`, 'success');
         }
         currentEventItemId = null;
-        saveAndRender();    
+        saveAndRender();
       }
     
       // --- Render Functions ---
-      
+    
       function renderView(){
         renderListView();
         renderGanttView();
       }
-      
+    
       function renderListView() {
         dom.eventView.innerHTML = '';
     
@@ -13187,14 +13100,14 @@ const cardModules = {};
           dom.eventView.innerHTML = '<div class="no-items">Nothing to event!</div>';
           return;
         }
-        
+    
         eventData.events.sort((a, b) => {
           if (a.startDate !== b.startDate){ //where dates are not the same
             return a.startDate.localeCompare(b.startDate); //sort date
           }
           return a.startTime.localeCompare(b.startTime); //sort time
         });
-        
+    
         eventData.events.forEach(item => {
           const typeLowerCase = item.type.toLowerCase();
           const todayStyle = (todayStr===item.startDate)? 'is-today':'';
@@ -13206,25 +13119,25 @@ const cardModules = {};
           const startDate =  planitDivCreator(item.startDate, 'eventit-title');
           const startTime =  planitDivCreator(item.startTime, 'eventit-title');
           const type =  planitDivCreator(item.type, 'eventit-title');
-          
+    
           event.appendChild(title);
           event.appendChild(startDate);
-          event.appendChild(startTime);  
-          event.appendChild(type);   
-          
+          event.appendChild(startTime);
+          event.appendChild(type);
+    
           dom.eventView.appendChild(event);
         });
       }
-      
+    
       // --- Gantt View ---
-      
+    
       let ganttDays = 20;
       let startDate = new Date();
       let filteredTasks = [];
-        
+    
       const todaysDate = formatDate(new Date());
-      
-      
+    
+    
       function changeDayRangeAndDate(dayRange, dateStr){
         ganttDays = dayRange;
         startDate = new Date(dateStr);
@@ -13234,32 +13147,32 @@ const cardModules = {};
       function forward(){
         const day = new Date(startDate);
         day.setDate(day.getDate() + 1);
-        startDate = formatDate(day);    
+        startDate = formatDate(day);
         changeDayRangeAndDate(ganttDays, startDate);
        }
-       
+    
       function back(){
         const day = new Date(startDate);
         day.setDate(day.getDate() - 1);
-        startDate = formatDate(day);    
+        startDate = formatDate(day);
         changeDayRangeAndDate(ganttDays, startDate);
       }
-      
+    
       function zoomOut(){
         ganttDays++;
         changeDayRangeAndDate(ganttDays, startDate);
-      } 
-     
+      }
+    
       function zoomIn(){
         ganttDays--;
         changeDayRangeAndDate(ganttDays, startDate);
-      } 
-      
+      }
+    
       function dateDiffInDays(a, b) {
         const MS_PER_DAY = 1000 * 60 * 60 * 24;
         return Math.round((b - a) / MS_PER_DAY);
       }
-      
+    
       function getDateRange(tasks) {
         if (!tasks.length) return { startDate: null, endDate: null };
         let earliest = tasks[0].startDate;
@@ -13270,11 +13183,11 @@ const cardModules = {};
         }
         return { startDate: earliest, endDate: latest };
       }
-      
+    
       function showAll(){
         const dateRange = getDateRange(filteredTasks);
         if(dateRange.startDate){
-          const durationInDays = dateDiffInDays(new Date(dateRange.startDate), new Date(dateRange.endDate));    
+          const durationInDays = dateDiffInDays(new Date(dateRange.startDate), new Date(dateRange.endDate));
           changeDayRangeAndDate(durationInDays + 1, dateRange.startDate);
         }
       }
@@ -13288,34 +13201,31 @@ const cardModules = {};
         eventData.events.sort((a, b) => a.startDate.localeCompare(b.startDate)); // A-Z by category
         const firstEvent = eventData.events[0];
         const lastEvent = eventData.events[eventData.events.length-1];
-       
-        //console.log(firstEvent.startDate, lastEvent.startDate);
-        //console.log(firstEvent.startDate, lastEvent.startDate);
-        
+    
         eventData.events.forEach(event => {
           const eventContainer = planitDivCreator(null, 'event-container');
           const dateTitle = new Date(event.startDate);
           const eventDate = planitDivCreator(dateTitle.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' }) , 'event-date');
           const eventTitle = planitDivCreator(event.title, 'event-title');
           const eventTime = planitDivCreator(event.startTime, 'event-time');
-            
+    
           eventContainer.appendChild(eventDate);
           eventContainer.appendChild(eventTitle);
           eventContainer.appendChild(eventTime);
           dom.ganttViewTwo.appendChild(eventContainer)
         });
-        
-        
-        
-        
-        
     
-        
+    
+    
+    
+    
+    
+    
       }
     
     
-      
-      
+    
+    
     
       // --- Save and Load ---
       function loadFromLocalStorage() {
@@ -13323,10 +13233,9 @@ const cardModules = {};
           const saved = getPlanitSection("eventit"); //planit.js
           if (saved?.events) {
             try {
-              eventData = saved;          
+              eventData = saved;
               eventData.card = 'eventit';
               saveToLocalStorage();
-              console.log(eventData, saved)          
             } catch (e) {
               console.warn("Could not parse saved eventit data:", e);
               eventData = [];
@@ -13347,11 +13256,11 @@ const cardModules = {};
         }
       }
     
-      // --- Import and Export ---    
+      // --- Import and Export ---
       function exportData() {
-        exportCardData(eventData, 'eventit'); //planit.js     
-      } 
-      
+        exportCardData(eventData, 'eventit'); //planit.js
+      }
+    
       function importData(event) {
         const file = event.target.files[0];
         if(file) {
@@ -13363,25 +13272,25 @@ const cardModules = {};
           reader.readAsText(file);
         }
       }
-        
+    
       // --- Initialization ---
       function initDomReferences() {
         dom.eventView = document.getElementById('eventView');
-        dom.sidePanel = document.getElementById('sidePanel');    
+        dom.sidePanel = document.getElementById('sidePanel');
         dom.titleInput = document.getElementById('titleInput');
-        
+    
         dom.panelTitle = document.getElementById('title');
-        dom.panelType = document.getElementById('type');    
+        dom.panelType = document.getElementById('type');
         dom.panelStartDate = document.getElementById('startDate');
         dom.panelEndDate = document.getElementById('endDate');
         dom.panelStartTime = document.getElementById('startTime');
-        dom.panelEndTime = document.getElementById('endTime');    
+        dom.panelEndTime = document.getElementById('endTime');
         dom.panelPurpose = document.getElementById('purpose');
         dom.panelStatus = document.getElementById('status');
         dom.panelRepeat = document.getElementById('repeat');
         dom.panelRepeatEndDate = document.getElementById('repeatEndDate');
         dom.panelTags = document.getElementById('tags');
-     
+    
         //autopanel
         dom.panelTitle?.addEventListener('input', saveItem);
         dom.panelType?.addEventListener('input', saveItem);
@@ -13394,7 +13303,7 @@ const cardModules = {};
         dom.panelRepeat?.addEventListener('input', saveItem);
         dom.panelRepeatEndDate?.addEventListener('input', saveItem);
         dom.panelTags?.addEventListener('input', saveItem);
-        
+    
         dom.gantt = document.getElementById('ganttView');
         dom.ganttViewTwo = document.getElementById('ganttViewTwo');
       }
@@ -13409,10 +13318,10 @@ const cardModules = {};
         const hiddenFileInput = document.getElementById('hiddenFileInput');
         importDataButton?.addEventListener("click", () => hiddenFileInput?.click());
         hiddenFileInput?.addEventListener("change", importData);
-        
+    
         //document.getElementById("sidePanelButton")?.addEventListener("click", toggleSidePanel);
         document.getElementById('sidePanelButton')?.addEventListener('click', toggleSidePanelUniversal);
-        
+    
         document.getElementById('showAllButton')?.addEventListener('click', showAll);
         document.getElementById('zoomOutButton')?.addEventListener('click', zoomOut);
         document.getElementById('zoomInButton')?.addEventListener('click', zoomIn);
@@ -13521,7 +13430,6 @@ const cardModules = {};
       }
     */
       function updateSidePanelItem(data) {    
-        console.log(data)
         currentStudyItemId = data.id;
         dom.panelTitle.value = data.title;
         dom.panelType.value = data.type;
@@ -13537,7 +13445,6 @@ const cardModules = {};
       }
       
       function updateSidePanelTopic(data) {    
-        console.log(data)
         currentStudyItemId = data.id;
         dom.topicTitle.value = data.title;
         dom.topicType.value = data.type;
@@ -13606,7 +13513,6 @@ const cardModules = {};
       }
       
       function saveTopic(){
-        console.log('saveTopic');    
       }
         
       function startNew() {
@@ -13833,8 +13739,8 @@ const cardModules = {};
         incoming:{current:0, weekly:0, monthly:0, annually:0},
         outgoing:{current:0, weekly:0, monthly:0, annually:0}
       };
-      
-      // --- Constructor Functions --- 
+    
+      // --- Constructor Functions ---
       function FundItem(title, type, duration, funding, day, amount, tags, id) {
         this.title = title;
         this.type = type || 'outgoing';
@@ -13845,7 +13751,7 @@ const cardModules = {};
         this.tags = tags || [];
         this.id = id || generateId(); //planit.js
         this.updatedAt = timeStamp();
-      }  
+      }
     
       // --- Helper Functions ---
       function saveAndRender() {
@@ -13855,12 +13761,11 @@ const cardModules = {};
       /*
       function toggleSidePanel(){
         fundData.isPanelOpen = !fundData.isPanelOpen;
-        saveToLocalStorage();   
-        setSidePanel(fundData.isPanelOpen);        
-      }  
+        saveToLocalStorage();
+        setSidePanel(fundData.isPanelOpen);
+      }
     */
       function updateSidePanel(data) {
-        console.log(data)
         currentFundItemId = data.id;
         dom.panelTitle.value = data.title;
         dom.panelType.value = data.type;
@@ -13883,7 +13788,7 @@ const cardModules = {};
           duration: dom.panelDuration.value,
           funding: dom.panelFunding.checked,
           //day: dom.panelDay.value,
-          amount: dom.panelAmount.value, 
+          amount: dom.panelAmount.value,
           tags: parseTags(dom.panelTags.value),
           updatedAt: timeStamp()
         };
@@ -13918,8 +13823,8 @@ const cardModules = {};
         saveAndRender();
         showToast(`${newTitle} added`, 'success');
       }
-      
-      function deleteItem(){    
+    
+      function deleteItem(){
         const index = fundData.funds.findIndex(s => s.id===currentFundItemId);
         if(index!=-1){
           fundData.funds.splice(index, 1);
@@ -13928,35 +13833,35 @@ const cardModules = {};
         currentFundItemId = null;
         saveAndRender();
       }
-      
+    
       function dollarString(dollarAmount){
         dollarAmount = Number(dollarAmount);
-        return '$' + dollarAmount.toFixed(2)    
+        return '$' + dollarAmount.toFixed(2)
       }
-      
+    
       function calculateAmount(amount, itemTimeFrame, cellTimeFrame, totals, type){
-        
+    
         if(!itemTimeFrame) itemTimeFrame = 'weekly';
         if(!type) type = 'outgoing';
-        
+    
         let dayAmount;
         let monthFactor = 365/12;
         amount = Number(amount);
-        
+    
         if(itemTimeFrame==='current'){
           //if(type==='savings' & cellTimeFrame=='annually'){ //do once for year
           //  totals.savings.current += amount;
           //}
           return dollarString(0);
-        }else 
-        
+        }else
+    
         if(itemTimeFrame===cellTimeFrame){
           totals[type][cellTimeFrame] += amount;
           return dollarString(amount);
         }
-        
+    
         //convert to days
-        if(itemTimeFrame=='weekly'){  
+        if(itemTimeFrame=='weekly'){
           dayAmount = amount/7;
         }else if(itemTimeFrame=='monthly'){
           dayAmount = amount/monthFactor;
@@ -13964,7 +13869,7 @@ const cardModules = {};
           dayAmount = amount/365;
         }
     
-        //multiply days by 
+        //multiply days by
         if(cellTimeFrame=='weekly'){
           totals[type][cellTimeFrame] += (dayAmount * 7);
           return dollarString(dayAmount * 7);
@@ -13974,14 +13879,13 @@ const cardModules = {};
         }else if(cellTimeFrame=='annually'){
           totals[type][cellTimeFrame] += (dayAmount * 365);
           return dollarString(dayAmount * 365);
-        }    
+        }
       }
     
       // --- Render Functions ---
       function renderView() {
         const typeOrder = ['savings','incoming','outgoing']
         const totals = {...totalsOriginal};
-        console.log(totals);
         dom.fundView.innerHTML = '';
     
         if (fundData.funds.length === 0) {
@@ -13992,11 +13896,11 @@ const cardModules = {};
         fundData.funds.sort((a, b) => {
           //if (a.funding !== b.funding) {
             //return a.funding ? -1 : 1; // true comes before false
-          //}      
+          //}
           return typeOrder.indexOf(a.type) - typeOrder.indexOf(b.type); //sort by Mon,  Tues, etc.
-          //return a.type.localeCompare(b.type); // A-Z by amount 
+          //return a.type.localeCompare(b.type); // A-Z by amount
         });
-      
+    
         const header = planitDivCreator(null, 'gen-item header-container');
         header.appendChild(planitDivCreator('Title', 'header-item'));
         header.appendChild(planitDivCreator('Type', 'header-item'));
@@ -14006,48 +13910,48 @@ const cardModules = {};
         header.appendChild(planitDivCreator('Weekly', 'header-item fundit-amount'));
         header.appendChild(planitDivCreator('Monthly', 'header-item fundit-amount'));
         header.appendChild(planitDivCreator('Annually', 'header-item fundit-amount'));
-        dom.fundView.appendChild(header);    
+        dom.fundView.appendChild(header);
     
         fundData.funds.forEach(item => {
-          
+    
           //const div = document.createElement('div');
           const durationLowerCase = item.type.toLowerCase();
           const div = planitDivCreator(null, `gen-item fund-${durationLowerCase} fund-item`);
           div.dataset.id = item.id;
           div.onclick = () => updateSidePanel(item);
     
-          const title = planitDivCreator(item.title, 'fundit-title'); 
-          const type = planitDivCreator(item.type, 'fundit-type');      
-          const duration = planitDivCreator(item.duration, 'fundit-duration');      
+          const title = planitDivCreator(item.title, 'fundit-title');
+          const type = planitDivCreator(item.type, 'fundit-type');
+          const duration = planitDivCreator(item.duration, 'fundit-duration');
           //const day = planitDivCreator(item.day, 'fundit-day');
-          
+    
           const weekStyle = (item.duration==='weekly')? 'fundit-amount is-week':'fundit-amount';
           const monthStyle = (item.duration==='monthly')? 'fundit-amount is-month':'fundit-amount';
-          const annualStyle = (item.duration==='annually')? 'fundit-amount is-annual':'fundit-amount';  
-          
+          const annualStyle = (item.duration==='annually')? 'fundit-amount is-annual':'fundit-amount';
+    
           const amountCurrent= planitDivCreator('-', 'fundit-amount'); //default
           if(item.duration==='current'){
             totals.savings.current += Number(item.amount);
             amountCurrent.textContent = dollarString(item.amount);
             amountCurrent.className = 'fundit-amount is-annual';
           }
-                    
-          const amountWeek = planitDivCreator(calculateAmount(item.amount, item.duration, 'weekly', totals, item.type), weekStyle); 
-          const amountMonth = planitDivCreator(calculateAmount(item.amount, item.duration, 'monthly', totals, item.type), monthStyle);  
+    
+          const amountWeek = planitDivCreator(calculateAmount(item.amount, item.duration, 'weekly', totals, item.type), weekStyle);
+          const amountMonth = planitDivCreator(calculateAmount(item.amount, item.duration, 'monthly', totals, item.type), monthStyle);
           const amountAnnual = planitDivCreator(calculateAmount(item.amount, item.duration, 'annually', totals, item.type), annualStyle);
-          
+    
           div.appendChild(title);
           div.appendChild(type);
-          div.appendChild(duration);  
+          div.appendChild(duration);
           //div.appendChild(day);
           div.appendChild(amountCurrent);
           div.appendChild(amountWeek);
           div.appendChild(amountMonth);
           div.appendChild(amountAnnual);
-              
+    
           dom.fundView.appendChild(div);
         });
-        
+    
         const outgoingTotalContainer = planitDivCreator(null, 'gen-item fund-outgoing-totals');
         outgoingTotalContainer.appendChild(planitDivCreator('Total', 'fundit-title'));
         outgoingTotalContainer.appendChild(planitDivCreator('outgoing', 'fundit-type'));
@@ -14055,8 +13959,8 @@ const cardModules = {};
         outgoingTotalContainer.appendChild(planitDivCreator('-', 'fundit-amount'));
         outgoingTotalContainer.appendChild(planitDivCreator(dollarString(totals.outgoing.weekly), 'fundit-amount'));
         outgoingTotalContainer.appendChild(planitDivCreator(dollarString(totals.outgoing.monthly), 'fundit-amount'));
-        outgoingTotalContainer.appendChild(planitDivCreator(dollarString(totals.outgoing.annually), 'fundit-amount'));   
-        dom.fundView.appendChild(outgoingTotalContainer);    
+        outgoingTotalContainer.appendChild(planitDivCreator(dollarString(totals.outgoing.annually), 'fundit-amount'));
+        dom.fundView.appendChild(outgoingTotalContainer);
       }
     
       // --- Save and Load ---
@@ -14077,7 +13981,7 @@ const cardModules = {};
               new FundItem('Credit Card Fee', 'outgoing', 'monthly', false, 'Monday',33),
               new FundItem('Interest', 'incoming', 'annually', false, 'Monday',44)
             ];
-            saveToLocalStorage(); 
+            saveToLocalStorage();
           }
         }
       }
@@ -14088,11 +13992,11 @@ const cardModules = {};
         }
       }
     
-      // --- Import and Export ---    
+      // --- Import and Export ---
       function exportData() {
-        exportCardData(fundData, 'fundit'); //planit.js     
-      } 
-      
+        exportCardData(fundData, 'fundit'); //planit.js
+      }
+    
       function importData(event) {
         const file = event.target.files[0];
         if(file) {
@@ -14104,7 +14008,7 @@ const cardModules = {};
           reader.readAsText(file);
         }
       }
-        
+    
       // --- Initialization ---
       function initDomReferences() {
         dom.fundView = document.getElementById('fundView');
@@ -14117,15 +14021,15 @@ const cardModules = {};
         dom.panelAmount = document.getElementById('amount');
         dom.panelTags = document.getElementById('tags');
         dom.titleInput = document.getElementById('titleInput');
-        
+    
         //autopanel
         dom.panelTitle?.addEventListener('input', saveFundItem); //change = final value on blur
-        dom.panelType?.addEventListener('input', saveFundItem); 
-        dom.panelDuration?.addEventListener('change', saveFundItem);   
+        dom.panelType?.addEventListener('input', saveFundItem);
+        dom.panelDuration?.addEventListener('change', saveFundItem);
         dom.panelFunding?.addEventListener('change', saveFundItem);
         //dom.panelDay?.addEventListener('change', saveFundItem);
         dom.panelAmount?.addEventListener('change', saveFundItem);
-        dom.panelTags?.addEventListener('input', saveFundItem); 
+        dom.panelTags?.addEventListener('input', saveFundItem);
       }
     
       function initButtons() {
@@ -14138,7 +14042,7 @@ const cardModules = {};
         const hiddenFileInput = document.getElementById('hiddenFileInput');
         importDataButton?.addEventListener("click", () => hiddenFileInput?.click());
         hiddenFileInput?.addEventListener("change", importData);
-        
+    
         document.getElementById('sidePanelButton')?.addEventListener('click', toggleSidePanelUniversal);
       }
     
@@ -14173,8 +14077,8 @@ const cardModules = {};
       let codeData = {code:[], isPanelOpen:true, updatedAt:timeStamp(), isDisplayCodeed:true, card:'codeit'};
       const dom = {};
       const languages = ['Monlanguage','Tueslanguage','Wedneslanguage','Thurslanguage','Frilanguage','Saturlanguage','Sunlanguage',''];
-      
-      // --- Constructor Functions --- 
+    
+      // --- Constructor Functions ---
       function CodeItem(title, code, category, language, tags, id) {
         this.title = title;
         this.code = code || '';
@@ -14183,7 +14087,7 @@ const cardModules = {};
         this.tags = tags || [];
         this.id = id || generateId(); //planit.js
         this.updatedAt = timeStamp();
-      }  
+      }
     
       // --- Helper Functions ---
       function saveAndRender() {
@@ -14193,22 +14097,21 @@ const cardModules = {};
       /*
       function toggleSidePanel(){
         codeData.isPanelOpen = !codeData.isPanelOpen;
-        saveToLocalStorage();   
-        setSidePanel(codeData.isPanelOpen);        
-      }  
+        saveToLocalStorage();
+        setSidePanel(codeData.isPanelOpen);
+      }
     */
       function setDisplayCodeedButton(){
         //dom.showHideCodeedButton.textContent = (codeData.isDisplayCodeed)? 'Hide Codeed':'Show Codeed';
       }
-      
+    
       function toggleDisplayCodeed(){
         codeData.isDisplayCodeed = !codeData.isDisplayCodeed;
         setDisplayCodeedButton();
-        saveAndRender();           
-      } 
+        saveAndRender();
+      }
     
       function updateSidePanel(data) {
-        console.log(data)
         currentCodeItemId = data.id;
         dom.panelTitle.value = data.title;
         dom.panelCode.value = data.code;
@@ -14240,16 +14143,16 @@ const cardModules = {};
         } else {
           const newCode = new CodeItem(panelData.title); //for duplicate or copy
           currentCodeItemId = newCode.id;
-          Object.assign(newCode, panelData);      
+          Object.assign(newCode, panelData);
           codeData.code.push(newCode);
         }
         saveAndRender();
         showToast(`${panelData.title} updated`, 'success');
       }
-      
+    
       function duplicateItem(){
         currentCodeItemId = null;
-        saveCodeItem()  
+        saveCodeItem()
       }
     
       function startNew() {
@@ -14261,8 +14164,8 @@ const cardModules = {};
         saveAndRender();
         showToast(`${newTitle} added`, 'success');
       }
-      
-      function deleteItem(){    
+    
+      function deleteItem(){
         const index = codeData.code.findIndex(s => s.id===currentCodeItemId);
         if(index!=-1){
           codeData.code.splice(index, 1);
@@ -14284,17 +14187,17 @@ const cardModules = {};
         codeData.code.sort((a, b) => {
           if (a.codeing !== b.codeing) {
             return a.codeing ? -1 : 1; // true comes before false
-          }      
+          }
           return languages.indexOf(a.language) - languages.indexOf(b.language); //sort by Mon,  Tues, etc.
-          //return a.time.localeCompare(b.time); // A-Z by time 
+          //return a.time.localeCompare(b.time); // A-Z by time
         });
     
         codeData.code.forEach(item => {
           if(codeData.isDisplayCodeed){
-            const div = planitDivCreator(null,`gen-item codeit-item planit-row`); // ${item.category.toLowerCase()} 
+            const div = planitDivCreator(null,`gen-item codeit-item planit-row`); // ${item.category.toLowerCase()}
             div.dataset.id = item.id;
             div.onclick = () => updateSidePanel(item);
-            
+    
             const emojiBlock = planitDivCreator('🖥️️', 'emoji-block');
             const title = planitDivCreator(item.title, 'codeit-title planit-cell');
             const code = document.createElement('pre');
@@ -14302,7 +14205,7 @@ const cardModules = {};
             code.className = 'codeit-code planit-cell';
             const category = planitDivCreator(item.category, 'codeit-category planit-cell');
             const language = planitDivCreator(item.language, 'codeit-language planit-cell');
-            
+    
             title.dataset.label = '️️Title';
             code.dataset.label = 'Code';
             category.dataset.label = 'Category';
@@ -14311,22 +14214,22 @@ const cardModules = {};
             div.appendChild(emojiBlock);
             div.appendChild(title);
             div.appendChild(code);
-            div.appendChild(category);  
-            div.appendChild(language);    
+            div.appendChild(category);
+            div.appendChild(language);
             dom.codeView.appendChild(div);
           }
         });
       }
-      
+    
       function highlightCode(code) {
         //const pre = document.getElementById(preId);
         //let html = code
-        
+    
         let html = code
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
-       
+    
     
         // Apply regex highlighting
         html = html
@@ -14354,7 +14257,6 @@ const cardModules = {};
               codeData = saved;
               //codeData.code = codeData.shows;
               //delete codeData.shows;
-              //console.log(codeData)
               //saveToLocalStorage();
             } catch (e) {
               console.warn("Could not parse saved codeit data:", e);
@@ -14375,11 +14277,11 @@ const cardModules = {};
         }
       }
     
-      // --- Import and Export ---    
+      // --- Import and Export ---
       function exportData() {
-        exportCardData(codeData, 'codeit'); //planit.js     
-      } 
-      
+        exportCardData(codeData, 'codeit'); //planit.js
+      }
+    
       function importData(event) {
         const file = event.target.files[0];
         if(file) {
@@ -14391,7 +14293,7 @@ const cardModules = {};
           reader.readAsText(file);
         }
       }
-        
+    
       // --- Initialization ---
       function initDomReferences() {
         dom.codeView = document.getElementById('codeView');
@@ -14402,20 +14304,20 @@ const cardModules = {};
         dom.panelLanguage = document.getElementById('language');
         dom.panelTags = document.getElementById('tags');
         dom.titleInput = document.getElementById('titleInput');
-        
+    
         //autopanel
         dom.panelTitle?.addEventListener('input', saveCodeItem); //change = final value on blur
-        dom.panelCode?.addEventListener('input', saveCodeItem); 
-        dom.panelCategory?.addEventListener('change', saveCodeItem);   
+        dom.panelCode?.addEventListener('input', saveCodeItem);
+        dom.panelCategory?.addEventListener('change', saveCodeItem);
         dom.panelLanguage?.addEventListener('change', saveCodeItem);
-        dom.panelTags?.addEventListener('input', saveCodeItem); 
+        dom.panelTags?.addEventListener('input', saveCodeItem);
       }
     
       function initButtons() {
         document.getElementById('addNewButton')?.addEventListener('click', startNew);
         document.getElementById('deleteItemButton')?.addEventListener('click', deleteItem);
         document.getElementById('duplicateItemButton')?.addEventListener('click', duplicateItem);
-        
+    
         dom.showHideCodeedButton = document.getElementById('showHideCodeedButton');
         dom.showHideCodeedButton?.addEventListener('click', toggleDisplayCodeed);
         setDisplayCodeedButton();
@@ -14426,7 +14328,7 @@ const cardModules = {};
         const hiddenFileInput = document.getElementById('hiddenFileInput');
         importDataButton?.addEventListener("click", () => hiddenFileInput?.click());
         hiddenFileInput?.addEventListener("change", importData);
-        
+    
         //document.getElementById("sidePanelButton")?.addEventListener("click", toggleSidePanel);
         document.getElementById('sidePanelButton')?.addEventListener('click', toggleSidePanelUniversal);
       }
@@ -14519,7 +14421,6 @@ const cardModules = {};
       }
       
       function columnSortSelect(selectElement, value){
-        console.log(value);
         selectElement.innerHTML = '';
         selectElement.add(document.createElement('option'));
         currentCard.fields.forEach(field => {
@@ -14540,7 +14441,6 @@ const cardModules = {};
       }
         
       function setAvailable(){
-        console.log(currentCard.available)
         if(currentCard.available){
           buttonCardAvailable.textContent = 'Make Card Hidden';
         }else{
@@ -14647,7 +14547,6 @@ const cardModules = {};
     
       //Item stuff
       function saveItemProperty(propName, formElementId, formElementType){
-        console.log(propName, formElementId, formElementType)
         if(currentItem){
           const formElement = document.getElementById(formElementId);
           let formValue = formElement.value; //default
@@ -14696,7 +14595,6 @@ const cardModules = {};
       }
     
       function updateSidePanel() {
-        console.log(currentCard, currentItem);
         currentCard.fields.forEach(field => {
           const id = getOrSetPanelId(field.name, 'set');
           const el = document.getElementById(id);
@@ -14789,7 +14687,6 @@ const cardModules = {};
       }
     
       function updateField(field, div, property){
-        console.log(field, div, property);
         const value = (property==='type')? div.value:div.textContent;
         if (property==='options'){
          field.options = value.split(','); //turn into array
@@ -14943,14 +14840,12 @@ const cardModules = {};
         // Headers
         const headerContainer = planitDivCreator(null, 'gen-item planit-header');
         currentCard.fields.forEach(field => {
-          //console.log(field.title, field.type);
           headerContainer.appendChild(planitDivCreator(field.title, 'modit-item'));
         });
         dom.liveContainer.appendChild(headerContainer);
     
         // Make preview item
         if(currentCard.items.length === 0){
-          console.log("No saved items");
           const item = new Item();
           currentCard.fields.forEach(field => {
             let propValue = `${field.title} example`;
@@ -15011,7 +14906,6 @@ const cardModules = {};
             try {
               modData = saved;
               setCurrentCard();
-              console.log('viewtype:', modData.viewType);
               changeView(modData.viewType);
             } catch (e) {
               console.warn("Could not parse saved modit data:", e);
@@ -15164,6 +15058,7 @@ const cardModules = {};
       cardList: ['viewit','taskit','shopit','menuit','recipeit','watchit','readit','listenit','gameit','buildit','growit','labelit','affirmit','noteit','eventit','studyit','fundit','codeit','modit'],
       widgetList:[],
       lastSaved: null,
+      showButtonText: true,
     }
   }
   const planitStucture = [
@@ -15206,7 +15101,6 @@ const cardModules = {};
     const isCollapsed = sidePanel.classList.contains('card-side-panel-collapsed');
     setSidePanel(isCollapsed);
     if(planitData[cardName]){
-      //console.log(currentCard, cardName, 'isPanelOpen =',planitData[cardName].isPanelOpen, 'isCollapsed =', isCollapsed);
       planitData[cardName].isPanelOpen = isCollapsed;
       savePlanitData();
     }
@@ -15263,7 +15157,9 @@ const cardModules = {};
       const buttonText = document.createElement("div");
       buttonText.textContent =  cardName[0].toUpperCase() + cardName.slice(1).toLowerCase();
       button.appendChild(svg);
-      //button.appendChild(buttonText);
+      if(planitData.settings.showButtonText){
+        button.appendChild(buttonText);
+      }
       button.onclick = () => loadView(cardName);
       dom.navigationButtons.appendChild(button);
       }
@@ -15285,7 +15181,6 @@ const cardModules = {};
           }
         });
         planitData.settings.cardList = navButtonList;
-        console.log(planitData, planitData.settings.cardList);
         savePlanitData();
       }
     });
@@ -15308,11 +15203,9 @@ const cardModules = {};
     }
   }
 
-
   // Loads from card-modules.js
   function loadCardJavascript(cardName){
     dom.main.innerHTML = cards[cardName] || `<p>Card not found: ${cardName}</p>`;
-    //console.log(cardModules)
     if (cardModules[cardName]) {
       cardModules[cardName](); // Initialize card-specific JS logic
     } else {
@@ -15324,7 +15217,6 @@ const cardModules = {};
   function loadView(cardname, changeParam, changeValue) {    
     currentCard = cardname;    
     if(changeParam && changeValue){
-      console.log(changeParam, changeValue);
       planitData[cardname][changeParam] = changeValue;
     }
     
@@ -15341,7 +15233,8 @@ const cardModules = {};
           dom.main.innerHTML = '<p>Error loading view.</p>';
           console.error(err);
       }
-    showToast(cardname + ' loaded ' + planitData[dataName]?.isPanelOpen + ' x: ' + cardname, 'success');
+    showToast(cardname + ' loaded ');
+    //showToast(cardname + ' loaded ' + planitData[dataName]?.isPanelOpen + ' x: ' + cardname, 'success');
     highlightActiveButton(cardname);
     removeNavVisibilityIfSet();
   }
@@ -15350,7 +15243,6 @@ const cardModules = {};
     const existingScript = document.querySelector(`script[data-card="${cardname}"]`);
     if (!existingScript) {
       //existingScript.remove(); // prevent duplicates
-      //console.log(cardname + " js exists")
 
     const script = document.createElement('script');
     script.src = scriptUrl;
@@ -15361,11 +15253,10 @@ const cardModules = {};
     if(window[cardname]?.init) {
       window[cardname].init();
     }else{
-     console.log('no init in card '+ cardname);
+     //console.log('no init in card '+ cardname);
     }
     }
   }
-
 
   function highlightActiveButton(cardname) {
     const buttons = document.querySelectorAll('.nav-button');
@@ -15394,7 +15285,6 @@ const cardModules = {};
 
   function removeNavVisibilityIfSet(){
     let width = screen.width;
-    //console.log(width)
     //has been set by showNavigationButton
     
     if(dom.navigationButtons.classList.contains('navigation-buttons-show')){
@@ -15428,13 +15318,12 @@ const cardModules = {};
   }
 
   function toggleFullscreen() {
-    console.log('test', window.screenTop, window.screenY)
     if (document.fullscreenElement) {
-      console.log('is full screen');
+      //console.log('is full screen');
       closeFullscreen();
     }else{
       openFullscreen();
-      console.log('is not full screen');
+      //console.log('is not full screen');
     }
   }
 
@@ -15507,7 +15396,7 @@ const cardModules = {};
     };
 
     for (let key in wedgewood) {
-      console.log(wedgewood[key]);
+      //console.log(wedgewood[key]);
       const div = document.createElement('div');
       div.style.background = wedgewood[key];
       div.textContent = key;
@@ -15525,14 +15414,14 @@ const cardModules = {};
   }
 
   function deletePlanitData() {
-    console.log('del')
+    //console.log('del')
     let text = "Delete Planit Data?\nEither OK or Cancel.";
     if (confirm(text) == true) {
       localStorage.removeItem(localStorageName);
       planitData = planitDataClone;
       init();
     } else {
-      console.log('canceled');
+      //console.log('canceled');
     }
   }
   
@@ -15561,6 +15450,7 @@ const cardModules = {};
       loadView('viewit'); // Load viewit before rendering buttons
       //savePlanitData();
     }else{
+      planitData.settings.lastSaved = formatDate(new Date());
       savePlanitData();
       renderNavButtons();
       loadView('viewit'); // Load viewit first
@@ -15573,7 +15463,7 @@ const cardModules = {};
     if(file) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        console.log(JSON.parse(e.target.result))
+        //console.log(JSON.parse(e.target.result))
         planitData = JSON.parse(e.target.result);
         savePlanitData();
         loadView('viewit');
@@ -15687,8 +15577,6 @@ const cardModules = {};
     return tagsArray.join(', ');
   }
 
-
-
 /*
   function setupNavButtons() {
   //console.log("button setup")
@@ -15721,9 +15609,8 @@ const cardModules = {};
   }
 
   function toggleExpandNavigation(){
-    
     dom.navigationButtons.classList.toggle('planit-wrap');
-    console.log(dom.navigationButtons.classList.value)
+    //console.log(dom.navigationButtons.classList.value)
     if(dom.navigationButtons.classList.contains('planit-wrap')){
       navigationSortable();
     }else{
@@ -15763,6 +15650,12 @@ const cardModules = {};
    }
    return defaultEmoji; //could not find
   }
+  
+ function toggleNavigationText(){
+    planitData.settings.showButtonText = !planitData.settings.showButtonText;
+    savePlanitData();
+    renderNavButtons();
+  }
 
   // --- Expose Only Required Functions ---
   //window.setSidePanel = setSidePanel;
@@ -15796,6 +15689,7 @@ const cardModules = {};
   window.planitStucture = planitStucture;
   window.capitalizeFirstLetter = capitalizeFirstLetter;
   window.toggleSidePanelUniversal = toggleSidePanelUniversal;
+  window.toggleNavigationText = toggleNavigationText;
 
   // --- Initialization ---
   function initDomReferences() {
@@ -15831,15 +15725,11 @@ const cardModules = {};
     initDomReferences();
     initButtons();
     loadPlanitData();
-    //initServiceWorker();
-    //console.log(timeStamp());
   }
 
 window.onload = function() {
     init();
 };
-
-
 
 })();
 
