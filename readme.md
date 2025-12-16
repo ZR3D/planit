@@ -1,17 +1,15 @@
 🪐 Planit
 
-Planit is a simple, modular, offline-friendly productivity suite designed to help individuals and small households organize everyday tasks. Each component of Planit—like Taskit, Shopit, Menuit, and more—is a focused tool that works independently or together through the Viewit dashboard.
-
-Planit is designed with clarity, lightness, and balance in mind, encouraging consistent routines without overwhelming users.
+Planit is a simple, modular, offline-friendly productivity suite designed to help individuals and small households organize everyday tasks. Each component of Planit—like Taskit, Shopit, Menuit, and more—is a focused tool that works independently or together through the Viewit dashboard. Planit is designed with clarity, lightness, and balance in mind, encouraging consistent routines without overwhelming users.
 
 ✨ Features
 🗂 Taskit – Weekly to-do list with copy-forward for recurring tasks
 
-🛒 Shopit – Shopping list builder (planned)
+🛒 Shopit – Shopping list builder 
 
-🍽 Menuit – Menu planner (planned)
+🍽 Menuit – Menu planner 
 
-🧑‍🌾 Growit – Garden and seasonal planning (planned)
+🧑‍🌾 Growit – Garden and seasonal planning 
 
 📆 Buildit – Project timeline with Gantt-style tracking
 
@@ -22,19 +20,14 @@ Each app is written in lightweight HTML+JavaScript with no backend dependencies�
 🌐 Live Demo
 https://zr3d.github.io/planit/
 
-🔧 Installation
-You can run Planit directly in your browser:
+🔧 Installation You can run Planit directly in your browser:
 
-Visit the GitHub Pages link
+1. Bookmark the link above
 
-Bookmark the page or save it offline for regular use
+2 To install download the index.html file and open in your browser, alternatively download the project via the "<> Code" Button, unzip the project folder and then open the index.html file in your default browser.
 
-Or to run locally on a python server to avoid CORS issues (file-based fetch is used to load Javascript etc.): <br />
-git clone https://github.com/zr3d/planit.git <br />
-cd planit <br />
-python3 -m http.server 8000 <br />
-Then open your browser and go to: <br />
-http://localhost:8000/ <br />
+The index.html file has no dependencies and is designed to work offline with users able to download and share this single file easily and use locally or off a USB without requiring a server.
 
-🛠 Developer Notes
-This is a work-in-progress project with a modular structure. Each card (app) is being built and tested individually before integration into the Viewit dashboard. Feedback, forks, and collaboration are welcome.
+Data is stored in your browsers localstorage and can be exported to JSON for backup or to be imported to another computer. It is recommended to back up often as browser data is easily wiped.
+
+🛠 Developer Notes This is a work-in-progress project. Feedback, forks, and collaboration are welcome.
