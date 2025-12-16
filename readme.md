@@ -24,7 +24,7 @@ https://zr3d.github.io/planit/
 
 1. Bookmark the link above
 
-2 To install download the index.html file and open in your browser, alternatively download the project via the "<> Code" Button, unzip the project folder and then open the index.html file in your default browser.
+2. To install download the index.html file and open in your browser, alternatively download the project via the "<> Code" Button, unzip the project folder and then open the index.html file in your default browser.
 
 The index.html file has no dependencies and is designed to work offline with users able to download and share this single file easily and use locally or off a USB without requiring a server.
 
