@@ -5985,13 +5985,13 @@ const cardModules = {};
       // --- Import and Export ---
       function exportData() {
         exportPlanitData(); //planit.js
+        closeModal();
       }
     
       function importData(event) {
         importPlanitData(event); //planit.js
       }
-      
-      
+    
       // --- Widgets ---
       function widgetCardSelectPopulate(){
         updatePlanitStructure();
@@ -6003,7 +6003,6 @@ const cardModules = {};
           dom.widgetCardSelect.add(option);
         });
       }
-      
       
       function updatePlanitStructure(){
         const cardList = getCardList();
@@ -6084,10 +6083,8 @@ const cardModules = {};
         
         const displayLimit = (dom.widgetDisplayLimit.value == 0)? null:dom.widgetDisplayLimit.value;
         
-        
         //{"title": "buildit", "name": "Build", "group": "projects", "sub": "yes", "items": "activities"}
         //createViewWidget('Build','buildit', 'projects', null, {defaultEmoji:'🧰', onlyDefault:false}, 'No current build items', 4, null, null, ['title'],[]);
-            
         //createViewWidget(title, card, structure.group, dataListIndex, {defaultEmoji:'🧰', onlyDefault:false}, 'No current items', displayLimit, null, null, [field],[]);
         
         settingsData.widgetList.push(new Widget(title, card, structure.group, dataListIndex, {defaultEmoji:'🧰', onlyDefault:false}, 'No current items', displayLimit, null, null, [field],[]));
@@ -15140,9 +15137,17 @@ const cardModules = {};
     }
   }
 
+  function modifyHtmlForLoad(html, dataName){
+    if(!planitData[dataName]?.isPanelOpen){ //stops transition by hard coding class into html
+      html = html.replace('card-side-panel', 'card-side-panel card-side-panel-collapsed');
+    }
+    return html;  
+  }
+
   // Loads from card-modules.js
-  function loadCardJavascript(cardName){
-    dom.main.innerHTML = cards[cardName] || `<p>Card not found: ${cardName}</p>`;
+  function loadCardJavascript(cardName, dataName){
+    let html = cards[cardName] || `<p>Card not found: ${cardName}</p>`;
+    dom.main.innerHTML =  modifyHtmlForLoad(html, dataName);
     if (cardModules[cardName]) {
       cardModules[cardName](); // Initialize card-specific JS logic
     } else {
@@ -15155,17 +15160,13 @@ const cardModules = {};
     currentCard = cardname;    
     if(changeParam && changeValue){
       planitData[cardname][changeParam] = changeValue;
-    }
-    
+    }    
     const dataName = (cardname=='viewit')? 'settings':cardname;
     try {
       let html = cards[cardname];
-      if(!planitData[dataName]?.isPanelOpen){ //stops transition by hard coding class into html
-        html = html.replace('card-side-panel', 'card-side-panel card-side-panel-collapsed');
-      }
-      dom.main.innerHTML = html;
-      loadCardJavascript(cardname);
-      //loadCardJavascript(cardname);
+      dom.main.innerHTML =  modifyHtmlForLoad(html, dataName);
+      loadCardJavascript(cardname, dataName);
+      //loadCardJavascript(cardname, dataName); //replaces above by python for bundled
       } catch (err) {
           dom.main.innerHTML = '<p>Error loading view.</p>';
           console.error(err);
