@@ -15424,6 +15424,9 @@ const cardModules = {};
           Object.assign(planitData, data);
           afterLoading();
           localStorage.setItem(planitLocalStorageName, JSON.stringify(data));
+        }else{
+         console.log('loading base data');
+         afterLoading();
         }
         resolve(data);
       };
