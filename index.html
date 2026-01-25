@@ -15028,7 +15028,7 @@ const cardModules = {};
   function capitalizeFirstLetter(string){
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-  
+
   function toggleSidePanelUniversal(){
     const cardName = (currentCard === 'viewit')? 'settings':currentCard;
     const sidePanel = document.getElementById('sidePanel');
@@ -15045,7 +15045,7 @@ const cardModules = {};
     planitData.modit.currentCardId = cardId;
     loadView('modit')
   }
-  
+
   function makeModButton(button, card){
     button.dataset.name = card.title;
     button.dataset.cardid = card.id;
@@ -15054,8 +15054,8 @@ const cardModules = {};
     button.appendChild(emoji);
     button.appendChild(text);
     button.onclick = () => loadModitView(button.dataset.cardid);
-  }  
-  
+  }
+
   function renderNavButtonsMod(){
     if(planitData.modit?.cards){ //exists
       planitData.modit.cards.forEach(card => { //add it
@@ -15119,21 +15119,21 @@ const cardModules = {};
       }
     });
   }
-  
+
   function getLinkedNotes(cardName){
     const linkedNotes = document.getElementById('linkedNotes');
-    const noteData = getPlanitSection('noteit'); 
+    const noteData = getPlanitSection('noteit');
     if(noteData?.notes){
       noteData.notes.forEach(note => {
         const linkedToCard = note?.linkedToCard;
         if(linkedToCard===cardName){
            const button = document.createElement('button');
-           button.textContent = note.title; 
+           button.textContent = note.title;
            button.dataset.id = note.id;
            button.onclick = () => loadView('noteit', 'currentNoteId', button.dataset.id);
            if(linkedNotes) linkedNotes.appendChild(button);
-        }        
-      });      
+        }
+      });
     }
   }
 
@@ -15141,7 +15141,7 @@ const cardModules = {};
     if(!planitData[dataName]?.isPanelOpen){ //stops transition by hard coding class into html
       html = html.replace('card-side-panel', 'card-side-panel card-side-panel-collapsed');
     }
-    return html;  
+    return html;
   }
 
   // Loads from card-modules.js
@@ -15156,11 +15156,11 @@ const cardModules = {};
   }
 
   // Uses cards.js for all card HTML info
-  function loadView(cardname, changeParam, changeValue) {    
-    currentCard = cardname;    
+  function loadView(cardname, changeParam, changeValue) {
+    currentCard = cardname;
     if(changeParam && changeValue){
       planitData[cardname][changeParam] = changeValue;
-    }    
+    }
     const dataName = (cardname=='viewit')? 'settings':cardname;
     try {
       let html = cards[cardname];
@@ -15206,7 +15206,7 @@ const cardModules = {};
       }
     });
   }
-  
+
   function planitDivCreator(text, className, id){
     const div = document.createElement('div');
     if(text) div.textContent = text;
@@ -15224,12 +15224,12 @@ const cardModules = {};
   function removeNavVisibilityIfSet(){
     let width = screen.width;
     //has been set by showNavigationButton
-    
+
     if(dom.navigationButtons.classList.contains('navigation-buttons-show')){
-      dom.navigationButtons.classList.remove('navigation-buttons-show');  
+      dom.navigationButtons.classList.remove('navigation-buttons-show');
     }
-    
-    
+
+
     //if((dom.navigationButtons.style.display==='flex')){
     //  dom.navigationButtons.style.display = 'none';
     //}
@@ -15346,10 +15346,7 @@ const cardModules = {};
   }
 
 
-  // Save entire planitData to localStorage
-  function savePlanitData() {
-    localStorage.setItem(localStorageName, JSON.stringify(planitData));
-  }
+
 
   function deletePlanitData() {
     //console.log('del')
@@ -15362,7 +15359,7 @@ const cardModules = {};
       //console.log('canceled');
     }
   }
-  
+
   function getLocalStorageSizeInMegabytes() {
     let total = 0;
     for (let i = 0; i < localStorage.length; i++) {
@@ -15373,7 +15370,7 @@ const cardModules = {};
     // Convert to bytes (UTF-16 uses 2 bytes per character) then Mb
     return ((total * 2) / (1024*1024)).toFixed(2);
   }
-
+/*
   // Load entire planitData from localStorage
   function loadPlanitData() {
     console.log(`localStorage size: ${getLocalStorageSizeInMegabytes()} megabytes (5 megabytes total allowed)`);
@@ -15381,19 +15378,91 @@ const cardModules = {};
     if (data) {
       const parsed = JSON.parse(data);
       Object.assign(planitData, parsed); // merge without losing reference
-      //planitData.settings.cardList.push('modit');
-      //planitData.settings.customTheme['--color-standard-item-hover'] = {color:'#366fa2', label:'standard item hover'};
-      //planitData.settings.customTheme['--color-completed-item-hover'] = {color:'#3f688a', label:'completed item hover'};
-      renderNavButtons();
-      loadView('viewit'); // Load viewit before rendering buttons
-      //savePlanitData();
+      afterLoading();
     }else{
       planitData.settings.lastSaved = formatDate(new Date());
       savePlanitData();
-      renderNavButtons();
-      loadView('viewit'); // Load viewit first
-      
+      afterLoading();
     }
+  }
+*/
+  function afterLoading(){
+    renderNavButtons();
+    loadView('viewit'); // Load viewit first
+  }
+
+  const planitLocalStorageName = 'planitData'; //'planitData'
+  const planitDbName = 'planit-db';
+  const planitStoreName = 'planit-store';
+  const planitKey = 'planit-main';
+
+  async function loadPlanitData() {
+    // 1. Try localStorage
+    const local = localStorage.getItem(planitLocalStorageName);
+    if (local) {
+      try {
+        const data = JSON.parse(local);
+        Object.assign(planitData, data); // merge without losing reference
+        afterLoading();
+        console.log('loading local data');
+        return data;
+      } catch (e) {
+        console.warn('LocalStorage data corrupted, falling back to IndexedDB');
+      }
+    }
+    // 2. Fallback to IndexedDB
+    const db = await openPlanitDB();
+    const tx = db.transaction(planitStoreName, 'readonly');
+    const store = tx.objectStore(planitStoreName);
+    const request = store.get(planitKey);
+    return new Promise((resolve) => {
+      request.onsuccess = () => {
+        const data = request.result || null;
+        // Rehydrate localStorage if we found something
+        if (data) {
+          console.log('loading index db data');
+          Object.assign(planitData, data);
+          afterLoading();
+          localStorage.setItem(planitLocalStorageName, JSON.stringify(data));
+        }
+        resolve(data);
+      };
+      request.onerror = () => resolve(null);
+    });
+  }
+
+  // Save entire planitData to localStorage
+  //function savePlanitData() {
+  //  localStorage.setItem(localStorageName, JSON.stringify(planitData));
+  //}
+
+  function openPlanitDB() {
+    return new Promise((resolve, reject) => {
+      const request = indexedDB.open(planitDbName, 1);
+      request.onupgradeneeded = (event) => {
+        const db = event.target.result;
+        if (!db.objectStoreNames.contains(planitStoreName)) {
+          db.createObjectStore(planitStoreName);
+        }
+      };
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  async function savePlanitData() {
+    const json = JSON.stringify(planitData);
+    // Fast path
+    localStorage.setItem(planitLocalStorageName, json);
+    // Durable path
+    const db = await openPlanitDB();
+    const tx = db.transaction(planitStoreName, 'readwrite');
+    const store = tx.objectStore(planitStoreName);
+    store.put(planitData, planitKey);
+    return new Promise((resolve, reject) => {
+      tx.oncomplete = () => resolve(true);
+      tx.onerror = () => reject(tx.error);
+    });
   }
 
   function importPlanitData(event) {
@@ -15412,9 +15481,12 @@ const cardModules = {};
 
   function exportPlanitData(){
     planitData.settings.lastSaved = formatDate(new Date());
-    savePlanitData(); 
+    savePlanitData();
     exportCardData(planitData, 'planit');
-    //showToast('Planit Data Saved :' + planitData.settings.lastSaved, 'success');  
+
+    //see if this resets the
+    loadView('viewit');
+    //showToast('Planit Data Saved :' + planitData.settings.lastSaved, 'success');
   }
 
   function exportCardData(data, cardName) {
@@ -15426,7 +15498,7 @@ const cardModules = {};
     a.click();
     URL.revokeObjectURL(url);
   }
-  
+
   function importCardData(event, cardname, mainProperty) {
     return new Promise((resolve, reject) => {
       const file = event.target.files[0];
@@ -15588,7 +15660,7 @@ const cardModules = {};
    }
    return defaultEmoji; //could not find
   }
-  
+
  function toggleNavigationText(){
     planitData.settings.showButtonText = !planitData.settings.showButtonText;
     savePlanitData();
@@ -15643,12 +15715,12 @@ const cardModules = {};
     document.addEventListener('keydown', function(e) {
       if (e.key === "Escape") closeModal();
     });
-    
-    
+
+
     //window.addEventListener("resize", function() {
     //    console.log("Window resized to: " + window.innerWidth + " x " + window.innerHeight);
     //});
-    
+
   }
 
   function initButtons() {
@@ -15656,7 +15728,7 @@ const cardModules = {};
     document.getElementById('okCloseModalButton')?.addEventListener('click', closeModal);
     document.getElementById('showNavigationButton')?.addEventListener('click', toggleNavVisibility);
     document.getElementById('toggleExpandNavigationButton')?.addEventListener('click', toggleExpandNavigation);
-    document.getElementById('sidePanelNavButton')?.addEventListener('click', toggleSidePanelUniversal);   
+    document.getElementById('sidePanelNavButton')?.addEventListener('click', toggleSidePanelUniversal);
   }
 
   function init() {
