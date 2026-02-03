@@ -2874,6 +2874,9 @@ const cards = {
       <div id="linkedNotes"></div>
     </div>
     <div>
+      <button id="openTimerButton">Open Timer</button>
+    </div>
+    <div>
       <button id="deletePlanitDataButton">Delete Planit Data</button>
     </div>
     <div>
@@ -2924,7 +2927,7 @@ const cards = {
       <input id="widgetTitle" type="text" placeholder="Widget Title">
     </div>
     <div class="field">
-      <label for="widgetEmojis">Emojis (comer separated)</label>
+      <label for="widgetEmojis">Emojis (comma separated)</label>
       <input id="widgetEmojis" type="text" placeholder="🧰">
     </div>
     <div class="field">
@@ -6091,6 +6094,11 @@ const cardModules = {};
         saveAndRender();
       }
       
+      function triggerTimer(){
+        loadView('taskit', 'openTimer', true);
+      }
+      
+      
       // --- Initialization ---
       function initDomReferences() {
         //dom.sidePanel = document.getElementById('sidePanel');
@@ -6127,6 +6135,8 @@ const cardModules = {};
         
         dom.showHideAnimationButton = document.getElementById('showHideAnimationButton');
         dom.showHideAnimationButton?.addEventListener('click', showHideAnimation);
+        
+        document.getElementById('openTimerButton')?.addEventListener('click', triggerTimer);
         
         //Import Export Json Data
         document.getElementById('exportDataButton')?.addEventListener('click', exportData);
@@ -6171,7 +6181,7 @@ const cardModules = {};
     
       // --- Global Declarations ---
       //remove repeating:[] from below line?
-      let taskData = {taskGroups:[], currentTaskGroupId:'',tasks:[], repeating:[], isWeekly:true, isDisplayComplete:true, isPanelOpen:true, updatedAt:timeStamp(), card:'taskit'};
+      let taskData = {taskGroups:[], currentTaskGroupId:'',tasks:[], repeating:[], isWeekly:true, isDisplayComplete:true, isPanelOpen:true, updatedAt:timeStamp(), card:'taskit', openTimer:false};
       let currentTaskGroup = {};
       let currentTask = null;
       let daysOfWeek = [];
@@ -7161,6 +7171,13 @@ const cardModules = {};
         getLinkedNotes('taskit');
         startAwoogaIdleLoop();
         //populateAlarmSelect();
+        
+        if(taskData.openTimer){
+          timerModal(); //do once
+          taskData.openTimer = false;
+        }
+        
+        
       }
     
       init();
@@ -15160,6 +15177,7 @@ const cardModules = {};
     currentCard = cardname;
     if(changeParam && changeValue){
       planitData[cardname][changeParam] = changeValue;
+      //console.log(cardname, changeParam, changeValue);
     }
     const dataName = (cardname=='viewit')? 'settings':cardname;
     try {
@@ -15404,10 +15422,10 @@ const cardModules = {};
         const data = JSON.parse(local);
         Object.assign(planitData, data); // merge without losing reference
         afterLoading();
-        console.log('loading local data');
+        console.log('Loading local data');
         return data;
       } catch (e) {
-        console.warn('LocalStorage data corrupted, falling back to IndexedDB');
+        console.warn('LocalStorage data unavailable, falling back to IndexedDB');
       }
     }
     // 2. Fallback to IndexedDB
@@ -15420,12 +15438,12 @@ const cardModules = {};
         const data = request.result || null;
         // Rehydrate localStorage if we found something
         if (data) {
-          console.log('loading index db data');
+          console.log('Loading index db data');
           Object.assign(planitData, data);
           afterLoading();
           localStorage.setItem(planitLocalStorageName, JSON.stringify(data));
         }else{
-         console.log('loading base data');
+         console.log('Loading base data');
          afterLoading();
         }
         resolve(data);
