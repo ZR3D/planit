@@ -6140,20 +6140,20 @@ const cardModules = {};
         contentHtml.appendChild(buttonDiv);
         populateAndOpenModal('Gist Sync', contentHtml);
       }
-      
-     
-     
-      
+    
       async function pullGistData(){
         const gistData = loadGistData();
-        const data = await fetchFromCloud(gistData);
-        console.log(gistData, data);
+        const response = await fetchFromCloud(gistData);
+        closeModal();
+        await showToast(response);
       }
     
       async function pushGistData(){
        const gistData = loadGistData(); 
        const sync = await syncToCloud(gistData);
-       console.log(gistData, sync);
+       closeModal();
+       const msg = (sync)? 'Gist send OK':'Gist data send error';
+       await showToast(msg);
       }
      
       function loadGistData(){
@@ -6174,7 +6174,7 @@ const cardModules = {};
         const id = document.getElementById('gistIdInput').value
         const token = document.getElementById('githubTokenInput').value
         const gistData = JSON.stringify({id,token});
-        localStorage.setItem('gistData', gistData);
+        localStorage.setItem('gistData', gistData);    
       }
      
       // --- Initialization ---
@@ -15666,9 +15666,9 @@ const cardModules = {};
         planitData = cloudData;
         savePlanitData();
         loadView('viewit');        
-        return 'Gist data OK'
+        return 'Gist data retrieved OK';
       } catch (e) {
-        return 'Could not pass Gist data'
+        return 'Could not pass Gist data';
       }
   }
 
