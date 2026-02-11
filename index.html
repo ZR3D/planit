@@ -2875,12 +2875,12 @@ const cards = {
     </div>
     <div>
       <button id="openTimerButton">Open Timer</button>
+      <button id="openGistSyncModalButton">Gist Sync</button>
     </div>
     <div>
       <button id="deletePlanitDataButton">Delete Planit Data</button>
     </div>
     <div>
-      <button id="showTailwindButton">Tailwind Colors</button>
       <button id="toggleFullscreenButton">Full Screen</button>
     </div>
     <div class="field">
@@ -6098,7 +6098,84 @@ const cardModules = {};
         loadView('taskit', 'openTimer', true);
       }
       
+      function openGistSyncModal(){
+        const contentHtml = planitDivCreator(null);
+        const buttonDiv = planitDivCreator(null);
+        const inputDiv = planitDivCreator(null);
+            
+        const textDiv = planitDivCreator('Gist token and Github Fine Grain Token stored in a separate localStorage file.');
+        
+        const gistIdInput = document.createElement('input');
+        gistIdInput.id = 'gistIdInput';
+        gistIdInput.type = 'text';
+        gistIdInput.placeholder = 'Gist ID...';
+        
+        const githubTokenInput = document.createElement('input');
+        githubTokenInput.id = 'githubTokenInput';
+        githubTokenInput.type = 'text';
+        githubTokenInput.placeholder = 'Github fine-grained token...';
+    
+        const buttonSave = document.createElement('button');
+        buttonSave.textContent = 'Save';
+        buttonSave.onclick = () => saveGistData();
+    
+        inputDiv.appendChild(gistIdInput);
+        inputDiv.appendChild(githubTokenInput);
+        inputDiv.appendChild(buttonSave);
+        
+    
+        const buttonPush = document.createElement('button');
+        buttonPush.textContent = 'Send Data to Gist';
+        buttonPush.onclick = () => pushGistData();
+        
+        const buttonPull = document.createElement('button');
+        buttonPull.textContent = 'Get Data from Gist';
+        buttonPull.onclick = () => pullGistData();
+        
+        buttonDiv.appendChild(buttonPush);
+        buttonDiv.appendChild(buttonPull);
+        
+        contentHtml.appendChild(textDiv);
+        contentHtml.appendChild(inputDiv);   
+        contentHtml.appendChild(buttonDiv);
+        populateAndOpenModal('Gist Sync', contentHtml);
+      }
       
+     
+     
+      
+      async function pullGistData(){
+        const gistData = loadGistData();
+        const data = await fetchFromCloud(gistData);
+        console.log(gistData, data);
+      }
+    
+      async function pushGistData(){
+       const gistData = loadGistData(); 
+       const sync = await syncToCloud(gistData);
+       console.log(gistData, sync);
+      }
+     
+      function loadGistData(){
+        const local = localStorage.getItem('gistData');
+        if (local) {
+          try {
+            const data = JSON.parse(local);
+            return data;
+          } catch (e) {
+            return false;
+          }
+        }
+        return false;
+      }
+      
+      function saveGistData(){
+        const id = document.getElementById('gistIdInput').value
+        const token = document.getElementById('githubTokenInput').value
+        const gistData = JSON.stringify({id,token});
+        localStorage.setItem('gistData', gistData);
+      }
+     
       // --- Initialization ---
       function initDomReferences() {
         //dom.sidePanel = document.getElementById('sidePanel');
@@ -6137,6 +6214,7 @@ const cardModules = {};
         dom.showHideAnimationButton?.addEventListener('click', showHideAnimation);
         
         document.getElementById('openTimerButton')?.addEventListener('click', triggerTimer);
+        document.getElementById('openGistSyncModalButton')?.addEventListener('click', openGistSyncModal);
         
         //Import Export Json Data
         document.getElementById('exportDataButton')?.addEventListener('click', exportData);
@@ -15553,6 +15631,46 @@ const cardModules = {};
     return planitData[sectionName] || {};
   }
 
+  // --- Gist Sync ---
+
+  // Save id and token to separate LocalData 
+
+
+  // PUSH local data to the cloud
+  async function syncToCloud(tokenData) {
+
+      const response = await fetch(`https://api.github.com/gists/${tokenData.id}`, {
+          method: 'PATCH',
+          headers: {
+              'Authorization': `Bearer ${tokenData.token}`,
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+              files: {
+                  "planitData.json": {
+                      content: JSON.stringify(planitData)
+                  }
+              }
+          })
+      });
+      return response.ok;
+  }
+
+  // PULL data from the cloud to local
+  async function fetchFromCloud(tokenData) {
+      const response = await fetch(`https://api.github.com/gists/${tokenData.id}`);
+      const gist = await response.json();
+      try{
+        const cloudData = JSON.parse(gist.files['planitData.json'].content);
+        planitData = cloudData;
+        return 'Gist data OK'
+      } catch (e) {
+        return 'Could not pass Gist data'
+      }
+  }
+
+  // --- End Gist Sync ---
+
   function getMonday(date) {
     const d = new Date(date);
     const day = d.getDay(), diff = d.getDate() - day + (day === 0 ? -6 : 1);
@@ -15721,6 +15839,8 @@ const cardModules = {};
   window.capitalizeFirstLetter = capitalizeFirstLetter;
   window.toggleSidePanelUniversal = toggleSidePanelUniversal;
   window.toggleNavigationText = toggleNavigationText;
+  window.syncToCloud = syncToCloud;
+  window.fetchFromCloud = fetchFromCloud;
 
   // --- Initialization ---
   function initDomReferences() {
