@@ -6163,6 +6163,7 @@ const cardModules = {};
             const data = JSON.parse(local);
             return data;
           } catch (e) {
+            console.log('Gist data not found')
             return false;
           }
         }
@@ -15663,6 +15664,8 @@ const cardModules = {};
       try{
         const cloudData = JSON.parse(gist.files['planitData.json'].content);
         planitData = cloudData;
+        savePlanitData();
+        loadView('viewit');        
         return 'Gist data OK'
       } catch (e) {
         return 'Could not pass Gist data'
