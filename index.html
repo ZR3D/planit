@@ -4,18 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self';"> -->
-  <meta name="theme-color" content="#24456C" />
   <title>Planit</title>
+  <meta name="theme-color" content="#24456C" />
+  <meta name="referrer" content="no-referrer">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%20%3E%0A%20%3Cpath%20d%3D%22m98.8%2049.6a48.5%2048.5%200%200%201-48.5%2048.5%2048.5%2048.5%200%200%201-48.5-48.5%2048.5%2048.5%200%200%201%2048.5-48.5%2048.5%2048.5%200%200%201%2048.5%2048.5z%22%20fill%3D%22%235f97c9%22%2F%3E%0A%20%3Cpath%20d%3D%22m82.5%2029a32%2027.9%200%200%201-32%2027.9%2032%2027.9%200%200%201-32-27.9%2032%2027.9%200%200%201%2032-27.9%2032%2027.9%200%200%201%2032%2027.9z%22%20fill%3D%22%23264f74%22%2F%3E%0A%20%3Cpath%20d%3D%22m80.5%2038.6a30.1%2017.9%200%200%200-30-17.5%2030.1%2017.9%200%200%200-30%2017.5%2032%2027.9%200%200%200%2030%2018.3%2032%2027.9%200%200%200%2030-18.3z%22%20fill%3D%22%23366fa2%22%2F%3E%0A%3C%2Fsvg%3E" />
   <!-- <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Planit%22%2C%22short_name%22%3A%22Planit%22%2C%22description%22%3A%22Planit%20is%20a%20lifestyle%20app%20for%20organising%20essential%20things%2C%20hobbies%20and%20relaxation%22%2C%22start_url%22%3A%22.%22%2C%22id%22%3A%22index.html%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23ffffff%22%2C%22theme_color%22%3A%22%2324456C%22%2C%22lang%22%3A%22en%22%2C%22scope%22%3A%22%2F%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22images%2Fplanit_logo.svg%22%2C%22sizes%22%3A%22any%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%22%7D%2C%7B%22src%22%3A%22images%2Fplanit_icon_48.png%22%2C%22sizes%22%3A%2248x48%22%2C%22type%22%3A%22image%2Fpng%22%7D%2C%7B%22src%22%3A%22images%2Fplanit_icon_72.png%22%2C%22sizes%22%3A%2272x72%22%2C%22type%22%3A%22image%2Fpng%22%7D%2C%7B%22src%22%3A%22images%2Fplanit_icon_96.png%22%2C%22sizes%22%3A%2296x96%22%2C%22type%22%3A%22image%2Fpng%22%7D%2C%7B%22src%22%3A%22images%2Fplanit_icon_128.png%22%2C%22sizes%22%3A%22128x128%22%2C%22type%22%3A%22image%2Fpng%22%7D%2C%7B%22src%22%3A%22images%2Fplanit_icon_256.png%22%2C%22sizes%22%3A%22256x256%22%2C%22type%22%3A%22image%2Fpng%22%7D%2C%7B%22src%22%3A%22images%2Fplanit_icon_512.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D"> -->
   <!-- <link rel="manifest" href="manifest.json" /> -->
   <style>
 /*
- ✨ Planit CSS Guide ✨
+ âœ¨ Planit CSS Guide âœ¨
 
  1. Use relative units for responsive design:
-    - Font sizes, paddings, and margins → use rem
-    - Widths and heights → use %, vw, vh
+    - Font sizes, paddings, and margins â†’ use rem
+    - Widths and heights â†’ use %, vw, vh
 
  2. Use px for fixed-size or minimum-size elements:
     - Example:side panels, headers, footers, or control areas
@@ -26,7 +27,7 @@
 
  Keep styles simple, flexible, and mobile-friendly!
 
- 📚 Planit CSS Naming Guide 📚
+ ðŸ“š Planit CSS Naming Guide ðŸ“š
 
 1. Naming Style:
    - Use kebab-case for all class names (lowercase words separated by hyphens)
@@ -1147,9 +1148,11 @@ pre {
 .menuit-card h3 {
   margin-top: 10px;
 }
+/*
 .menuit-card label {
   background: #434e5c;
 }
+*/
 .menuit-card .date-title {
   padding: 5px;
   font-size: 1rem;
@@ -1962,6 +1965,14 @@ pre {
   stroke: #00000090;
   cursor: pointer;
 }
+.recipeit-card .icon-container {
+  flex: 0 0 30px;
+}
+
+.recipeit-card .filters{
+  margin-bottom: 8px;
+}
+
 .recipeit-card .inline-tools {
   display: flex;
   justify-content: flex-end;
@@ -1969,8 +1980,7 @@ pre {
 .recipeit-card button {
   margin: 0rem;
 }
-.recipeit-card textarea,
-pre {
+.recipeit-card textarea, pre {
   width: 100%;
   min-height: 100px;
   margin-bottom: 1em;
@@ -1993,7 +2003,7 @@ pre {
 }
 
 /* --- Noteit ---*/
-.noteit-card {
+.noteit-card .card-main{
   font-size: 1rem;
   color: #152b36;
   align-content: center;
@@ -2874,7 +2884,7 @@ const cards = {
       <div id="linkedNotes"></div>
     </div>
     <div>
-      <button id="openTimerButton">Open Timer</button>
+      <button id="openTimerButton">Open Timer</button> 
       <button id="openGistSyncModalButton">Gist Sync</button>
     </div>
     <div>
@@ -2922,6 +2932,17 @@ const cards = {
       <label for="widgetFieldSelect">Field</label>
       <select id="widgetFieldSelect"></select>
     </div>
+    
+    <div class="field">
+      <label>Filter</label>
+      <select id="filterFieldSelect"></select>
+      <select id="filterOperatorSelect">
+        <option value='equalto'>Equal to</option>
+        <option value='notequalto'>Not equal to</option>
+      </select>
+      <input id="filterValueInput" type="text" placeholder="Filter value...">
+    </div>
+    
     <div class="field">
       <label for="widgetTitle">Title</label>
       <input id="widgetTitle" type="text" placeholder="Widget Title">
@@ -3153,6 +3174,16 @@ const cards = {
     <div class="card-navigation">
       <input id="titleInput" type="text" placeholder="New menu item...">
       <button id="addNewButton">+ Add New</button>
+      <select id="daySelect">
+        <option>All</option>
+        <option>Monday</option>
+        <option>Tuesday</option>
+        <option>Wednesday</option>
+        <option>Thursday</option>
+        <option>Friday</option>
+        <option>Saturday</option>
+        <option>Sunday</option>
+      </select>
       <div class="planit-fill"></div>
       <button id="copyRepeatsBtn">Copy Repeating</button>
       <button id="prevWeekBtn">Previous</button>
@@ -3197,9 +3228,7 @@ const cards = {
       <label for="planRepeat">Repeat</label>
       <input type="checkbox" id="planRepeat">
     </div>
-    <button id="savePlanButton">Save</button>
     <button id="deletePlanButton">Delete</button>
-
   </div>
 
 
@@ -3211,11 +3240,11 @@ const cards = {
     </div>
     <div class="field">
       <label for="itemKeyIngredients">Key Ingredients</label>
-      <input type="text" id="itemKeyIngredients" placeholder="Key Ingredients comma separated">
+      <input type="text" id="itemKeyIngredients" placeholder="Key Ingredients (comma separated)">
     </div>
     <div class="field">
       <label for="itemTags">Tags</label>
-      <input type="text" id="itemTags" placeholder="Tags comma separated">
+      <input type="text" id="itemTags" placeholder="Tags (comma separated)">
     </div>
     <button id="saveMenuItemButton">Save Item</button>
     <button id="newMenuItemButton">+ New Item</button>
@@ -3239,6 +3268,15 @@ const cards = {
    <div id="editView">
     <div class='grid-wrapper'>
       <div id="recipeContainer" class="recipe-container"></div>
+    </div>
+    <div class="filters">
+      <input type="text" id="filterInput" placeholder="Type recipe title...">
+      <button id="filterByBreakfastBtn">breakfast</button>
+      <button id="filterByLunchBtn">lunch</button>
+      <button id="filterByDinnerBtn">dinner</button>
+      <button id="filterByDessertBtn">dessert</button>
+      <button id="filterBySidesBtn">sides</button >
+      <button id="showAllButton">show all</button >
     </div>
     <div id="recipePicker" class="recipe-picker"></div>
    </div>
@@ -3268,6 +3306,27 @@ const cards = {
       <label>Linked Notes</label>
       <div id="linkedNotes"></div>
     </div>
+    
+    <div class="field">
+      <label>Title</label>
+      <input id="sideTitleInput" placeholder="Recipe Title...">
+    </div>
+    
+    <div class="field">
+      <label>Type</label>
+      <input id="typeInput" placeholder="Recipe Type...">
+    </div>
+    
+    <div class="field">
+      <label>Source</label>
+      <input id="sourceInput" placeholder="Recipe Source...">
+    </div>
+    
+    <div class="field">
+      <label>Tags</label>
+      <input id="tagsInput" placeholder="Tags (comma separated)...">
+    </div>
+    
   </div>
 </section>
 `,
@@ -4273,7 +4332,9 @@ const cards = {
   <div class="card-main">
     <div class="card-navigation">
       <input id="titleInput" type="text" placeholder="New snippet title...">
-      <button id="addNewButton">+ Add New</button>
+      <button id="addNewButton">+ Add New</button>      
+      <input id="filterInput" type="text" placeholder="Type to filter...">
+      <button id="showAllButton">Show All</button>      
       <div class="planit-fill"></div>
       <button id="showHideCodeedButton">Hide Coded</button>
       <button id="sidePanelButton" class="button-icon-container"><svg class="button-icon" aria-label="open side panel"><use href="#side-panel"></use></svg></button>
@@ -5672,14 +5733,14 @@ const cardModules = {};
           const editButton = document.createElement('button');
           editButton.textContent = 'Edit';
           editButton.dataset.id =  id;
-          editButton.onclick = () => deleteWidget(editButton.dataset.id);
+          editButton.onclick = () => editWidget(editButton.dataset.id);
           content.appendChild(editButton);  
         }    
         block.appendChild(title);
         block.appendChild(content);
         viewSection.appendChild(block);
       }
-    
+    /*
       function limitedRandomSelection(arr, len){
         if(arr.length===1){
           return arr;
@@ -5693,6 +5754,24 @@ const cardModules = {};
         while(arr.length>newLength);
         return arr;
       }
+    */
+    
+      function limitedRandomSelection(arr, len) {
+        if (arr.length <= len) return [...arr]; // Safety: return a copy if already short enough
+    
+        let result = [...arr];
+        const targetLength = len;
+    
+        // This check happens BEFORE any items are removed
+        while (result.length > targetLength) {
+          result.splice(Math.floor(Math.random() * result.length), 1);
+        }
+    
+        return result;
+      }
+      
+      
+      
     
       function randomFromList(arr){
         return arr[Math.floor(Math.random() * arr.length)];;
@@ -5714,6 +5793,9 @@ const cardModules = {};
       }
     
       function createViewWidget(title, cardName, dataList, dataListIndex, emoji, fallbackText, displayLimit, highlight, sort, displayText, filters, id, isHidden){ 
+        if(displayLimit)  displayLimit = Number(displayLimit);
+        console.log(title, cardName, displayLimit);
+        
         const cardData = getPlanitSection(cardName);
         let data = cardData[dataList]; //one level
         let highlightValue = null;
@@ -5777,11 +5859,19 @@ const cardModules = {};
               }          
             })
         }
+        
+        if(title==='To-Do'){
+          console.log(filteredList, displayLimit);
+        }
     
         if(displayLimit || !settingsData.isShowAll){
           const howManyRandom = (settingsData.isShowAll)? displayLimit:1;
           filteredList = limitedRandomSelection(filteredList, howManyRandom)
         }
+        
+        if(title==='To-Do'){
+          console.log('2:', filteredList, displayLimit);
+        }  
     
         if(sort){
           filteredList = sorter(filteredList, sort)
@@ -5790,31 +5880,20 @@ const cardModules = {};
         createViewitBox(title, filteredList, cardName, emoji.defaultEmoji, id, isHidden);
       }
     
-       //select card 
-       //select group - will need to ref planitStucture
-       //add title
-       //add emoji
-       //is emoji default 
-       //random emojis
-       //if none
-       //limit number
-       //highlight rules
-       //sort rules
-       //properties to display
-       //filters
-       //title, cardName, dataList, dataListIndex, emoji, fallbackText, displayLimit, highlight, sort, displayText, filters
-       //console.log(planitStucture);
-    
       function editWidget(id){
-        currentWidget = settingsData.widgetList.find(w => w.id === id);
+        const currentWidget = settingsData.widgetList.find(w => w.id === id);
+        const filter = currentWidget.filters[0];
         dom.widgetCardSelect.value = currentWidget.cardName;
         widgetCardSelectChange();
         dom.widgetGroupSelect.value = currentWidget.dataList;
         dom.widgetFieldSelect.value = currentWidget.displayText;
-        dom.widgetTitle.value = currentWidget.title; //widgetTitle should be widgetTitleInput
-        
-        //console.log(currentWidget);
+        dom.widgetTitle.value = currentWidget.title; //widgetTitle should be widgetTitleInput    
+        dom.filterFieldSelect.value = filter?.name;
+        dom.filterOperatorSelect.value = filter?.operation;
+        dom.filterValueInput.value = filter?.value;
+        dom.widgetDisplayLimit.value = currentWidget.displayLimit;
       }
+      
       function deleteWidget(id){
         const index = settingsData.widgetList.findIndex(w => w.id === id);
         //console.log(index, id)
@@ -6062,6 +6141,10 @@ const cardModules = {};
             option.text = fields;
             option.value = fields;
             dom.widgetFieldSelect.add(option);
+            const optionFilter = document.createElement('option');
+            optionFilter.text = fields;
+            optionFilter.value = fields;
+            dom.filterFieldSelect.add(optionFilter);
           });
         }
       }
@@ -6084,13 +6167,18 @@ const cardModules = {};
           dataListIndex = (structure.sub === 'yes')? {index:index, name:structure.items}:null;
         }
         
-        const displayLimit = (dom.widgetDisplayLimit.value == 0)? null:dom.widgetDisplayLimit.value;
+        const displayLimit = (dom.widgetDisplayLimit.value == 0)? null:Number(dom.widgetDisplayLimit.value);
+     
         
         //{"title": "buildit", "name": "Build", "group": "projects", "sub": "yes", "items": "activities"}
         //createViewWidget('Build','buildit', 'projects', null, {defaultEmoji:'🧰', onlyDefault:false}, 'No current build items', 4, null, null, ['title'],[]);
         //createViewWidget(title, card, structure.group, dataListIndex, {defaultEmoji:'🧰', onlyDefault:false}, 'No current items', displayLimit, null, null, [field],[]);
         
-        settingsData.widgetList.push(new Widget(title, card, structure.group, dataListIndex, {defaultEmoji:'🧰', onlyDefault:false}, 'No current items', displayLimit, null, null, [field],[]));
+        let filters = [];
+        if(dom.filterOperatorSelect.value){
+          filters = [{name:dom.filterFieldSelect.value, value:dom.filterValueInput.value, operation:dom.filterOperatorSelect.value}];
+        }
+        settingsData.widgetList.push(new Widget(title, card, structure.group, dataListIndex, {defaultEmoji:'🧰', onlyDefault:false}, 'No current items', displayLimit, null, null, [field], filters));
         saveAndRender();
       }
       
@@ -6103,16 +6191,18 @@ const cardModules = {};
         const buttonDiv = planitDivCreator(null);
         const inputDiv = planitDivCreator(null);
             
-        const textDiv = planitDivCreator('Gist token and Github Fine Grain Token stored in a separate localStorage file.');
+        const textDiv = planitDivCreator('Gist token and Github Fine Grain Token stored in a separate localStorage file. Gist file name is planitData.json');
         
         const gistIdInput = document.createElement('input');
         gistIdInput.id = 'gistIdInput';
         gistIdInput.type = 'text';
+        gistIdInput.style = 'background: #f3f3f3; width:100%';
         gistIdInput.placeholder = 'Gist ID...';
         
         const githubTokenInput = document.createElement('input');
         githubTokenInput.id = 'githubTokenInput';
         githubTokenInput.type = 'text';
+        githubTokenInput.style = 'background: #f3f3f3; width:100%; margin-top:5px;';
         githubTokenInput.placeholder = 'Github fine-grained token...';
     
         const buttonSave = document.createElement('button');
@@ -6191,6 +6281,9 @@ const cardModules = {};
         dom.widgetCardSelect?.addEventListener('change', widgetCardSelectChange);
         dom.widgetGroupSelect = document.getElementById('widgetGroupSelect');
         dom.widgetFieldSelect = document.getElementById('widgetFieldSelect');
+        dom.filterFieldSelect = document.getElementById('filterFieldSelect');
+        dom.filterOperatorSelect = document.getElementById('filterOperatorSelect');
+        dom.filterValueInput = document.getElementById('filterValueInput');
         dom.widgetTitle = document.getElementById('widgetTitle');
         dom.widgetDisplayLimit = document.getElementById('widgetDisplayLimit');
         dom.modalContent = document.getElementById('modalContent');
@@ -8047,9 +8140,14 @@ const cardModules = {};
           const date = new Date(currentDate);
           date.setDate(date.getDate() + i);
           const dayTitle = date.toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long" });
+          const weekday = date.toLocaleDateString(undefined, { weekday: "long"}).toLowerCase();
           const dateStr = formatDate(date);
           renderData.push({date:dateStr, title:dayTitle, breakfast:[], lunch:[], dinner:[], dessert:[]});
-          const section = planitDivCreator(null, 'planner-day');
+          
+          let dayValue = dom.daySelect.value;
+          dayValue = dayValue.toLowerCase();
+          const className = (dayValue === weekday || dayValue==='all')? '':' planit-hidden';      
+          const section = planitDivCreator(null, `planner-day ${weekday}${className}`);
           section.appendChild(createMealHeader(`${dayTitle}`,'date-title'));
           section.appendChild(createDropTarget(dateStr,'breakfast', 'bre'));
           section.appendChild(createDropTarget(dateStr,'lunch', 'lun'));
@@ -8246,6 +8344,21 @@ const cardModules = {};
           }
         }
       }
+      
+      function filterDays(){
+        let dayValue = dom.daySelect.value;
+        dayValue = dayValue.toLowerCase();
+        document.querySelectorAll('.planner-day').forEach(day =>{
+          if(day.classList.contains(dayValue) || dayValue==='all'){
+            day.classList.remove('planit-hidden');
+          }else{
+            day.classList.add('planit-hidden');        
+          }      
+        });
+      }
+      
+      
+      
     /*
       function toggleSidePanel(){
         menuData.isPanelOpen = !menuData.isPanelOpen;
@@ -8267,6 +8380,14 @@ const cardModules = {};
         dom.editView = document.getElementById("editView");
         dom.titleInput = document.getElementById('titleInput');
         dom.menuList = document.getElementById('menuList');
+        dom.daySelect = document.getElementById('daySelect');
+          
+        dom.planTitle?.addEventListener('input', saveMenuPlan);
+        dom.planRepeat?.addEventListener('click', saveMenuPlan);
+        dom.daySelect?.addEventListener('change', filterDays);
+        
+        
+        
     
       /*
         Sortable.create(document.getElementById('del'), {
@@ -8317,7 +8438,7 @@ const cardModules = {};
         document.getElementById('saveMenuItemButton')?.addEventListener('click', saveMenuItem);
         document.getElementById('newMenuItemButton')?.addEventListener('click', addMenuItem);
         document.getElementById('deleteMenuItemButton')?.addEventListener('click', deleteMenuItem);
-        document.getElementById('savePlanButton')?.addEventListener('click', saveMenuPlan);
+        //document.getElementById('savePlanButton')?.addEventListener('click', saveMenuPlan);
         document.getElementById('deletePlanButton')?.addEventListener('click', deleteMenuPlan);
     
         dom.toggleViewButton = document.getElementById('toggleViewButton');
@@ -8368,6 +8489,7 @@ const cardModules = {};
       let currentRecipeId = 0;
       let currentRecipe = {};
       let recipeData = {recipes:[], viewType:'edit', currentRecipeId:null, isPanelOpen:true, updatedAt:timeStamp(), card:'recipeit'};
+      let currentFilter = '';
       const dom = {};
       //const sortOrder = {ingredients:[], methods:[]};
     
@@ -8564,6 +8686,8 @@ const cardModules = {};
     
         changeRecipe(recipe.id)
         saveAndRender();
+        dom.inputText.value = '';
+        showToast('Recipe parsed');
       }
     
       function normalizeQuantity(ingredient) {
@@ -8781,7 +8905,7 @@ const cardModules = {};
       // --- Render Functions ---
       function renderView(){
         renderRecipe();
-        renderRecipePicker();
+        renderRecipePicker(currentFilter);
       }
     
       function renderRecipe(){
@@ -8797,13 +8921,15 @@ const cardModules = {};
         const icon = getBestGuessEmoji(recipe.title, '🍲️');
     
         //const recipeNumber = planitDivCreator(currentRecipeId.toString(), 'recipe-heading');
-        const recipeTitle = planitDivCreator(icon + ' ' + recipe.title, 'recipe-title', true);
+        const recipeTitle = planitDivCreator(recipe.title, 'recipe-title', 'recipeTitle');
+        recipeTitle.contentEditable = 'true';
         recipeTitle.onblur = () => updateRecipeProperty('title', recipeTitle);
-        const recipeType = planitDivCreator(recipe.type, 'recipe-type', true);
+        const recipeType = planitDivCreator(recipe.type, 'recipe-type', 'recipeType');
+        recipeType.contentEditable = 'true';
         recipeType.onblur = () => updateRecipeProperty('type', recipeType);
-        const recipeSource = planitDivCreator(recipe.source, 'recipe-source', true);
+        const recipeSource = planitDivCreator(recipe.source, 'recipe-source', 'recipeSource');
+        recipeSource.contentEditable = 'true';
         recipeSource.onblur = () => updateRecipeProperty('source', recipeSource);
-    
         const deleteHeading = planitDivCreator('', 'heading inline-tools heading-last-child');
         const deleteRecipeSvg = createSvg('delete', 'icon');
         deleteRecipeSvg.addEventListener('mousedown', e => e.preventDefault());
@@ -8811,10 +8937,11 @@ const cardModules = {};
     
         //recipeContainer.appendChild(recipeNumber);
         const recipeHeading = planitDivCreator(null, 'recipe-heading');
+        recipeHeading.appendChild(planitDivCreator(icon, 'icon-container'));
         recipeHeading.appendChild(recipeTitle);
         recipeHeading.appendChild(recipeType);
         recipeHeading.appendChild(recipeSource);
-        recipeHeading.appendChild(deleteRecipeSvg);
+        deleteHeading.appendChild(deleteRecipeSvg);
         recipeHeading.appendChild(deleteHeading);
         recipeContainer.appendChild(recipeHeading);
     
@@ -8964,13 +9091,21 @@ const cardModules = {};
         saveAndRender();
       }
     
-    
-      function renderRecipePicker(){
+      function renderRecipePicker(filter = ''){
+        recipeData.recipes.sort((a, b) => {
+          return a.title.localeCompare(b.title); // A-Z by category
+        }); 
+        currentFilter = filter;
+        dom.filterInput.value = filter;
         dom.recipePicker.innerHTML = '';
-        recipeData.recipes.forEach((recipe,index) => {
-        const recipeBox = planitDivCreator(recipe.title, '');
-        recipeBox.onclick = () => changeRecipe(recipe.id);
-        dom.recipePicker.appendChild(recipeBox);
+        recipeData.recipes.forEach(recipe => {
+          if (filter && 
+          !recipe.title.toLowerCase().includes(filter.toLowerCase()) && 
+          !recipe.type.toLowerCase().includes(filter.toLowerCase())
+          ) return;
+          const recipeBox = planitDivCreator(recipe.title, '');
+          recipeBox.onclick = () => changeRecipe(recipe.id);
+          dom.recipePicker.appendChild(recipeBox);
         })
       }
     
@@ -9026,6 +9161,11 @@ const cardModules = {};
           updatePlanitSection("recipeit", recipeData); //planit.js
         }
       }
+      
+      function filterRecipeList(){
+        const term = dom.filterInput.value.trim();
+        renderRecipePicker(term);    
+      }
     
       // --- Initialization ---
       function initDomReferences() {
@@ -9037,6 +9177,14 @@ const cardModules = {};
         dom.parseOutput = document.getElementById('parseOutput');
         dom.editView = document.getElementById('editView');
         dom.pasteView = document.getElementById('pasteView');
+        dom.filterInput = document.getElementById('filterInput');
+        dom.filterInput.addEventListener("input", filterRecipeList); 
+        dom.sideTitleInput = document.getElementById('sideTitleInput');
+        dom.typeInput = document.getElementById('typeInput');
+        dom.sourceInput = document.getElementById('sourceInput');
+        dom.tagsInput = document.getElementById('tagsInput');
+        
+        dom.sideTitleInput.addEventListener("input", filterRecipeList);    
       }
     
       function initButtons() {
@@ -9047,6 +9195,13 @@ const cardModules = {};
     
         dom.toggleViewButton = document.getElementById('toggleViewButton');
         dom.toggleViewButton?.addEventListener('click', toggleView);
+        
+        document.getElementById('showAllButton')?.addEventListener('click', () => renderRecipePicker(''));
+        document.getElementById('filterByBreakfastBtn')?.addEventListener('click', () => renderRecipePicker('breakfast'));
+        document.getElementById('filterByLunchBtn')?.addEventListener('click', () => renderRecipePicker('lunch'));
+        document.getElementById('filterByDinnerBtn')?.addEventListener('click', () => renderRecipePicker('dinner'));
+        document.getElementById('filterByDessertBtn')?.addEventListener('click', () => renderRecipePicker('dessert'));
+        document.getElementById('filterBySidesBtn')?.addEventListener('click', () => renderRecipePicker('sides'));
     
         //Import Export Json Data
         document.getElementById('exportDataButton')?.addEventListener('click', exportData);
@@ -9182,6 +9337,7 @@ const cardModules = {};
         watchData.shows.push(newItem);
         updateSidePanel(newItem);
         saveAndRender();
+        dom.titleInput.value = '';
         showToast(`${newTitle} added`, 'success');
       }
     
@@ -9819,6 +9975,7 @@ const cardModules = {};
         listenData.audio.push(newItem);
         updateSidePanel(newItem);
         saveAndRender();
+        dom.titleInput.value = '';
         showToast(`${newTitle} added`, 'success');
       }
     
@@ -14352,6 +14509,9 @@ const cardModules = {};
         dom.showHideCodeedButton?.addEventListener('click', toggleDisplayCodeed);
         setDisplayCodeedButton();
     
+        dom.filterInput = document.getElementById('filterInput');
+        dom.showAllButton = document.getElementById('showAllButton');
+    
         //Import Export Json Data
         document.getElementById('exportDataButton')?.addEventListener('click', exportData);
         const importDataButton = document.getElementById('importDataButton');
@@ -15498,6 +15658,7 @@ const cardModules = {};
     const local = localStorage.getItem(planitLocalStorageName);
     if (local) {
       try {
+        console.log(`localStorage size: ${getLocalStorageSizeInMegabytes()} megabytes (5 megabytes total allowed)`);
         const data = JSON.parse(local);
         Object.assign(planitData, data); // merge without losing reference
         afterLoading();
