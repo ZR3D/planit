@@ -5541,20 +5541,37 @@ const cardModules = {};
         renderView();
       }
         
-      function showHideAnimation(){
-       if(designSvg.classList.contains('planit-hidden')){
+      function showHideAnimation(toggle = true){
+       if(toggle){ 
+        settingsData.showAnimation = !settingsData.showAnimation;
+        saveToLocalStorage();
+       }
+       if(settingsData.showAnimation){
          dom.showHideAnimationButton.textContent = 'Hide Animation';
          designSvg.classList.remove('planit-hidden');
        }else{
+         clearTimeout(awoogaTimer);
          dom.showHideAnimationButton.textContent = 'Show Animation';
          designSvg.classList.add('planit-hidden'); 
        }
+       //console.log('settingsData.showAnimation:', settingsData.showAnimation);
       }
       
       function editWidgets(){
         editWidgetsMode = !editWidgetsMode; //toggle
         dom.editWidgetsButton.textContent = (editWidgetsMode)? 'View Mode':'Edit Mode';
         renderView();
+      }
+      
+      function saveWidget(){
+        //console.log(currentWidget)
+        //find index
+        const index = settingsData.widgetList.findIndex(w => w.id===currentWidget.id);
+        //console.log(settingsData.widgetList, currentWidget, currentWidget.id, index);
+        if(index){ 
+          widgetCreate(index);
+          saveAndRender();
+        }
       }
     
       function changeTheme(update){
@@ -5641,7 +5658,7 @@ const cardModules = {};
       }
     
       function startAwoogaIdleLoop() {
-       clearTimeout(awoogaTimer);
+        clearTimeout(awoogaTimer);
         const idleAnimations = ['wave','hello','headRock','restPosition','armsLow','blink','eyeScan','raiseEyes','moveLeft','moveRight'];
         async function triggerRandomAnimation() {
           // Random idle animation choice
@@ -5794,7 +5811,7 @@ const cardModules = {};
     
       function createViewWidget(title, cardName, dataList, dataListIndex, emoji, fallbackText, displayLimit, highlight, sort, displayText, filters, id, isHidden){ 
         if(displayLimit)  displayLimit = Number(displayLimit);
-        console.log(title, cardName, displayLimit);
+        //console.log(title, cardName, displayLimit);
         
         const cardData = getPlanitSection(cardName);
         let data = cardData[dataList]; //one level
@@ -5816,6 +5833,8 @@ const cardModules = {};
         let filteredList = JSON.parse(JSON.stringify(data));
     
         filters.forEach(filter => {
+          
+          if(filter.value === 'true') filter.value = true;
           //console.log(title, filter.value);
           //if(filter.value === 'Tuesday') filter.value = 'getMealTime';
           if(highlight?.value === 'breakfast'){
@@ -5881,13 +5900,14 @@ const cardModules = {};
       }
     
       function editWidget(id){
-        const currentWidget = settingsData.widgetList.find(w => w.id === id);
+        currentWidget = settingsData.widgetList.find(w => w.id === id);
         const filter = currentWidget.filters[0];
         dom.widgetCardSelect.value = currentWidget.cardName;
         widgetCardSelectChange();
         dom.widgetGroupSelect.value = currentWidget.dataList;
         dom.widgetFieldSelect.value = currentWidget.displayText;
-        dom.widgetTitle.value = currentWidget.title; //widgetTitle should be widgetTitleInput    
+        dom.widgetTitle.value = currentWidget.title; //widgetTitle should be widgetTitleInput   
+        dom.widgetEmojisInput.value = currentWidget.emoji.defaultEmoji; 
         dom.filterFieldSelect.value = filter?.name;
         dom.filterOperatorSelect.value = filter?.operation;
         dom.filterValueInput.value = filter?.value;
@@ -6149,7 +6169,7 @@ const cardModules = {};
         }
       }
       
-      function widgetCreate(){
+      function widgetCreate(widgetListIndex = null){
         let index, dataListIndex;
         let card = dom.widgetCardSelect.value;
         let group = dom.widgetGroupSelect.value;
@@ -6178,7 +6198,17 @@ const cardModules = {};
         if(dom.filterOperatorSelect.value){
           filters = [{name:dom.filterFieldSelect.value, value:dom.filterValueInput.value, operation:dom.filterOperatorSelect.value}];
         }
-        settingsData.widgetList.push(new Widget(title, card, structure.group, dataListIndex, {defaultEmoji:'🧰', onlyDefault:false}, 'No current items', displayLimit, null, null, [field], filters));
+        
+        // Save or Create new widget
+        
+        const emoji = (dom.widgetEmojisInput.value)? {defaultEmoji:dom.widgetEmojisInput.value, onlyDefault:true}:{defaultEmoji:'🧰', onlyDefault:false};
+        console.log(emoji, dom.widgetEmojisInput.value)
+        const newWidget = new Widget(title, card, structure.group, dataListIndex, emoji, 'No current items', displayLimit, null, null, [field], filters)
+        if(widgetListIndex){
+          settingsData.widgetList[widgetListIndex] = newWidget;
+        }else{
+          settingsData.widgetList.push(newWidget);
+        }   
         saveAndRender();
       }
       
@@ -6204,6 +6234,19 @@ const cardModules = {};
         githubTokenInput.type = 'text';
         githubTokenInput.style = 'background: #f3f3f3; width:100%; margin-top:5px;';
         githubTokenInput.placeholder = 'Github fine-grained token...';
+        
+    
+        const githubOwnerInput = document.createElement('input');
+        githubOwnerInput.id = 'githubOwnerInput';
+        githubOwnerInput.type = 'text';
+        githubOwnerInput.style = 'background: #f3f3f3; width:100%; margin-top:5px;';
+        githubOwnerInput.placeholder = 'Github owner';
+    
+        const githubRepoInput = document.createElement('input');
+        githubRepoInput.id = 'githubRepoInput';
+        githubRepoInput.type = 'text';
+        githubRepoInput.style = 'background: #f3f3f3; width:100%; margin-top:5px;';
+        githubRepoInput.placeholder = 'Github repo';
     
         const buttonSave = document.createElement('button');
         buttonSave.textContent = 'Save';
@@ -6211,6 +6254,8 @@ const cardModules = {};
     
         inputDiv.appendChild(gistIdInput);
         inputDiv.appendChild(githubTokenInput);
+        inputDiv.appendChild(githubOwnerInput);
+        inputDiv.appendChild(githubRepoInput);    
         inputDiv.appendChild(buttonSave);
         
     
@@ -6222,8 +6267,22 @@ const cardModules = {};
         buttonPull.textContent = 'Get Data from Gist';
         buttonPull.onclick = () => pullGistData();
         
+        
+        const buttonPushRepo = document.createElement('button');
+        buttonPushRepo.textContent = 'Send Data to Repo';
+        buttonPushRepo.onclick = () => pushRepoData();
+        
+        const buttonPullRepo = document.createElement('button');
+        buttonPullRepo.textContent = 'Get Data from Repo';
+        buttonPullRepo.onclick = () => pullRepoData();
+      
+        
         buttonDiv.appendChild(buttonPush);
         buttonDiv.appendChild(buttonPull);
+        
+        buttonDiv.appendChild(buttonPushRepo);
+        buttonDiv.appendChild(buttonPullRepo);
+        
         
         contentHtml.appendChild(textDiv);
         contentHtml.appendChild(inputDiv);   
@@ -6241,11 +6300,28 @@ const cardModules = {};
       async function pushGistData(){
        const gistData = loadGistData(); 
        const sync = await syncToCloud(gistData);
+       const syncRepo = await syncToRepo(gistData);
+       console.log(syncRepo);
        closeModal();
        const msg = (sync)? 'Gist send OK':'Gist data send error';
        await showToast(msg);
       }
-     
+      
+      async function pullRepoData(){
+        const gistData = loadGistData();
+        const response = await fetchFromRepo(gistData);
+        closeModal();
+        await showToast(response);
+      }
+    
+      async function pushRepoData(){
+       const gistData = loadGistData(); 
+       const syncRepo = await syncToRepo(gistData);
+       closeModal();
+       const msg = (syncRepo)? 'Repo send OK':'Repo data send error';
+       await showToast(msg);
+      }
+       
       function loadGistData(){
         const local = localStorage.getItem('gistData');
         if (local) {
@@ -6263,7 +6339,9 @@ const cardModules = {};
       function saveGistData(){
         const id = document.getElementById('gistIdInput').value
         const token = document.getElementById('githubTokenInput').value
-        const gistData = JSON.stringify({id,token});
+        const owner = document.getElementById('githubOwnerInput').value
+        const repo =  document.getElementById('githubRepoInput').value    
+        const gistData = JSON.stringify({id,token,owner,repo});
         localStorage.setItem('gistData', gistData);    
       }
      
@@ -6285,6 +6363,7 @@ const cardModules = {};
         dom.filterOperatorSelect = document.getElementById('filterOperatorSelect');
         dom.filterValueInput = document.getElementById('filterValueInput');
         dom.widgetTitle = document.getElementById('widgetTitle');
+        dom.widgetEmojisInput = document.getElementById('widgetEmojis');
         dom.widgetDisplayLimit = document.getElementById('widgetDisplayLimit');
         dom.modalContent = document.getElementById('modalContent');
       }
@@ -6300,6 +6379,9 @@ const cardModules = {};
         document.getElementById('widgetCreateButton')?.addEventListener('click', widgetCreate);
         dom.editWidgetsButton = document.getElementById('editWidgetsButton')
         dom.editWidgetsButton?.addEventListener('click', editWidgets);
+        dom.widgetSaveButton = document.getElementById('widgetSaveButton')
+        dom.widgetSaveButton?.addEventListener('click', saveWidget);
+        
         
         dom.toggleNavigationTextBtn = document.getElementById('toggleNavigationTextBtn');
         toggleNavigationTextBtn?.addEventListener('click', toggleNavigationText);
@@ -6330,6 +6412,7 @@ const cardModules = {};
         getMealTime();
         getLinkedNotes('viewit');
         startAwoogaIdleLoop();
+        showHideAnimation(false);
         widgetCardSelectPopulate();
       }
     
@@ -6353,7 +6436,7 @@ const cardModules = {};
     
       // --- Global Declarations ---
       //remove repeating:[] from below line?
-      let taskData = {taskGroups:[], currentTaskGroupId:'',tasks:[], repeating:[], isWeekly:true, isDisplayComplete:true, isPanelOpen:true, updatedAt:timeStamp(), card:'taskit', openTimer:false};
+      let taskData = {taskGroups:[], currentTaskGroupId:'',isWeekly:true, isDisplayComplete:true, isPanelOpen:true, updatedAt:timeStamp(), card:'taskit', openTimer:false, showAnimation:true,};
       let currentTaskGroup = {};
       let currentTask = null;
       let daysOfWeek = [];
@@ -6498,14 +6581,19 @@ const cardModules = {};
         saveAndRender();
       }
       
-      function showHideAnimation(){
-       if(designSvg.classList.contains('planit-hidden')){
+      function showHideAnimation(toggle = true){
+       if(toggle){ 
+        taskData.showAnimation = !taskData.showAnimation;
+        saveToLocalStorage();
+       }
+       if(taskData.showAnimation){
          dom.showHideAnimationButton.textContent = 'Hide Animation';
          designSvg.classList.remove('planit-hidden');
        }else{
+         clearTimeout(awoogaTimer);
          dom.showHideAnimationButton.textContent = 'Show Animation';
          designSvg.classList.add('planit-hidden'); 
-       }
+       }   
       }
     
       // --- Render Functions ---
@@ -6662,6 +6750,22 @@ const cardModules = {};
         reflowAnimation(animations, true);
         setTimeout(() => {updateYouEmoji(emoji2); }, 1500);
       }
+      
+      // ---CSV Import and Export ---
+      function objectsToCSV(data) {
+        if (!data.length) return '';
+        const headers = Object.keys(data[0]);
+        const escape = str => 
+          `"${String(str).replace(/"/g, '""')}"`;
+        const csv = [
+          headers.map(escape).join(','),
+          ...data.map(row =>
+            headers.map(field => escape(row[field])).join(',')
+          )
+        ];
+        return csv.join('\n');
+      }
+    
     
       // ---Task Item Change Properties ---
       function onComplete(task){
@@ -7200,11 +7304,12 @@ const cardModules = {};
       function loadFromStorage() {
         if (window.getPlanitSection) {
           const saved = getPlanitSection('taskit');
-            if (saved.tasks) {
+            if (saved.taskGroups) {
               try {
                 taskData = saved;
                 setCurrentTaskGroup();
                 //taskData.card = 'taskit';
+                //delete taskData.tasks;
                 //saveToLocalStorage();
               } catch (e) {
                 console.warn('Could not parse saved tasks:', e);
@@ -7342,8 +7447,8 @@ const cardModules = {};
         initSvgAnimations();
         getLinkedNotes('taskit');
         startAwoogaIdleLoop();
-        //populateAlarmSelect();
-        
+        showHideAnimation(false); //do not toggle
+            
         if(taskData.openTimer){
           timerModal(); //do once
           taskData.openTimer = false;
@@ -14262,6 +14367,7 @@ const cardModules = {};
       // --- Global Declarations ---
       let currentCodeItemId = null;
       let codeData = {code:[], isPanelOpen:true, updatedAt:timeStamp(), isDisplayCodeed:true, card:'codeit'};
+      let currentFilter = '';
       const dom = {};
       const languages = ['Monlanguage','Tueslanguage','Wedneslanguage','Thurslanguage','Frilanguage','Saturlanguage','Sunlanguage',''];
     
@@ -14363,9 +14469,12 @@ const cardModules = {};
       }
     
       // --- Render Functions ---
-      function renderView() {
+      function renderView(filter = '') {
+        currentFilter = filter;
+        dom.filterInput.value = filter;
+        
+            
         dom.codeView.innerHTML = '';
-    
         if (codeData.code.length === 0) {
           dom.codeView.innerHTML = '<div class="no-items">Nothing to code!</div>';
           return;
@@ -14380,6 +14489,12 @@ const cardModules = {};
         });
     
         codeData.code.forEach(item => {
+          
+          if (filter && !item.tags.some(tag => tag.toLowerCase().includes(filter.toLowerCase())) &&
+          !item.title.toLowerCase().includes(filter.toLowerCase())
+          ) return;
+          
+          
           if(codeData.isDisplayCodeed){
             const div = planitDivCreator(null,`gen-item codeit-item planit-row`); // ${item.category.toLowerCase()}
             div.dataset.id = item.id;
@@ -14480,6 +14595,11 @@ const cardModules = {};
           reader.readAsText(file);
         }
       }
+      
+      function filterCodeList() {
+        const term = dom.filterInput.value.trim();
+        renderView(term);
+      }
     
       // --- Initialization ---
       function initDomReferences() {
@@ -14510,7 +14630,10 @@ const cardModules = {};
         setDisplayCodeedButton();
     
         dom.filterInput = document.getElementById('filterInput');
+        dom.filterInput.addEventListener("input", filterCodeList);
+        
         dom.showAllButton = document.getElementById('showAllButton');
+        document.getElementById('showAllButton')?.addEventListener('click', () => renderView(''));
     
         //Import Export Json Data
         document.getElementById('exportDataButton')?.addEventListener('click', exportData);
@@ -15249,6 +15372,7 @@ const cardModules = {};
       widgetList:[],
       lastSaved: null,
       showButtonText: true,
+      showAnimation: true,
     }
   }
   const planitStucture = [
@@ -15793,6 +15917,187 @@ const cardModules = {};
     return planitData[sectionName] || {};
   }
 
+
+
+// --- GitHub Repo Sync ---
+
+// tokenData should now include: { token, owner, repo, path }
+// Example: { token: '...', owner: 'yourname', repo: 'my-private-data', path: 'planitData.json' }
+
+async function syncToRepo(tokenData) {
+  tokenData.path = 'planitData.json';
+  
+  const url = `https://api.github.com/repos/${tokenData.owner}/${tokenData.repo}/contents/${tokenData.path}`;
+  
+  // 1. Get the current file to get its SHA (required for updates)
+  let currentSha = null;
+  const getRes = await fetch(url, {
+      headers: { 'Authorization': `Bearer ${tokenData.token}` }
+  });
+  
+  if (getRes.ok) {
+      const fileData = await getRes.json();
+      currentSha = fileData.sha;
+  }
+
+  // 2. Push the update
+  const response = await fetch(url, {
+    method: 'PUT', // Use PUT for Contents API
+    headers: {
+      'Authorization': `Bearer ${tokenData.token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      message: "sync planitData",
+      content: btoa(unescape(encodeURIComponent(JSON.stringify(planitData)))), // Proper Base64 encoding
+      sha: currentSha // If null, GitHub creates a new file
+    })
+  });
+
+  return response.ok;
+}
+/*
+async function fetchFromRepo(tokenData) {
+  tokenData.path = 'planitData.json';
+  console.log(tokenData);  
+  const url = `https://api.github.com/repos/${tokenData.owner}/${tokenData.repo}/contents/${tokenData.path}`;
+  
+  try {
+    const response = await fetch(url, {
+        headers: { 'Authorization': `Bearer ${tokenData.token}` }
+    });
+    
+    if (!response.ok) throw new Error('Network response was not ok');
+    
+    const data = await response.json();
+    
+    // GitHub returns content as Base64; we must decode it
+    const decodedContent = decodeURIComponent(escape(atob(data.content)));
+    
+    console.log('decoded:', decodedContent);
+    console.log('response:', response);
+    
+    planitData = JSON.parse(decodedContent);
+    savePlanitData();
+    loadView('viewit');        
+    return 'Repo data retrieved OK';
+  } catch (e) {
+    console.error(e);
+    return 'Could not parse Repo data';
+  }
+}
+
+async function fetchFromRepo(tokenData) {
+  console.log(tokenData);
+  tokenData.path = 'planitData.json';
+  const url = `https://api.github.com/repos/${tokenData.owner}/${tokenData.repo}/contents/${tokenData.path}`;
+  
+  try {
+      const response = await fetch(url, {
+          headers: { 
+              'Authorization': `Bearer ${tokenData.token}`,
+              'Accept': 'application/vnd.github.v3+json' // Explicitly ask for v3 JSON
+          }
+      });
+      
+      if (!response.ok) throw new Error(`GitHub error: ${response.status}`);
+      
+      const data = await response.json();
+      
+      // DEBUG: Check if data.content exists in your console
+      console.log("Raw GitHub Response:", data);
+
+      if (!data.content) {
+          return 'Error: File found but content is empty';
+      }
+
+      // Strip newlines from the Base64 string GitHub often provides
+      const cleanBase64 = data.content.replace(/\s/g, '');
+      
+      // Decode the Base64
+      const decodedContent = decodeURIComponent(escape(atob(cleanBase64)));
+      
+      planitData = JSON.parse(decodedContent);
+      
+      savePlanitData();
+      loadView('viewit');        
+      return 'Repo data retrieved OK';
+  } catch (e) {
+      console.error("Fetch Error:", e);
+      return 'Could not parse Repo data';
+  }
+}
+
+*/
+
+async function fetchFromRepo(tokenData) {
+  console.log(tokenData);
+  tokenData.path = 'planitData.json';
+  
+  const url = `https://api.github.com/repos/${tokenData.owner}/${tokenData.repo}/contents/${tokenData.path}`;
+  
+  try {
+      const response = await fetch(url, {
+          headers: { 'Authorization': `Bearer ${tokenData.token}` }
+      });
+      
+      if (!response.ok) throw new Error(`Meta fetch failed: ${response.status}`);
+      
+      const metadata = await response.json();
+
+      // If content is empty but we have a SHA, the file is > 1MB
+      let base64Content = metadata.content;
+      
+      if (!base64Content && metadata.sha) {
+          console.log("File > 1MB, fetching via Blobs API...");
+          const blobUrl = `https://api.github.com/repos/${tokenData.owner}/${tokenData.repo}/git/blobs/${metadata.sha}`;
+          const blobRes = await fetch(blobUrl, {
+              headers: { 'Authorization': `Bearer ${tokenData.token}` }
+          });
+          const blobData = await blobRes.json();
+          base64Content = blobData.content;
+      }
+
+      if (!base64Content) throw new Error("No content found in GitHub response");
+
+      // Strip newlines and decode
+      const cleanBase64 = base64Content.replace(/\s/g, '');
+      const decodedContent = decodeURIComponent(escape(atob(cleanBase64)));
+      
+      planitData = JSON.parse(decodedContent);
+      
+      savePlanitData();
+      loadView('viewit');        
+      return 'Repo data retrieved OK';
+  } catch (e) {
+      console.error("Fetch Error:", e);
+      return 'Could not parse Repo data';
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// --- End GitHub Repo Sync ---
+
+
   // --- Gist Sync ---
 
   // Save id and token to separate LocalData 
@@ -16004,7 +16309,9 @@ const cardModules = {};
   window.toggleSidePanelUniversal = toggleSidePanelUniversal;
   window.toggleNavigationText = toggleNavigationText;
   window.syncToCloud = syncToCloud;
-  window.fetchFromCloud = fetchFromCloud;
+  window.fetchFromCloud = fetchFromCloud;  
+  window.syncToRepo = syncToRepo;
+  window.fetchFromRepo = fetchFromRepo;
 
   // --- Initialization ---
   function initDomReferences() {
