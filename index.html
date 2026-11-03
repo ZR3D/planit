@@ -90,6 +90,13 @@
   src: url(../assets/fonts/inter_latin_700.woff2) format("woff2");
 }
 
+@font-face {
+    font-family: "Google Sans";
+    font-style: normal;
+    font-weight: 400;
+    src: url(../assets/fonts/google_sans_400.woff2) format("woff2");
+}
+
 :root {
   --color-bg: #1c2835;
   --color-text: #ffffff;
@@ -299,14 +306,15 @@ select {
 }
 
 .card-side-panel label {
-  display: block;
+  display: inline-block;
   padding: 0.5rem 0rem;
+  width: 100px;
   /* background: #00000044; */
 }
 
-.card-side-panel input,
-select {
+.card-side-panel input[type="text"], select {
   padding: 0.32rem;
+  width: 155px;
 }
 
 .card-main input[type="text"],
@@ -338,6 +346,8 @@ nav .show-navigation-button {
   margin-right: 0.7rem;
 }
 nav .nav-side-panel-button{display: none;}
+
+.emoji-block, .emoji-text, .emoji-button, .you-emoji, .bubble-text{font-family: "Noto Color Emoji";}
 
 /* Nav  */
 .nav-icon {
@@ -485,6 +495,22 @@ nav .nav-side-panel-button{display: none;}
 .svg-nav-button:hover {
   opacity: 0.8;
 }
+
+.pad-left-small{margin-left: 0.3rem;}
+.svg-container {
+  /* pointer-events: auto; */
+  pointer-events: none;
+  position: absolute;
+  bottom: 1rem;
+  width:80%;
+}
+/*
+.svg-container *{
+  pointer-events: none;
+  user-select: none;
+}
+.svg-container:hover{opacity:0.5;}
+*/
 
 /* --- card --- */
 .card .gen-item {
@@ -652,6 +678,7 @@ nav .nav-side-panel-button{display: none;}
 
 .taskit-card .day-header {
   font-size: 1rem;
+  cursor: pointer;
 }
 .taskit-card .task-block {
   margin-bottom: 20px;
@@ -670,6 +697,13 @@ nav .nav-side-panel-button{display: none;}
   border-radius: 2px;
   cursor: pointer;
 }
+
+
+.taskit-card .emoji-block {
+  font-size: 1.1rem;
+  margin-right: 0.5rem;
+}
+
 .taskit-card .task-item:hover .drag-handle {
   opacity: 1;
 }
@@ -2027,6 +2061,9 @@ pre {
   white-space: pre-wrap;
   overflow-y: auto;
   outline: none;
+  font-family: "Google Sans";
+  font-weight:400;
+  font-size: 15px;
 }
 .noteit-card .note-buttons {
   margin-top: 1rem;
@@ -2977,6 +3014,11 @@ const cards = {
       <input id="addTaskGroupInput" type="text" placeholder="New task group..." />
       <button id="addTaskGroupButton">+ Add New Task Group</button>
       <select id="taskGroupSelect"></select>
+      <select id="taskViewSelect" class="dom-ctrl">
+        <option value='edit'>Edit</option>
+        <option value='simple'>Simple</option>
+        <option value='emoji'>Emoji</option>
+      </select>
       <button id="weeklyDailyViewButton">Weekly View</button>
       <button id="displayCompleteButton">Display Complete</button>
       <button id="copyRepeatsButton">Copy Repeating</button>
@@ -3032,9 +3074,17 @@ const cards = {
     <div class="field">
       <button id="showHideAnimationButton">Hide Animation</button>
     </div>
-     <div class="field">
+    <div class="field">
+      <label for="title">Auto Sort</label>
+      <input type="checkbox" id="autoSortCheck" class="dom-ctrl">
+    </div>
+    <div class="field">
       <label for="title">Title</label>
       <input type="text" id="title">
+    </div>
+    <div class="field">
+      <label for="title">Emoji</label>
+      <input type="text" id="taskEmojiInput" class="dom-ctrl">
     </div>
     <div class="field">
       <label for="status">Status</label>
@@ -3064,7 +3114,7 @@ const cards = {
       <input type="text" id="assignedTo">
     </div>
     <div class="field">
-      <label for="taskGroupType">Task Group Type</label>
+      <label for="taskGroupType">List Type</label>
       <select id="taskGroupType">
         <option value='taskList'>Task List</option>
         <option value='toDoList'>To Do List</option>
@@ -3393,6 +3443,9 @@ const cards = {
     <div class="field">
       <label for="time">Time</label>
       <input type="time" id="time">
+      <button class="set-time" data-time="12:00">12:00</button>
+      <button class="set-time" data-time="16:30">16:30</button>
+      <button class="set-time" data-time="20:00">20:00</button>
     </div>
     <div class="field">
       <label for="watchingSelect">Watching</label>
@@ -5975,13 +6028,25 @@ const cardModules = {};
         const contentHtml = planitDivCreator(null);
         const buttonDiv = planitDivCreator(null);
         const textDiv = planitDivCreator(`It has been ${difference} days since you last saved. Browser data can easily be wiped.`);
+        
         const button = document.createElement('button');
         button.textContent = 'Save Data Now';
         button.onclick = () => exportData();
         buttonDiv.appendChild(button);
+        
+        const buttonRemind = document.createElement('button');
+        buttonRemind.textContent = 'Remind me in 7 days';
+        buttonRemind.onclick = () => remindSet();
+        buttonDiv.appendChild(buttonRemind); 
+        
         contentHtml.appendChild(textDiv);
         contentHtml.appendChild(buttonDiv);
         populateAndOpenModal('Save Data Now?', contentHtml);    
+      }
+      
+      function remindSet(){
+        exportPlanitData(false); //planit.js just update last saved
+        closeModal();
       }
     
       function dateDifferenceInDays(dateStr1,dateStr2){
@@ -6009,7 +6074,7 @@ const cardModules = {};
         const pluralDays = (diffDays===1)? '':'s';
         createViewitBox('Last Saved', [{title:`${diffDays} day${pluralDays} since last save`, emoji:'🪣️'}], 'viewit', '🌱️', 'lastSaved', false);
         
-        if(diffDays>4){
+        if(diffDays>6){
           openBackupModal(diffDays);
         }
            
@@ -6089,7 +6154,7 @@ const cardModules = {};
         exportPlanitData(); //planit.js
         closeModal();
       }
-    
+      
       function importData(event) {
         importPlanitData(event); //planit.js
       }
@@ -6436,7 +6501,7 @@ const cardModules = {};
     
       // --- Global Declarations ---
       //remove repeating:[] from below line?
-      let taskData = {taskGroups:[], currentTaskGroupId:'',isWeekly:true, isDisplayComplete:true, isPanelOpen:true, updatedAt:timeStamp(), card:'taskit', openTimer:false, showAnimation:true,};
+      let taskData = {taskGroups:[], currentTaskGroupId:'',isWeekly:true, isDisplayComplete:true, isPanelOpen:true, updatedAt:timeStamp(), card:'taskit', openTimer:false, showAnimation:true, viewType:'edit', autoSort:false};
       let currentTaskGroup = {};
       let currentTask = null;
       let daysOfWeek = [];
@@ -6446,7 +6511,7 @@ const cardModules = {};
       let currentDay = currentMonday;
       const todayStr = formatDate(todaysDate);
       const statuses = ['not-started', 'complete', 'started', 'ignore'];
-      const dom = {};
+      const dom = {div:{},ctrl:{},el:{},btn:{},svg:{}};
       let awoogaTimer;
     
       // ---Constructor Functions ---
@@ -6480,8 +6545,10 @@ const cardModules = {};
       }
     
      function updateSidePanel(task) {
+        if(!task.emoji) task.emoji = '';
         currentTask = task;
         dom.panelTitle.value = task.title;
+        dom.ctrl.taskEmojiInput.value = task.emoji;
         dom.panelStatus.value = task.status;
         dom.panelRepeat.value = task.repeat;
         dom.panelCategory.value = task.category;
@@ -6512,6 +6579,7 @@ const cardModules = {};
       function saveTask(){
         if(currentTask){
           currentTask.title = dom.panelTitle.value;
+          currentTask.emoji = dom.ctrl.taskEmojiInput.value;
           currentTask.status = dom.panelStatus.value;
           currentTask.repeat = Number(dom.panelRepeat.value);
           updateTaskGroupRepeating(currentTask);
@@ -6613,7 +6681,7 @@ const cardModules = {};
     
         // Sort by category
         currentTaskGroup.tasks.sort((a, b) => {
-          return a.title.localeCompare(b.title); // A-Z by category
+          return a.title.localeCompare(b.title); // A-Z by title
         });
     
         currentTaskGroup.tasks.forEach(task => {
@@ -6644,14 +6712,41 @@ const cardModules = {};
         initializeSortable();
       }
     
-      function renderTaskList() {
+    
+    
+    function sortTaskDataForDay(dayStr){
+      const tasks = currentTaskGroup.tasks.filter(task => task.date === dayStr);
+      const statusOrder = ['complete','started','not-started','ignore'];
+      const originalOrder = [];
+      const tasksClone = JSON.parse(JSON.stringify(tasks));
+      
+      // Sort the clone  
+      tasksClone.sort((a, b) => {
+        return statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status); 
+      });
+      
+      // Get original positions  
+      tasks.forEach(task => {
+        originalOrder.push(currentTaskGroup.tasks.findIndex(t => t.id===task.id));
+      });
+      
+      // Re arrange sorted in original positions
+      tasksClone.forEach((task,index) => {
+        currentTaskGroup.tasks[originalOrder[index]] = task;
+      });
+      saveToLocalStorage();  
+      return tasksClone;
+    }
+    
+    
+      function renderTaskList(sort=false) {
         dom.taskView.innerHTML = '';
         dom.dateSelect.innerHTML = '';
         populateListsDropdown();
         daysOfWeek = [];
         repeatOrder = [];
+        let tasks;
     
-        //if(currentTaskGroup.type === 'taskList'){
         if(taskData.isWeekly){
           for(let i=0; i<7; i++) {
             const day = new Date(currentMonday);
@@ -6666,10 +6761,15 @@ const cardModules = {};
           const day = new Date(dayStr);
           const dayTitle = day.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' });
           let header = planitDivCreator(dayTitle, 'day-header');
+          header.onclick = () => renderTaskList(true);
           const block = planitDivCreator(null, 'task-block task-list');
           block.dataset.id = dayStr; // also needed for drag-and-drop to know the date!
-    
-          const tasks = currentTaskGroup.tasks.filter(task => task.date === dayStr);
+          
+          if(taskData.autoSort || sort){
+            tasks = sortTaskDataForDay(dayStr)
+          }else{
+            tasks = currentTaskGroup.tasks.filter(task => task.date === dayStr);
+          }
           tasks.forEach(task => {
             if(task.status!='complete' || taskData.isDisplayComplete){
               const taskItem = createTaskItem(task);
@@ -6694,28 +6794,14 @@ const cardModules = {};
       }
     
       function createTaskItem(task){
+        
         const item = planitDivCreator(null, 'task-item ' + task.status);
         item.dataset.taskId = task.id;
-    
-        const repeat = planitDivCreator(null, 'task-repeat');
-        const svgName = (task.repeat > 0)? 'repeat':'no-repeat';
-        repeat.appendChild(createSvg(svgName, 'icon'));
-        repeat.onclick = (e) => {
-          e.stopPropagation();
-          toggleRepeat(task, repeat);
-        };
-    
-        const del = planitDivCreator(null, 'task-repeat');
-        del.appendChild(createSvg('delete', 'icon'));
-        del.onclick = (e) => {
-          e.stopPropagation();
-          deleteModal(task);
-        };
     
         const status = planitDivCreator(null, 'task-status');
         status.appendChild(createSvg(task.status, 'icon'));
         status.onclick = () => toggleStatus(task);
-    
+        if(taskData.viewType==='simple') status.classList.add('pad-left-small');
         const title = planitDivCreator(task.title, 'task-title');
         title.contentEditable = 'true';
         title.onblur = () => updateTaskTitle(task, title);
@@ -6723,15 +6809,37 @@ const cardModules = {};
         const handle = planitDivCreator(null, 'drag-handle')
         const handleSvg = createSvg('move', 'icon');
         handle.appendChild(handleSvg);
+        
+        if(taskData.viewType==='emoji'){
+          const emoji = (task.emoji)? task.emoji:getBestGuessEmoji(task.title, '🪣️');
+          const emojiContainer = planitDivCreator(emoji, 'emoji-block');
+          item.appendChild(emojiContainer);
+        }
     
-        item.appendChild(del);
-        item.appendChild(repeat);
+        if(taskData.viewType==='edit'){
+          const repeat = planitDivCreator(null, 'task-repeat');
+          const svgName = (task.repeat > 0)? 'repeat':'no-repeat';
+          repeat.appendChild(createSvg(svgName, 'icon'));
+          repeat.onclick = (e) => {
+            e.stopPropagation();
+            toggleRepeat(task, repeat);
+          };
+          const del = planitDivCreator(null, 'task-repeat');
+          del.appendChild(createSvg('delete', 'icon'));
+          del.onclick = (e) => {
+            e.stopPropagation();
+            deleteModal(task);
+          };      
+          item.appendChild(del);
+          item.appendChild(repeat);
+        }
         item.appendChild(status);
         item.appendChild(title);
         item.appendChild(handle);
     
         return item;
       }
+      
     
       function populateListsDropdown(){
         dom.taskGroupSelect.innerHTML = '';
@@ -6802,18 +6910,37 @@ const cardModules = {};
         triggerRandomAnimation();
       }
     
+      let taskStatus = '';
+      let feedbackTimer;
+        
+      function statusFeedback(task){
+        clearTimeout(feedbackTimer);
+        feedbackTimer = setTimeout(() => {    
+          if(taskStatus === 'complete'){
+            onComplete(task);
+          }else{
+            reflowAnimation('restPosition,headBob,restPosition');
+          } 
+          if(taskData.autoSort) renderTaskList();
+        }, 1600);    
+      }
+    
       function toggleStatus(task) {
         const currentIndex = statuses.indexOf(task.status);
         const nextIndex = (currentIndex + 1) % statuses.length;
         task.status = statuses[nextIndex];
-        if(task.status === 'complete'){
-          onComplete(task);
-        }else{
-          reflowAnimation('restPosition,headBob,restPosition');
-        }
+        taskStatus = task.status;
+        statusFeedback(task);
         taskData.updatedAt = timeStamp();
         updateSidePanel(task);
-        saveAndRender();
+        console.log(task)
+        //const taskElement = document.getElementById(task.id);
+        const taskElement = document.querySelector(`[data-task-id="${task.id}"]`);
+        const useElement = taskElement.querySelector('use');
+        console.log(useElement)
+        taskElement.className = `task-item ${task.status}`;
+        useElement.setAttribute('href', `#${task.status}` )
+        //saveAndRender();
       }
     
       function toggleRepeat(task) {
@@ -7003,6 +7130,13 @@ const cardModules = {};
         return button;
       }
     
+      function changeView(){
+        taskData.viewType = dom.ctrl.taskViewSelect.value;
+        saveToLocalStorage();
+        renderView();    
+      }
+    
+      
       // --- Timer ---
       function timerModal(){
        const content = planitDivCreator(null, 'modal-content'); 
@@ -7151,20 +7285,26 @@ const cardModules = {};
         timer.remainingTime = 0;
         updateDisplay(true);
         updateAngle(0);
+        //Also stop sound
+        timerPlaying = false;
       }
     
       //---Sounds---
+      let timerPlaying = true;
+      
      function play() {
         playNotes({type:'start', song:dom.alarmSelect.value});
+        timerPlaying = true;
       }
     
       // --- Sound on Alarm ---
-      //const timer = {song:[],songIndex:0}
+      
       
       // Create the AudioContext once (outside the function)
       const ctx = new (window.AudioContext || window.webkitAudioContext)();
     
       function playChord(notes, duration = 1) {
+        if(!timerPlaying) return;
         const now = ctx.currentTime;
     
         // Master filter to smooth harshness
@@ -7215,6 +7355,7 @@ const cardModules = {};
         {duration:500, note:'g3'},{duration:500, note:'g3'},{duration:500, note:'a3'},{duration:500, note:'a3'},{duration:500, note:'g3'},{duration:500, note:'rest'},{duration:500, note:'f3'}, {duration:500, note:'f3'},{duration:500, note:'e3'},{duration:500, note:'e3'},{duration:500, note:'d3'},{duration:500, note:'d3'},
         {duration:500, note:'c3'},
         ], 
+        
       };
     
       const noteList = {'a0':27.5,'a#0':29.14,'b0':30.87,'c1':32.7,'c#1':34.65,'d1':36.71,'d#1':38.89,'e1':41.2,'f1':43.65,'f#1':46.25,'g1':49,'g#1':51.91,'a1':55,'a#1':58.27,'b1':61.74,'c2':65.41,'c#2':69.3,'d2':73.42,'d#2':77.78,'e2':82.41,'f2':87.31,'f#2':92.5,'g2':98,'g#2':103.83,'a2':110,'a#2':116.54,'b2':123.47,'c3':130.81,'c#3':138.59,'d3':146.83,'d#3':155.56,'e3':164.81,'f3':174.61,'f#3':185,'g3':196,'g#3':207.65,'a3':220,'a#3':233.08,'b3':246.94,'c4':261.63,'c#4':277.18,'d4':293.66,'d#4':311.13,'e4':329.63,'f4':349.23,'f#4':369.99,'g4':392,'g#4':415.3,'a4':440,'a#4':466.16,'b4':493.88,'c5':523.25,'c#5':554.37,'d5':587.33,'d#5':622.25,'e5':659.25,'f5':698.46,'f#5':739.99,'g5':783.99,'g#5':830.61,'a5':880,'a#5':932.33,'b5':987.77,'c6':1046.5,'c#6':1108.73,'d6':1174.66,'d#6':1244.51,'e6':1318.51,'f6':1396.91,'f#6':1479.98,'g6':1567.98,'g#6':1661.22,'a6':1760,'a#6':1864.66,'b6':1975.53,'c7':2093,'c#7':2217.46,'d7':2349.32,'d#7':2489.02,'e7':2637.02,'f7':2793.83,'f#7':2959.96,'g7':3135.96,'g#7':3322.44,'a7':3520,'a#7':3729.31,'b7':3951.07,'c8':4186.01,'rest':null};
@@ -7269,10 +7410,10 @@ const cardModules = {};
         let started = 0;
     
         dates.forEach(dater => {
-        const tasks = currentTaskGroup.tasks.filter(t => t.date === dater && t.status !== 'ignore') || [];
-        total += tasks.length;
-        complete += tasks.filter(t => t.status === 'complete').length;
-        started += tasks.filter(t => t.status === 'started').length;
+          const tasks = currentTaskGroup.tasks.filter(t => t.date === dater && t.status !== 'ignore') || [];
+          total += tasks.length;
+          complete += tasks.filter(t => t.status === 'complete').length;
+          started += tasks.filter(t => t.status === 'started').length;
         });
         const percent = total > 0 ? Math.round((complete / total) * 100) : 0;
         const startedPercent = total > 0 ? Math.round((started / total) * 100) : 0;
@@ -7309,8 +7450,12 @@ const cardModules = {};
                 taskData = saved;
                 setCurrentTaskGroup();
                 //taskData.card = 'taskit';
-                //delete taskData.tasks;
-                //saveToLocalStorage();
+                //if(taskData.repeating) delete taskData.repeating
+                //delete taskData.repeating;
+                //console.log(taskData)
+                dom.ctrl.taskViewSelect.value = taskData.viewType;
+                updateAutoSort();
+                saveToLocalStorage();
               } catch (e) {
                 console.warn('Could not parse saved tasks:', e);
               }
@@ -7364,8 +7509,26 @@ const cardModules = {};
         setSidePanel(taskData.isPanelOpen);
       }
     */
+    
+    function updateAutoSort(evt){
+      if(evt?.target){
+        taskData.autoSort = dom.ctrl.autoSortCheck.checked;
+        saveToLocalStorage();
+      }else{
+       dom.ctrl.autoSortCheck.checked = taskData.autoSort; 
+      } 
+    }
+    
       // --- Initialization ---
       function initDomReferences() {
+        //Populate dom object with elements that match classnames e.g. dom-svg
+        const domList = ['div','el','ctrl','btn','svg'];
+        domList.forEach(ref => {
+          document.querySelectorAll(`.dom-${ref}`).forEach(el =>{
+            dom[ref][el.id] = document.getElementById(el.id);
+          });
+        });
+        
         dom.taskView = document.getElementById('taskView');
         dom.panelTitle = document.getElementById('title');
         dom.panelStatus = document.getElementById('status');
@@ -7383,6 +7546,9 @@ const cardModules = {};
         dom.taskGroupSelect?.addEventListener('change', changeTaskGroup);
         dom.taskGroupType = document.getElementById('taskGroupType');
         dom.taskGroupType?.addEventListener('change', saveTaskGroup);
+        dom.ctrl.taskViewSelect?.addEventListener('change', changeView);
+        dom.ctrl.taskEmojiInput?.addEventListener('input', saveTask);
+        dom.ctrl.autoSortCheck?.addEventListener('input', updateAutoSort);
     
         dom.panelTitle?.addEventListener('input', saveTask);
         dom.panelStatus?.addEventListener('change', saveTask);
@@ -7441,9 +7607,6 @@ const cardModules = {};
         initDomReferences();
         loadFromStorage();
         initButtons();
-        //renderView();
-        //deleteModal();
-        //updateTimerDisplay();    
         initSvgAnimations();
         getLinkedNotes('taskit');
         startAwoogaIdleLoop();
@@ -9646,6 +9809,11 @@ const cardModules = {};
           showToast('Failed to import data pack: ' +  err, 'error');
         });
       }
+      
+      function setTime(time){
+        dom.panelTime.value = time;
+        saveWatchItem();
+      }
     
       // --- Initialization ---
       function initDomReferences() {
@@ -9685,6 +9853,10 @@ const cardModules = {};
         document.getElementById('importDataButton')?.addEventListener('click', () => hiddenFileInput?.click());
         //hiddenFileInput?.addEventListener('change', importData);
         hiddenFileInput?.addEventListener('change', importData);
+        
+        document.querySelectorAll('.set-time').forEach(timeButton => {
+          timeButton.addEventListener('click', () => setTime(timeButton.dataset.time));
+        });
     
         //Import Export Json Packs
         const hiddenPackInput = document.getElementById('hiddenPackInput');
@@ -13108,6 +13280,13 @@ const cardModules = {};
       
       // --- Note Select ---
       function populateNoteSelect(){
+    
+        noteData.notes.sort((a, b) => {
+          if(!a.updatedAt) a.updatedAt = timeStamp();
+          if(!b.updatedAt) b.updatedAt = timeStamp();
+          return parseFloat(b.updatedAt) - parseFloat(a.updatedAt); //by number
+        });
+        
         //Populate note dropdown
         dom.noteSelect.innerHTML = '';
         noteData.notes.forEach(note => {
@@ -15864,16 +16043,14 @@ const cardModules = {};
     }
   }
 
-  function exportPlanitData(){
+  function exportPlanitData(exportCardData = true){
     planitData.settings.lastSaved = formatDate(new Date());
     savePlanitData();
-    exportCardData(planitData, 'planit');
-
-    //see if this resets the
+    if(exportCardData) exportCardData(planitData, 'planit');
     loadView('viewit');
     //showToast('Planit Data Saved :' + planitData.settings.lastSaved, 'success');
   }
-
+  
   function exportCardData(data, cardName) {
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
