@@ -398,6 +398,14 @@ nav .nav-side-panel-button{display: none;}
   background-color: var(--color-nav-button-hover);
 }
 
+.nav-hide {
+  display:none;
+}
+
+.planit-wrap .nav-hide {
+  display:flex;
+}
+
 .modal-content{margin: 0.2rem 0rem; }
 .modal-text{margin: 1rem 0rem; }
 .modal-button-container button{display: inline-block;}
@@ -675,6 +683,7 @@ nav .nav-side-panel-button{display: none;}
 .counter-display{position:relative;}
 .timer-container button{display:inline-block;}
 .timer-svg-container{position:absolute; top:0; left:0; width:100%; align-content:center;}
+.timer-inactive{color:#c1c1c1;}
 
 .taskit-card .day-header {
   font-size: 1rem;
@@ -1239,7 +1248,9 @@ pre {
   font-size: 1rem;
 }
 .menuit-card .view-container .menu-view-item {
+  display:flex;
   font-size: 0.9rem;
+  margin-top:10px;
 }
 .menuit-card .menu-list {
   background: #e7e8e333;
@@ -1327,6 +1338,11 @@ pre {
 .menuit-card .recipe-item {
   background: var(--color-good-greyblue) !important;
 }
+.menuit-card .list-view .view-container .menu-view-item {display:block;}
+.list-view .menu-view-item div{display:inline-block; white-space: pre-wrap;}
+.menuit-card .list-view .menu-meal{width: 90px; margin-left:10px; }
+.menuit-card .list-view .menu-dish{width: 200px;}
+
 @media (max-width: 1024px) {
   .menuit-card .multi-column-container {
     column-count: 3;
@@ -2035,6 +2051,40 @@ pre {
   padding: 0.2rem;
   background: var(--color-good-blue-light);
 }
+
+.recipeit-card .recipe-card{
+  width:80%;
+  margin-top:2rem;
+  margin-left:10%;
+  padding: 1rem;
+  background: #dfded9;
+  color: #222;
+  border-radius: 2px;
+  font-family: "Google Sans";
+  font-weight:400;
+  font-size: 15px;
+}
+
+.recipeit-card .recipe-card .title-heading{
+  font-size: 1.2rem;
+}
+
+.recipeit-card .recipe-card .ingredients-heading,
+.recipeit-card .recipe-card .method-heading{
+  color: #000000;
+  margin-top: 0.7rem;
+  background: #c9c8c1;
+  padding: 0.3rem;
+}
+
+.recipeit-card .recipe-card .ingredient-row{margin-left:0.25rem;}
+.recipeit-card .recipe-card .ingredient-row div{display: inline-block;}
+.recipeit-card .recipe-card .ingredient-title{width: 220px}
+.recipeit-card .recipe-card .ingredient-qty{width: 50px}
+.recipeit-card .recipe-card .ingredient-unit{width: 100px}
+.recipeit-card .recipe-card .ingredient-inst{}
+.recipeit-card .recipe-card .sub-heading{margin-top:10px; color:#000000;}
+.recipeit-card .recipe-card .method-row{margin-bottom:5px;}
 
 /* --- Noteit ---*/
 .noteit-card .card-main{
@@ -2792,8 +2842,8 @@ input:checked + .slider::before {
       <path d="m9 19h6"/>
     </symbol>
     <symbol id="noteitIcon" viewBox="0 0 24 24" fill="none">
- <path d="m7 7h10zm0 5h10zm0 5h4z" />
- <rect x="2" y="2" width="20" height="20" rx="4.14" ry="4.14" />
+      <path d="m7 7h10zm0 5h10zm0 5h4z" />
+      <rect x="2" y="2" width="20" height="20" rx="4.14" ry="4.14" />
     </symbol>
    <symbol id="studyitIcon" viewBox="0 0 24 24" fill="none">
       <path d="M12 2l9 4-9 4-9-4 9-4z"/><path d="M12 22V10"/>
@@ -2814,6 +2864,9 @@ input:checked + .slider::before {
       <path d="m14 22 8-10-8-10"/>
     </symbol>
     <symbol id="moditIcon" viewBox="0 0 24 24" fill="none">
+      <path d="m12 1.75 8.89 5.12v10.2l-8.89 5.12-8.89-5.12v-10.2z" />
+    </symbol>
+    <symbol id="hiddenIcon" viewBox="0 0 24 24" fill="none">
       <path d="m12 1.75 8.89 5.12v10.2l-8.89 5.12-8.89-5.12v-10.2z" />
     </symbol>
   </svg>
@@ -2874,6 +2927,7 @@ input:checked + .slider::before {
       <circle cx="12" cy="12" r="2"/>
       <circle cx="20" cy="12" r="2"/>
     </symbol>
+    
   </svg>
 <script>
 const cards = {
@@ -3296,7 +3350,6 @@ const cards = {
       <label for="itemTags">Tags</label>
       <input type="text" id="itemTags" placeholder="Tags (comma separated)">
     </div>
-    <button id="saveMenuItemButton">Save Item</button>
     <button id="newMenuItemButton">+ New Item</button>
     <button id="deleteMenuItemButton">Delete Item</button>
   </div>
@@ -3311,27 +3364,30 @@ const cards = {
       <input id="titleInput" type="text" placeholder="New recipe...">
       <button id="addNewButton">+ Add New</button>
       <div class="planit-fill"></div>
-      <button id="toggleViewButton">Paste Recipe View</button>
+      <input type="number" id="multInput" list="multOptions" class="dom-ctrl">
+      <button id="cardViewButton" class="dom-btn">Recipe Card View</button>
+      <button id="editViewButton" class="dom-btn">Edit View</button>
+      <button id="pasteViewButton" class="dom-btn">Show Paste View</button>
       <button id="sidePanelButton" class="button-icon-container"><svg class="button-icon" aria-label="open side panel"><use href="#side-panel"></use></svg></button>
     </div>
 
-   <div id="editView">
-    <div class='grid-wrapper'>
-      <div id="recipeContainer" class="recipe-container"></div>
+    <div id="editView">
+      <div class='grid-wrapper'>
+        <div id="recipeContainer" class="recipe-container"></div>
+      </div>
+      <div class="filters">
+        <input type="text" id="filterInput" placeholder="Type recipe title...">
+        <button id="filterByBreakfastBtn">breakfast</button>
+        <button id="filterByLunchBtn">lunch</button>
+        <button id="filterByDinnerBtn">dinner</button>
+        <button id="filterByDessertBtn">dessert</button>
+        <button id="filterBySidesBtn">sides</button >
+        <button id="showAllButton">show all</button >
+      </div>
+      <div id="recipePicker" class="recipe-picker"></div>
     </div>
-    <div class="filters">
-      <input type="text" id="filterInput" placeholder="Type recipe title...">
-      <button id="filterByBreakfastBtn">breakfast</button>
-      <button id="filterByLunchBtn">lunch</button>
-      <button id="filterByDinnerBtn">dinner</button>
-      <button id="filterByDessertBtn">dessert</button>
-      <button id="filterBySidesBtn">sides</button >
-      <button id="showAllButton">show all</button >
-    </div>
-    <div id="recipePicker" class="recipe-picker"></div>
-   </div>
-      <div id="pasteView">
-       <div>
+    <div id="pasteView">
+      <div>
         <h3>Recipe Parser</h3>
       </div>
       <div>
@@ -3343,9 +3399,11 @@ const cards = {
       <div>
         <button id="parseRecipeButton">Parse & Save</button>
       </div>
-  </div>
- </div>
-
+    </div>
+    <div id="cardView" class="card-view">
+      <div id="recipeCard" class="recipe-card" class="dom-el"></div>
+    </div>
+</div>
   <div id="sidePanel" class="card-side-panel">
     <div class="field">
       <button id="exportDataButton" aria-label="Export Data">Export Data</button>
@@ -3379,6 +3437,29 @@ const cards = {
     
   </div>
 </section>
+
+<datalist id="unitOptions">
+  <option value="tbsp"></option>
+  <option value="tsp"></option>
+  <option value="cups"></option>
+  <option value="kilograms"></option>
+  <option value="grams"></option>
+  <option value="mls"></option>
+  <option value="litres"></option>
+  <option value="pinch"></option>
+</datalist>
+
+<datalist id="multOptions">
+  <option value="0.25"></option>
+  <option value="0.5"></option>
+  <option value="1"></option>
+  <option value="1.5"></option>
+  <option value="2"></option>
+  <option value="3"></option>
+  <option value="4"></option>
+  <option value="5"></option>
+</datalist>
+
 `,
   watchit: `
 <section id="watchit" class="card watchit-card">
@@ -3416,7 +3497,7 @@ const cards = {
     </div>
     <div class="field">
       <label for="service">Service</label>
-      <input id="service" type="text" placeholder="Netflix, Apple+ etc...">
+      <input id="service" type="text" placeholder="Netflix, Apple+ etc..." list="serviceOptions">
     </div>
     <div class="field">
       <label for="type">Type</label>
@@ -3442,10 +3523,7 @@ const cards = {
     </div>
     <div class="field">
       <label for="time">Time</label>
-      <input type="time" id="time">
-      <button class="set-time" data-time="12:00">12:00</button>
-      <button class="set-time" data-time="16:30">16:30</button>
-      <button class="set-time" data-time="20:00">20:00</button>
+      <input type="time" id="time" list="timeOptions">
     </div>
     <div class="field">
       <label for="watchingSelect">Watching</label>
@@ -3463,6 +3541,23 @@ const cards = {
     <button id="deleteItemButton">Delete Item</button>
   </div>
 </section>
+<datalist id="timeOptions">
+  <option value="12:00"></option>
+  <option value="16:30"></option>
+  <option value="20:00"></option>
+</datalist>
+<datalist id="serviceOptions">
+  <option value="10Play"></option>
+  <option value="ABC iView"></option>
+  <option value="Apple+"></option>
+  <option value="Binge"></option>
+  <option value="Disney"></option>
+  <option value="HBO Max"></option>
+  <option value="Netflix"></option>
+  <option value="Prime"></option>
+  <option value="SBS"></option>
+  <option value="YouTube"></option>
+</datalist>
 `,
   readit: `
 <section id="readit" class="card readit-card">
@@ -6921,7 +7016,7 @@ const cardModules = {};
           }else{
             reflowAnimation('restPosition,headBob,restPosition');
           } 
-          if(taskData.autoSort) renderTaskList();
+          if(taskData.autoSort) renderView();
         }, 1600);    
       }
     
@@ -7144,6 +7239,8 @@ const cardModules = {};
        const timerDisplay = planitDivCreator('00:00', 'timer-display', 'timerDisplay');    
        const counterDisplay = planitDivCreator(null, 'counter-display'); 
        const svg = planitDivCreator(null, 'timer-svg-container');
+       
+       
        svg.innerHTML = `<svg class="timer-circle-svg" width="213" height="213" viewbox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
           <path id="timerCircleSvg" d="" fill="transparent" stroke="#999" stroke-width="6" stroke-linecap="round"/>
           <ellipse cx="60" cy="60" rx="50" ry="50" stroke="#00000012" fill="transparent" stroke-width="6"/>
@@ -7209,10 +7306,10 @@ const cardModules = {};
       function updateAngle(percent){
         if (isNaN(percent)) return;
         const centerPoint = {x:60, y:60};
-        const startAngle = -90;
-        const endAngle = ((percent/100) * 359)-90;
+        let endAngle = ((percent/100) * 359)-90;
+        if(endAngle > 270) endAngle = 270;
         const largeArcFlag = (endAngle > 90)? 1:0;
-        const start = rotateAroundPoint(centerPoint, startAngle, 50);
+        const start = {x:60, y:10};
         const end = rotateAroundPoint(centerPoint, endAngle, 50);
         dom.timerCircleSvg.setAttribute('d', `M${start.x} ${start.y} A 50 50 0 ${largeArcFlag} 1 ${end.x} ${end.y}`);
       }
@@ -7220,28 +7317,28 @@ const cardModules = {};
       function setTimer(minuteValue){
         if(minuteValue){
           timer.value += minuteValue;
-          timerDisplay.textContent = timer.value + ':00';
+          timerDisplay.textContent = `${timer.value}:00`;
         }else{
           timer.minutes = 0;
           timer.value = 0;
-          timerDisplay.textContent = '00:00';
           stopTimer();
+          timerDisplay.textContent = '00:00';
         }
       }
     
-      function updateDisplay(isUpdateAngle) {
-        
+      function updateDisplay(isUpdateAngle) {    
         if(isUpdateAngle){
           const percentCalc = 100- Number((timer.remainingTime/(timer.minutes*60)) * 100);
           updateAngle(percentCalc);
         }
-        
+        //if(timer.remainingTime<0) timer.remainingTime=0;
         const mins = Math.floor(timer.remainingTime / 60);
         const secs = timer.remainingTime % 60;
         timerDisplay.textContent = `${String(Math.abs(mins)).padStart(2, '0')}:${String(Math.abs(secs)).padStart(2, '0')}`;
       }
     
       function startTimer() {
+        
         let alarmPlayed = false;
         if (!timer.isPaused) {
           timer.minutes = parseInt(timer.value) || 10;
@@ -7249,27 +7346,24 @@ const cardModules = {};
         }
         timer.isPaused = false;
         clearInterval(timer.interval);
+        timerDisplay.classList.remove('timer-inactive');
+        
         timer.interval = setInterval(() => {
-          
           const isUpdateAngle = (timer.remainingTime < 0)? false:true;
           timer.remainingTime--;
+          if(timer.remainingTime<0) timer.remainingTime = 0;
           updateDisplay(isUpdateAngle);
-          
-          if (timer.remainingTime < 0 && !alarmPlayed) {
-            alarmPlayed = true;
-            play();
-            showToast(`Time's up! Nice work 🌟`, 'success');
-          }
-          /*
-          if (timer.remainingTime > 0) {
-            timer.remainingTime--;
-            updateDisplay();
+    
+          if (timer.remainingTime >= 1) {
+            //timer.remainingTime--;
+            //updateDisplay();
           } else {
+            timerDisplay.classList.add('timer-inactive');
             clearInterval(timer.interval);
             play();
             showToast(`Time's up! Nice work 🌟`, 'success');
           }
-          */
+          
         }, 1000);
         //updateDisplay();
       }
@@ -7285,7 +7379,6 @@ const cardModules = {};
         timer.remainingTime = 0;
         updateDisplay(true);
         updateAngle(0);
-        //Also stop sound
         timerPlaying = false;
       }
     
@@ -7355,7 +7448,38 @@ const cardModules = {};
         {duration:500, note:'g3'},{duration:500, note:'g3'},{duration:500, note:'a3'},{duration:500, note:'a3'},{duration:500, note:'g3'},{duration:500, note:'rest'},{duration:500, note:'f3'}, {duration:500, note:'f3'},{duration:500, note:'e3'},{duration:500, note:'e3'},{duration:500, note:'d3'},{duration:500, note:'d3'},
         {duration:500, note:'c3'},
         ], 
-        
+        odeToJoy:[    
+        {duration:500, note:'e4'},
+        {duration:500, note:'e4'},
+        {duration:500, note:'f4'},
+        {duration:500, note:'g4'},
+        {duration:500, note:'g4'},
+        {duration:500, note:'f4'},
+        {duration:500, note:'e4'},
+        {duration:500, note:'d4'},
+        {duration:500, note:'c4'},
+        {duration:500, note:'c4'},
+        {duration:500, note:'d4'},
+        {duration:500, note:'e4'},
+        {duration:500, note:'e4'},
+        {duration:500, note:'d4'},
+        {duration:500, note:'d4'},
+        {duration:500, note:'rest'},
+        {duration:500, note:'e4'},
+        {duration:500, note:'e4'},
+        {duration:500, note:'f4'},
+        {duration:500, note:'g4'},
+        {duration:500, note:'g4'},
+        {duration:500, note:'f4'},
+        {duration:500, note:'e4'},
+        {duration:500, note:'d4'},
+        {duration:500, note:'c4'},
+        {duration:500, note:'c4'},
+        {duration:500, note:'d4'},
+        {duration:500, note:'e4'},
+        {duration:500, note:'d4'},
+        {duration:500, note:'c4'},
+        {duration:500, note:'c4'},],
       };
     
       const noteList = {'a0':27.5,'a#0':29.14,'b0':30.87,'c1':32.7,'c#1':34.65,'d1':36.71,'d#1':38.89,'e1':41.2,'f1':43.65,'f#1':46.25,'g1':49,'g#1':51.91,'a1':55,'a#1':58.27,'b1':61.74,'c2':65.41,'c#2':69.3,'d2':73.42,'d#2':77.78,'e2':82.41,'f2':87.31,'f#2':92.5,'g2':98,'g#2':103.83,'a2':110,'a#2':116.54,'b2':123.47,'c3':130.81,'c#3':138.59,'d3':146.83,'d#3':155.56,'e3':164.81,'f3':174.61,'f#3':185,'g3':196,'g#3':207.65,'a3':220,'a#3':233.08,'b3':246.94,'c4':261.63,'c#4':277.18,'d4':293.66,'d#4':311.13,'e4':329.63,'f4':349.23,'f#4':369.99,'g4':392,'g#4':415.3,'a4':440,'a#4':466.16,'b4':493.88,'c5':523.25,'c#5':554.37,'d5':587.33,'d#5':622.25,'e5':659.25,'f5':698.46,'f#5':739.99,'g5':783.99,'g#5':830.61,'a5':880,'a#5':932.33,'b5':987.77,'c6':1046.5,'c#6':1108.73,'d6':1174.66,'d#6':1244.51,'e6':1318.51,'f6':1396.91,'f#6':1479.98,'g6':1567.98,'g#6':1661.22,'a6':1760,'a#6':1864.66,'b6':1975.53,'c7':2093,'c#7':2217.46,'d7':2349.32,'d#7':2489.02,'e7':2637.02,'f7':2793.83,'f#7':2959.96,'g7':3135.96,'g#7':3322.44,'a7':3520,'a#7':3729.31,'b7':3951.07,'c8':4186.01,'rest':null};
@@ -8391,9 +8515,10 @@ const cardModules = {};
       function stringifyMenuArrays(arr, meal){
         const searchStr = arr.join(' ');
         const emoji = getBestGuessEmoji(searchStr, '🍜');
-        const str = arr.join(', ');
+        const dish = arr.join(', ');
         meal = meal.charAt(0).toUpperCase() + meal.slice(1);
-        return emoji + ' ' + meal + ': ' + str;
+        //return emoji + ' ' + meal + ': ' + str;
+        return {emoji,meal,dish}
       }
     
       // --- Render Functions ---
@@ -8446,8 +8571,15 @@ const cardModules = {};
           mealList.forEach(meal => {
             const arr = item[meal];
             if(arr.length!=0){
-              const mealStr = stringifyMenuArrays(arr, meal);
-              container.appendChild(planitDivCreator(mealStr, 'menu-view-item'));
+              const m = stringifyMenuArrays(arr, meal);          
+              const menuViewItem = planitDivCreator(null, 'menu-view-item');
+              const emojiDiv = planitDivCreator(m.emoji + ' ', 'emoji-block');
+              const mealDiv = planitDivCreator(m.meal + ': ', 'menu-meal');
+              const dishDiv = planitDivCreator(m.dish + ' ', 'menu-dish');
+              menuViewItem.appendChild(emojiDiv);
+              menuViewItem.appendChild(mealDiv);
+              menuViewItem.appendChild(dishDiv);
+              container.appendChild(menuViewItem);
             }
           });
             container.appendChild(planitDivCreator(' ', 'spacing'));
@@ -8498,19 +8630,18 @@ const cardModules = {};
             ) return;
     
             const div = planitDivCreator(item.title, 'menu-item');
-            //const div = document.createElement('div');
-            //div.className = 'menu-item';
-            //div.textContent = item.title;
             div.onclick = () => updateSidePanelItem(item);
             menuList.appendChild(div);
           });
     
           if(recipeData?.recipes){
             recipeData.recipes.forEach(recipe => {
+              if(!Array.isArray(recipe.tags)) return;
+              if (filter && !recipe.tags.some(tag => tag.toLowerCase().includes(filter.toLowerCase())) &&
+              !recipe.title.toLowerCase().includes(filter.toLowerCase())
+              ) return;
+    
               const div = planitDivCreator(recipe.title, 'recipe-item menu-item');
-              //const div = document.createElement('div');
-              //div.className = 'recipe-item menu-item';
-              //div.textContent = recipe.title;
               div.onclick = () => goToRecipe(recipe.id);
               menuList.appendChild(div);
             });
@@ -8648,29 +8779,14 @@ const cardModules = {};
         dom.editView = document.getElementById("editView");
         dom.titleInput = document.getElementById('titleInput');
         dom.menuList = document.getElementById('menuList');
-        dom.daySelect = document.getElementById('daySelect');
-          
-        dom.planTitle?.addEventListener('input', saveMenuPlan);
-        dom.planRepeat?.addEventListener('click', saveMenuPlan);
-        dom.daySelect?.addEventListener('change', filterDays);
-        
-        
-        
-    
-      /*
-        Sortable.create(document.getElementById('del'), {
-          group: 'planner',
-          onAdd: function (evt) {
-            const id = evt.item.dataset.id;
-            menuData.menuPlan = menuData.menuPlan.filter(p => p.id !== id);
-            evt.item.remove();
-            renderPlanner();
-            saveToLocalStorage();
-          }
-        });
-      */
+        dom.daySelect = document.getElementById('daySelect');      
+        dom.planTitle.addEventListener('input', saveMenuPlan);
+        dom.planRepeat.addEventListener('click', saveMenuPlan);
+        dom.itemTitle.addEventListener('input', saveMenuItem);
+        dom.itemKeyIngredients.addEventListener('input', saveMenuItem);
+        dom.itemTags.addEventListener('input', saveMenuItem);
+        dom.daySelect.addEventListener('change', filterDays);
       }
-    
     
       function setView(){
         if(menuData.viewType === 'list'){
@@ -8683,8 +8799,6 @@ const cardModules = {};
           dom.toggleViewButton.textContent = 'Show List View';
         }
       }
-    
-    
     
       function toggleView(){
         menuData.viewType = (menuData.viewType === 'list')? 'edit':'list';
@@ -8703,10 +8817,9 @@ const cardModules = {};
         document.getElementById('prevWeekBtn')?.addEventListener('click', prevWeek);
         document.getElementById('nextWeekBtn')?.addEventListener('click', nextWeek);
         document.getElementById('copyRepeatsBtn')?.addEventListener('click', copyRepeats);
-        document.getElementById('saveMenuItemButton')?.addEventListener('click', saveMenuItem);
+        //document.getElementById('saveMenuItemButton')?.addEventListener('click', saveMenuItem);
         document.getElementById('newMenuItemButton')?.addEventListener('click', addMenuItem);
         document.getElementById('deleteMenuItemButton')?.addEventListener('click', deleteMenuItem);
-        //document.getElementById('savePlanButton')?.addEventListener('click', saveMenuPlan);
         document.getElementById('deletePlanButton')?.addEventListener('click', deleteMenuPlan);
     
         dom.toggleViewButton = document.getElementById('toggleViewButton');
@@ -8758,7 +8871,7 @@ const cardModules = {};
       let currentRecipe = {};
       let recipeData = {recipes:[], viewType:'edit', currentRecipeId:null, isPanelOpen:true, updatedAt:timeStamp(), card:'recipeit'};
       let currentFilter = '';
-      const dom = {};
+      const dom = {div:{},ctrl:{},el:{},btn:{},svg:{}};
       //const sortOrder = {ingredients:[], methods:[]};
     
       // --- Constructor Functions ---
@@ -8795,27 +8908,26 @@ const cardModules = {};
         saveToLocalStorage();
         renderView();
       }
-    /*
-      function toggleSidePanel(){
-        recipeData.isPanelOpen = !recipeData.isPanelOpen;
-        saveToLocalStorage();
-        setSidePanel(recipeData.isPanelOpen);
-      }
-    */
+      
+      
       function setView(){
         if(recipeData.viewType === 'paste'){
+          dom.cardView.classList.add('planit-hidden');
           dom.editView.classList.add('planit-hidden');
           dom.pasteView.classList.remove('planit-hidden');
-          dom.toggleViewButton.textContent = 'Show Edit View';
-        }else{
+        }else if(recipeData.viewType === 'edit'){
+          dom.cardView.classList.add('planit-hidden');
           dom.editView.classList.remove('planit-hidden');
           dom.pasteView.classList.add('planit-hidden');
-          dom.toggleViewButton.textContent = 'Show Paste View';
+        }else{
+          dom.cardView.classList.remove('planit-hidden');
+          dom.editView.classList.add('planit-hidden');
+          dom.pasteView.classList.add('planit-hidden');
         }
       }
     
-      function toggleView(){
-        recipeData.viewType = (recipeData.viewType === 'paste')? 'edit':'paste';
+      function changeView(viewType='edit'){ 
+        recipeData.viewType = viewType;
         saveToLocalStorage();
         setView();
       }
@@ -8877,7 +8989,16 @@ const cardModules = {};
       }
     
       function updateIngredientProperty(propName, el, index){
-        currentRecipe.ingredients[index][propName] = el.innerText.trim();
+        let textValue;
+        if(el?.tagName === 'DIV') {      
+          textValue = el.innerText;
+          console.log('It is a div', textValue);
+        } else if (el?.tagName === 'INPUT') {
+          textValue = el.value;
+          console.log('It is an input', textValue);
+        }
+        
+        currentRecipe.ingredients[index][propName] = textValue.trim();
         currentRecipe.ingredients[index].updatedAt = timeStamp();
         saveAndRender();
       }
@@ -8900,11 +9021,8 @@ const cardModules = {};
         return num % 2;
       }
     
-      function niceNum(num, decimalPlaces){
-        const numType = typeof num
-        if(numType == "string") num = Number(num);
-        if(numType == "undefined" || num == null) num = 0;
-        decimalPlaces = (decimalPlaces!==undefined)? decimalPlaces:3;
+      function niceNum(num, decimalPlaces=2){
+        num = Number(num);
         num = (Number.isInteger(num))? Number(num):Number(num.toFixed(decimalPlaces));
         return parseFloat(num); //removes trailing zeros
       }
@@ -9177,6 +9295,9 @@ const cardModules = {};
       }
     
       function renderRecipe(){
+        
+        // Edit View
+            
         //sortOrder.ingredients = [];
         //sortOrder.methods = [];
         const recipeContainer = dom.recipeContainer;
@@ -9251,9 +9372,16 @@ const cardModules = {};
           ingredientQty.onblur = () => updateIngredientProperty('qty', ingredientQty, index);
           ingredientQty.contentEditable = 'true';
     
-          const ingredientUnit = planitDivCreator(ingredient.unit, className + ' unit-cell', true);
-          ingredientUnit.onblur = () => updateIngredientProperty('unit', ingredientUnit, index);
-          ingredientUnit.contentEditable = 'true';
+          const ingredientUnit = planitDivCreator(null, className + ' unit-cell', true);
+          const unitInput = document.createElement('input');
+          unitInput.type = 'text';
+          unitInput.setAttribute('list','unitOptions')
+          unitInput.value = ingredient.unit;
+          unitInput.onblur = () => updateIngredientProperty('unit', unitInput, index);
+          ingredientUnit.appendChild(unitInput);
+          
+          
+          //ingredientUnit.contentEditable = 'true';
     
           const ingredientTitle = planitDivCreator(ingredient.title, className + ' title-cell', true);
           ingredientTitle.onblur = () => updateIngredientProperty('title', ingredientTitle, index);
@@ -9350,6 +9478,61 @@ const cardModules = {};
             sortByDom('methods', methodsContainer, '.method-row');
           }
         });
+        
+        // Render Card View
+        dom.recipeCard.innerHTML = '';
+        
+        // Title
+        const cardTitleHeading = planitDivCreator(recipe.title, 'title-heading');
+        
+        
+        // Ingredients
+        
+        const mult = dom.multInput.value || 1;
+        const multiply = Number(mult);
+        
+        
+        const cardIngredientsHeading = planitDivCreator('Ingredients', 'ingredients-heading');
+        const cardIngredientsContent = planitDivCreator(null, 'ingredients-content');
+        
+        recipe.ingredients.forEach((ingredient, index) => {
+          
+          const cardRow = planitDivCreator(null, 'ingredient-row');
+          if(ingredient.type=='sub-heading'){
+            const cardTitleRow = planitDivCreator(ingredient.title, 'sub-heading');
+            cardRow.append(cardTitleRow);
+          }else{
+            const qty = Number(ingredient.qty) * multiply;        
+            const cardTitleRow = planitDivCreator(ingredient.title, 'ingredient-title');
+            const cardQtyRow = planitDivCreator(niceNum(qty,2), 'ingredient-qty');
+            const cardUnitRow = planitDivCreator(ingredient.unit, 'ingredient-unit');
+            const cardInstRow = planitDivCreator(ingredient.inst, 'ingredient-inst');
+            cardRow.append(cardTitleRow);
+            cardRow.append(cardQtyRow);
+            cardRow.append(cardUnitRow);      
+            cardRow.append(cardInstRow);
+          }
+    
+          cardIngredientsContent.append(cardRow);
+        }); 
+        
+        
+        
+        // Method
+        const cardMethodHeading = planitDivCreator('Method', 'method-heading');
+        const cardMethodContent = planitDivCreator(null, 'method-content');
+        
+        recipe.methods.forEach((method,index) => {
+          const cardMethodsRow = planitDivCreator(method.text, 'method-row');
+          cardMethodContent.append(cardMethodsRow);
+        }); 
+        
+        dom.recipeCard.append(cardTitleHeading);
+        dom.recipeCard.append(cardIngredientsHeading);
+        dom.recipeCard.append(cardIngredientsContent);
+        dom.recipeCard.append(cardMethodHeading);
+        dom.recipeCard.append(cardMethodContent);
+        
       }
     
       function sortByDom(property, container, className){
@@ -9443,6 +9626,8 @@ const cardModules = {};
         dom.recipeTitle = document.getElementById('recipeTitle');
         dom.inputText = document.getElementById('inputText');
         dom.parseOutput = document.getElementById('parseOutput');
+        dom.cardView = document.getElementById('cardView');
+        dom.recipeCard = document.getElementById('recipeCard');
         dom.editView = document.getElementById('editView');
         dom.pasteView = document.getElementById('pasteView');
         dom.filterInput = document.getElementById('filterInput');
@@ -9451,18 +9636,30 @@ const cardModules = {};
         dom.typeInput = document.getElementById('typeInput');
         dom.sourceInput = document.getElementById('sourceInput');
         dom.tagsInput = document.getElementById('tagsInput');
-        
-        dom.sideTitleInput.addEventListener("input", filterRecipeList);    
+        dom.multInput = document.getElementById('multInput');
+        dom.sideTitleInput.addEventListener("input", filterRecipeList);
+        dom.multInput.addEventListener("input", renderView);
       }
     
       function initButtons() {
+        //Populate dom object with elements that match classnames e.g. dom-svg
+        const domList = ['div','el','ctrl','btn','svg'];
+        domList.forEach(ref => {
+          document.querySelectorAll(`.dom-${ref}`).forEach(el =>{
+            dom[ref][el.id] = document.getElementById(el.id);
+          });
+        });    
+        
+            
         document.getElementById('parseRecipeButton')?.addEventListener('click', parseRecipe);
         dom.addNewButton =  document.getElementById('addNewButton');
         dom.addNewButton?.addEventListener('mousedown', e => e.preventDefault());
         dom.addNewButton?.addEventListener('click', addNewRecipe);
     
-        dom.toggleViewButton = document.getElementById('toggleViewButton');
-        dom.toggleViewButton?.addEventListener('click', toggleView);
+        //dom.toggleViewButton = document.getElementById('toggleViewButton');
+        dom.btn.cardViewButton?.addEventListener('click', () => changeView('card'));
+        dom.btn.editViewButton?.addEventListener('click', () => changeView('edit'));
+        dom.btn.pasteViewButton?.addEventListener('click', () => changeView('paste'));
         
         document.getElementById('showAllButton')?.addEventListener('click', () => renderRecipePicker(''));
         document.getElementById('filterByBreakfastBtn')?.addEventListener('click', () => renderRecipePicker('breakfast'));
@@ -15547,7 +15744,7 @@ const cardModules = {};
       isPanelOpen:true,
       updatedAt:timeStamp(),
       isShowAll:true,
-      cardList: ['viewit','taskit','shopit','menuit','recipeit','watchit','readit','listenit','gameit','buildit','growit','labelit','affirmit','noteit','eventit','studyit','fundit','codeit','modit'],
+      cardList: ['viewit','taskit','shopit','menuit','recipeit','watchit','readit','listenit','gameit','buildit','growit','labelit','affirmit','noteit','eventit','studyit','fundit','codeit','modit','hidden'],
       widgetList:[],
       lastSaved: null,
       showButtonText: true,
@@ -15571,7 +15768,8 @@ const cardModules = {};
     {title:'eventit', name:'Events', group:'events', sub:'no', modcard:'no'},
     {title:'studyit', name:'Study', group:'studyTopics', sub:'no', modcard:'no'},
     {title:'fundit', name:'Funds', group:'funds', sub:'no', modcard:'no'},
-    {title:'codeit', name:'Code', group:'code', sub:'no', modcard:'no'}
+    {title:'codeit', name:'Code', group:'code', sub:'no', modcard:'no'},
+    {title:'hidden', name:'Hidden', group:'', sub:'no', modcard:'no'},
   ];
 
   let navSortable = null;
@@ -15582,6 +15780,7 @@ const cardModules = {};
   // --- Helper Functions ---
   function getCardList(){
     return planitData.settings.cardList;
+    
   }
 
   function capitalizeFirstLetter(string){
@@ -15640,11 +15839,14 @@ const cardModules = {};
   }
 
   function renderNavButtons(){
+    let isHidden = false;
     dom.navigationButtons.innerHTML = '';
     planitData.settings.cardList.forEach(cardName => {
+      if(cardName=='hidden') isHidden = true;
       if(cardName!=='mod-card'){
-      const button = document.createElement("button");
-      button.className = "nav-button";
+      const button = document.createElement('button');
+      const className = (isHidden)? 'nav-button nav-hide':'nav-button';
+      button.className = className;
       button.dataset.name = cardName;
       const svg = createSvg(`${cardName}Icon`, 'nav-icon');
       const buttonText = document.createElement("div");
@@ -15663,12 +15865,19 @@ const cardModules = {};
 
 //sort navigation
   function navigationSortable(){
+    let isHidden = false
     navSortable = new Sortable(dom.navigationButtons, {
       //animation: 150,
       //ghostClass: 'blue-background-class'
       onUpdate: function (evt) {
         const navButtonList = [];
         document.querySelectorAll('.nav-button').forEach(navButton => {
+          if(navButton.dataset.name==='hidden') isHidden = true;
+          if(isHidden && navButton.id!=='toggleExpandNavigationButton'){
+            navButton.classList.add('nav-hide');
+          }else{
+            navButton.classList.remove('nav-hide');  
+          }           
           if(navButton.dataset.name && !navButtonList.includes(navButton.dataset.name)){
             navButtonList.push(navButton.dataset.name);
           }
@@ -16043,10 +16252,10 @@ const cardModules = {};
     }
   }
 
-  function exportPlanitData(exportCardData = true){
+  function exportPlanitData(exportData = true){
     planitData.settings.lastSaved = formatDate(new Date());
     savePlanitData();
-    if(exportCardData) exportCardData(planitData, 'planit');
+    if(exportData) exportCardData(planitData, 'planit');
     loadView('viewit');
     //showToast('Planit Data Saved :' + planitData.settings.lastSaved, 'success');
   }
@@ -16405,7 +16614,6 @@ async function fetchFromRepo(tokenData) {
 
   function toggleExpandNavigation(){
     dom.navigationButtons.classList.toggle('planit-wrap');
-    //console.log(dom.navigationButtons.classList.value)
     if(dom.navigationButtons.classList.contains('planit-wrap')){
       navigationSortable();
     }else{
